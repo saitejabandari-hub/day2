@@ -1,0 +1,99 @@
+/* 
+.nav-container{
+    background-color:#0f172a;
+    border:2px solid #1f2937;
+    padding:10px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-heading{
+    font-family:"Roboto";
+    font-weight:500;
+    font-size:20px;
+    color:#e5e7eb ;
+}
+
+.nav-search{
+    border:1px solid #ffffff;
+    border-radius:10px;
+    width:250px;
+    padding:10px;
+    color:#ffffff;
+    font-family:"Roboto";
+    background-color:transparent;
+    outline:none;
+}
+
+.nav-button{
+    color:#ffffff;
+    font-family: "Roboto";
+    font-weight:600;
+    padding:10px;
+    border-radius:10px;
+    background-color:blue;
+    border-width:0px;
+    width:70px;
+} */
+
+.nav-container {
+  background-color: #111827;
+  border-bottom: 1px solid #1f2937;
+
+  padding: 12px 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo */
+.nav-heading {
+  font-family: "Roboto";
+  font-weight: 600;
+  font-size: 22px;
+
+  background: linear-gradient(to right, #3b82f6, #22c55e);
+  -webkit-background-clip: text; /* add design to text*/
+  -webkit-text-fill-color: transparent;
+}
+
+/* Search */
+.nav-search {
+  border: 1px solid #334155;
+  border-radius: 8px;
+  width: 260px;
+  padding: 8px 12px;
+  color: #e5e7eb;
+  background-color: #0f172a;
+  outline: none;
+}
+
+/* Focus effect */
+.nav-search:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px #3b82f6;
+}
+
+/* Button */
+.nav-button {
+  color: white;
+  font-family: "Roboto";
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border: none;
+  cursor: pointer;
+ transition: 0.2s ease;
+ 
+}
+
+/* Hover */
+.nav-button:hover {
+  transform: translateY(-10px); /*move button in vertical direction to 10px height*/
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+}
