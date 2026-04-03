@@ -11,28 +11,29 @@ Border:     #1f2937 */
     flex-direction: column;
     min-height:100vh;
     background-size:cover;
-    background-color:#ffffff;
+    background-color:#F9FAFB;
 }
 
 .second-container{
     display: flex;
     width: 100%;
-    background-color: #020617;
+    background-color: #F9FAFB;/* #020617*/
 }
 
 .home-content{
     min-width:82%;
     flex:1;
     padding:20px;
+    border:2px solid #E5E7EB;
 }
 
 .home-heading-container{
     
-  background-color: #0f172a;
+  background-color: transparent; /*#0f172a*/
   padding: 15px 20px;
 
   border-radius: 12px;
-  border: 1px solid #1f2937;
+ /* border: 1px solid #1f2937;*/
 
   display: flex;
   justify-content: space-between;
@@ -43,10 +44,10 @@ Border:     #1f2937 */
 }
 
 .feed-heading{
-  color: #e5e7eb;
-  font-size: 20px;
+  color: #111827; /*#e5e7eb*/
+  font-size: 25px;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);*/
 }
 
 .addpost-button{
@@ -100,6 +101,35 @@ Border:     #1f2937 */
      transform:translateY(-2px);
     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
 }
+
+.sorting-container{
+  display: flex;
+  align-items: center;
+  border:3px solid #E5E7EB ;
+  border-radius:10px;
+  padding-left: 5px;
+ 
+}
+.sort-heading{
+  font-size:12px;
+  font-family: "Roboto";
+  color:#6B7280;
+  font-weight:600;
+}
+
+.select-element{
+  border-width:0px;
+  background-color: transparent;
+  font-size:12px;
+  font-family: "Roboto";
+  color:#6B7280;
+  font-weight: 600;
+  outline:none;
+   width:90px;
+}
+
+
+
 .posts-list{
     list-style-type:none;
     padding:0;

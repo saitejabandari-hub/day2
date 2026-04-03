@@ -1,0 +1,9 @@
+import React from 'react'
+
+const DevContext = React.createContext({
+
+    posts:[]
+
+})
+
+export default DevContext

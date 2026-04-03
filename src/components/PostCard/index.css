@@ -1,10 +1,10 @@
 .post-card {
-  background-color: #1e293b;
   padding: 16px;
   border-radius: 12px;
   margin-bottom: 20px;
-
+  border:2px solid #E5E7EB;
   transition: all 0.2s ease;
+
 }
 
 .post-card:hover {

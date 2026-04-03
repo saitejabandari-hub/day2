@@ -38,8 +38,8 @@
 } */
 
 .nav-container {
-  background-color: #111827;
-  border-bottom: 1px solid #1f2937;
+  background-color: #FFFFFF; /*#111827*/
+  border-bottom: 1px solid #E5E7EB; /*#1f2937*/
 
   padding: 12px 24px;
 
@@ -47,10 +47,10 @@
   justify-content: space-between;
   align-items: center;
 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+ /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);*/
 }
 
-/* Logo */
+
 .nav-heading {
   font-family: "Roboto";
   font-weight: 600;
@@ -61,24 +61,24 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Search */
+
 .nav-search {
-  border: 1px solid #334155;
+  border: 1px solid #E5E7EB; /*#334155*/
   border-radius: 8px;
-  width: 260px;
+  width: 300px;
   padding: 8px 12px;
-  color: #e5e7eb;
-  background-color: #0f172a;
+  color: #6B7280; /*e5e7eb*/
+  background-color: transparent; /*#0f172a*/
   outline: none;
 }
 
-/* Focus effect */
+
 .nav-search:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 5px #3b82f6;
+  border-color: #6B7280;/*#3b82f6*/
+  box-shadow: 0 0 5px #3b82f6; /*#3b82f6*/
 }
 
-/* Button */
+
 .nav-button {
   color: white;
   font-family: "Roboto";
@@ -97,3 +97,35 @@
   transform: translateY(-10px); /*move button in vertical direction to 10px height*/
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
 }
+
+
+.user-card{
+ display: flex;
+ align-items: center;
+ gap:6px;
+ transition:0.2s ease;
+cursor:pointer;
+background-color: transparent;
+padding: 5px;
+}
+
+.user-card:hover{
+  transform: translateY(-5px);
+   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+  
+}
+
+.user-profile{
+  height:40px;
+  width:40px;
+  border-radius:20px;
+  
+}
+
+.user-heading{
+  color:#6B7280;
+  font-family: "Roboto";
+  font-size:15px;
+}
+
+

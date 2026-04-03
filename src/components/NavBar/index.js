@@ -6,9 +6,12 @@ const NavBar =() =>(
 
         <h1 className='nav-heading'>DevConnect</h1>
 
-        <input type="search" placeholder="search" className='nav-search' />
+        <input type="search" placeholder="Search Posts...." className='nav-search' />
 
-        <button type="button" className='nav-button' >POST</button>
+        <div className='user-card'>
+        <img src="https://www.gravatar.com/avatar/?d=mp&s=128" alt="profile" className='user-profile' />
+        <h1 className='user-heading'>user</h1>
+        </div>
 
     </nav>
 
