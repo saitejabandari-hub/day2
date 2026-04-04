@@ -4,7 +4,6 @@ import './index.css'
 const PostCard = (props) =>{
     const{post}=props
     const {user, content, likes, comments, tag} = post
-    console.log(post)
     
     return (
          <div className="post-card">

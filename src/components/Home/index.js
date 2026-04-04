@@ -1,32 +1,13 @@
-import {Component} from 'react'
+import {useContext} from 'react'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
+import DevContext from '../../context/DevContext'
 import './index.css'
 
-class Home extends Component{
-    state={post:[{
-    id: 1,
-    user: 'Naruto 🥷',
-    imgUrl:"https://placehold.co/300x200/EEF2FF/A5B4FC?text=No+Image",
-    content: 'Learning React is awesome!',
-    likes: 10,
-    comments: 2,
-    tag: 'React',
-  },
-{
-    id: 2,
-    user: 'Sensei',
-    imgUrl:"https://placehold.co/300x200/EEF2FF/A5B4FC?text=No+Image",
-    content: 'Consistency beats talent 🔥',
-    likes: 25,
-    comments: 5,
-    tag: 'Motivation',
-  },]}
-
-    render(){
-        const {post}=this.state
-        return(
+const Home =()=>{
+    const {allposts} = useContext(DevContext)       
+         return(
             <div className="home-bg-container">
             <NavBar/>
             <div className='second-container'>      
@@ -43,12 +24,12 @@ class Home extends Component{
                         </select>
                         </div>
                     </div>
-                   {post.length === 0 ? (<div className="empty-state">
+                   {allposts.length === 0 ? (<div className="empty-state">
                         <p className="empty-title">📭 No posts yet</p>
                          <p className="empty-text">Start sharing your thoughts 🚀</p>
                          <button className="create-btn">+ Create Post</button>
                     </div>) : <ul className="posts-list" >
-                                {post.map(each => (
+                                {allposts.map(each => (
                                     <li key={each.id}  className="post-item" ><PostCard  post={each} /></li>
                                 ))}
                         </ul>}
@@ -56,7 +37,10 @@ class Home extends Component{
             </div>
             </div>
         )
-    }
+           
 }
 
 export default Home
+
+
+ 

@@ -1,10 +1,11 @@
-import {useState} from 'react'
+import {useState,useContext} from 'react'
 import { RxFontBold } from "react-icons/rx";
 import { RxFontItalic } from "react-icons/rx";
 import { IoListSharp } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
+import DevContext from '../../context/DevContext';
 
 import './index.css'
 
@@ -13,6 +14,7 @@ const CreatePost =()=>{
     const [title , setTitle] = useState('')
     const [tags , setTags ] = useState('')
     const [content , setContent] = useState('')
+    const {onAddingPostToDB} = useContext(DevContext)
 
     const [newPost,setnewPost] = useState([])
 
@@ -28,6 +30,8 @@ const CreatePost =()=>{
     setContent(event.target.value)
    }
 
+
+
    const onAddPost = () =>{
     const newone = {
         title,
@@ -41,9 +45,18 @@ const CreatePost =()=>{
 
     setnewPost(prev => [...prev , newone])
 
+    setTags('')
+    setTitle('')
+    setContent('')
+
+    onAddingPostToDB(newPost)
+
    }
-    
+   
+   console.log(newPost)
+
     return (
+
     <div className='create-bgcontainer'>
         <NavBar/>
         <div className='create-firstContainer' >
@@ -53,11 +66,11 @@ const CreatePost =()=>{
                 <div className='create-input-card'>
                     <div className='create-title-card'>
                         <label className='create-input-label'>Title</label>
-                        <input type="text" className='inputing' placeholder="Enter post title..." onChange={onEnteringTitle} />
+                        <input type="text" className='inputing' value={title} placeholder="Enter post title..." onChange={onEnteringTitle} />
                     </div>
                     <div className='create-title-card'>
                         <label className='create-input-label' >Tags</label>
-                        <input type="text" className='inputing' placeholder='e.g React Java Webdev' onChange={onEnteringTag} />
+                        <input type="text" className='inputing' value={tags} placeholder='e.g React Java Webdev' onChange={onEnteringTag} />
                     </div>
                 </div>
                 <h1 className='create-content' >Content</h1>
@@ -69,7 +82,7 @@ const CreatePost =()=>{
                         <IoListSharp className="change-font-bold" />
                         <IoImageOutline className="change-font-bold"/>
                     </div>
-                    <textarea placeholder='Write your post content here...' className='textarea' onChange={onEnteringContent} />
+                    <textarea placeholder='Write your post content here...' value={content} className='textarea' onChange={onEnteringContent} />
                 </div>
                 <div className='create-button-card'>
                     <button className='create-cancel-button' >Cancel</button>

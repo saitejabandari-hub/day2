@@ -1,12 +1,12 @@
 import {Route,Switch} from 'react-router-dom'
-import { Component } from 'react';
+import { useState } from 'react';
 import Home from './components/Home'
 import CreatePost from './components/CreatePost'
 import './App.css';
-import DevContext from './context/DevContext'
+import DevContext from './context/DevContext.js'
 
-class App extends Component {
-  state={posts:[{
+const App =() => {
+  const[allposts,setAllposts] = useState([{
     id: 1,
     user: 'Naruto 🥷',
     imgUrl:"https://placehold.co/300x200/EEF2FF/A5B4FC?text=No+Image",
@@ -21,26 +21,36 @@ class App extends Component {
     imgUrl:"https://placehold.co/300x200/EEF2FF/A5B4FC?text=No+Image",
     content: 'Consistency beats talent 🔥',
     likes: 25,
-    comments: 5,
+    comments: 88,
     tag: 'Motivation',
-  },]}
-  
-  render(){
-    const{posts}=this.state
-    return(
-      <DevContext.Provider value={{posts}}>
-        <Switch>
-        <Route exact path="/create-post" component={CreatePost} />
-        <Route exact path="/" component={Home} />
-      </Switch>
-      </DevContext.Provider>
-)}}
+  },])
 
-// const App =() =>(
-//         <Switch>
-// //         <Route exact path="/create-post" component={CreatePost} />
-// //         <Route exact path="/" component={Home} />
-// //       </Switch>
+  const onAddingPostToDB=(value)=>{
+      setAllposts(prev => [...prev , value])
+  }
+  
+ 
+    return(
+      <DevContext.Provider value={{allposts,onAddingPostToDB:onAddingPostToDB}}>
+       <div>
+            <Switch>
+                <Route exact path="/" component={Home} />
+            <Route exact path="/create-post" component={CreatePost} />
+            
+        </Switch>
+       </div>
+      </DevContext.Provider>
+)}
+
+
+
+// const App = () =>(
+//      <Switch>
+//             <Route exact path="/" component={Home} />
+//             <Route exact path="/create-post" component={CreatePost} />
+            
+//         </Switch>
 // )
+
 
 export default App
