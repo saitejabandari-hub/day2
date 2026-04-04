@@ -1,9 +1,17 @@
+import {useContext} from 'react'
 import {FaHeart, FaRegCommentDots} from 'react-icons/fa'
+import DevContext from '../../context/DevContext'
 import './index.css'
 
 const PostCard = (props) =>{
+  const{onAddingLike}=useContext(DevContext)
     const{post}=props
-    const {user, content, likes, comments, tag} = post
+    const {id,user, content, likes, tag,isLiked,commentText} = post
+
+    const onClickLike = () =>{
+     
+      onAddingLike(id)
+    }
     
     return (
          <div className="post-card">
@@ -13,18 +21,18 @@ const PostCard = (props) =>{
           <p className="user-name">{user}</p>
         </div>
 
-        <p className="post-tag">#{tag}</p>
+        <p className="post-tag">{tag}</p>
       </div>
       <p className="post-text">{content}</p>
       <div className="post-footer">
-  <div className="post-like">
+  <div className={isLiked ? "post-liked" : "post-like"} onClick={onClickLike} >
     <FaHeart className="icon" />
     <span className="count">{likes}</span>
   </div>
 
   <div className="post-comment">
     <FaRegCommentDots className="icon" />
-    <span className="count">{comments}</span>
+    <span className="count">{commentText.length}</span>
   </div>
 </div>
     </div>

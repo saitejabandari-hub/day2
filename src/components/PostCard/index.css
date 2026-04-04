@@ -45,7 +45,7 @@
 
 
 .user-name {
-  color: #e5e7eb;
+  color: #6B7280;
   font-size: 15px;
 }
 
@@ -57,7 +57,7 @@
 
 
 .post-text {
-  color: #cbd5f5;
+  color: #6B7280;
   margin-top: 12px;
   margin-bottom: 12px;
   font-size: 14px;
@@ -75,6 +75,16 @@
   display: flex;
   align-items: center;
   color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  gap:6px;
+}
+
+.post-liked {
+  display: flex;
+  align-items: center;
+  color: #ef4444;
   font-size: 13px;
   cursor: pointer;
   transition: 0.2s;
@@ -101,6 +111,9 @@
 }
 .post-like:hover {
   color: #ef4444; 
+}
+.post-liked:hover {
+  color: #94a3b8; 
 }
 
 .post-comment:hover {

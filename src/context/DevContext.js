@@ -2,7 +2,8 @@ import React from 'react'
 
 const DevContext = React.createContext({
     allposts:[],
-    onAddingPostToDB:()=>{}
+    onAddingPostToDB:()=>{},
+    onAddingLike:()=>{}
 })
 
 export default DevContext

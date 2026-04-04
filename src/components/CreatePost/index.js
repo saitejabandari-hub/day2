@@ -16,8 +16,6 @@ const CreatePost =()=>{
     const [content , setContent] = useState('')
     const {onAddingPostToDB} = useContext(DevContext)
 
-    const [newPost,setnewPost] = useState([])
-
     const onEnteringTitle = (event) =>{
         setTitle(event.target.value)
     }
@@ -35,26 +33,27 @@ const CreatePost =()=>{
    const onAddPost = () =>{
     const newone = {
         title,
-        tags,
+        tag:tags,
         content,
         comments:0,
         likes:0,
         id : Date.now(),
-        user : "Sasuke"
+        user : "Sasuke",
+        isLiked:false,
+        commentText:[]
     }
 
-    setnewPost(prev => [...prev , newone])
+  
 
     setTags('')
     setTitle('')
     setContent('')
 
-    onAddingPostToDB(newPost)
+    onAddingPostToDB(newone)
 
    }
    
-   console.log(newPost)
-
+  
     return (
 
     <div className='create-bgcontainer'>
