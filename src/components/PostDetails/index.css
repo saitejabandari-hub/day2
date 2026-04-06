@@ -25,7 +25,7 @@
 }
 
 .postdetails-card{
-    width:60%;
+    width:70%;
     border:2px solid #E5E7EB;
     border-radius:10px;
     padding:10px;
@@ -90,7 +90,7 @@
 .postdetails-other-container{
     display: flex;
     flex-direction: column;
-    width:35% ;
+    width:27% ;
 }
 
 .postdetails-tag-card{
@@ -181,9 +181,17 @@
 }
 .postdetails-comment-list{
     display: flex;
-    gap:5px;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-top:10px;
+    height:120px;
 }
+
+.postdetails-comment-extra{
+    display: flex;
+    gap:5px;
+}
+
 
 .postdetals-comment-profile-comment{
     display: flex;
@@ -196,25 +204,37 @@
 .postdetails-comment-user-name{
      color:#111827;
 font-family:"Roboto";
-font-size:10px;
-font-weight:500;
+font-size:15px;
+font-weight:600;
+margin-top: 0;
 
 }
 
 .postdetails-comment-user-text{
     color: #6B7280;
 font-family:"Roboto";
-font-size:10px;
+font-size:15px;
 font-weight:500;
+margin-top: 0;
 
 }
 
 .postdetails-comment-user-date{
 color: #6B7280;
 font-family:"Roboto";
-font-size:10px;
+font-size:15px;
 font-weight:500;
+margin-top: 0;
 
+}
+
+.postdetails-delete-button{
+    border-width:0px;
+    background-color:transparent;
+    margin-right:10px;
+    font-size: 20px;
+    margin-top:10px;
+    cursor:pointer;
 }
 
 

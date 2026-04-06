@@ -1,12 +1,13 @@
 import{useContext,useState} from 'react'
 import {v4 as uuidv4} from 'uuid'
+import { MdDelete } from "react-icons/md";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
 const PostDetails =(props)=>{
-    const {allposts,addComment}=useContext(DevContext)
+    const {allposts,addComment,onDeleteComment}=useContext(DevContext)
     const [postcomment,setPostComment] =useState('')
     const onGoback=()=>{
         const{history}=props
@@ -38,6 +39,11 @@ const PostDetails =(props)=>{
 
     }
 
+    const onClickDelete=(comId)=>{
+       onDeleteComment(particularPost.id,comId)
+
+    }
+
     return (
     <div className='postdetails-bgContainer'>
         <NavBar/>
@@ -59,23 +65,32 @@ const PostDetails =(props)=>{
                  <div className='postdetails-other-container'>
                     <div className='postdetails-tag-card'>
                         <h1 className='postdetails-tags-headding'>Tags</h1>
-                        <p className='post-tags'>#{particularPost.tag}</p>
+                        <p className='post-tags'>{particularPost.tag}</p>
 
                     </div>
                     <div className='postdetails-comment-card'>
                             <h1 className='postdetails-comment-headding'>{`Comments(${particularPost.commentText.length})`}</h1>
                             <input type="text" placeholder="Add a comment..." className='postdetails-commentinput' value={postcomment} onChange={onEnteringComment} />
                             <div className='postdetails-button-card'>
-                                <button className='postdetails-Button' onClick={addPostComment} >Post</button>
+                                <button className='postdetails-Button' type="button" onClick={addPostComment} >Post</button>
                             </div>
+                            
                             <ul className='postdetails-comment-by-user'>
                                 {particularPost.commentText.map(each => (
-                                    <li key={each.id} className='postdetails-comment-list' ><img src={each.imgUrl} alt="user comment Image" className='postdetails-comment-profile' />
+                                    <li key={each.id} className='postdetails-comment-list' >
+                                     <div className='postdetails-comment-extra'>
+                                        <img src={each.imgUrl} alt="user comment Image" className='postdetails-comment-profile' />
                                     <div className='postdetals-comment-profile-comment'>
                                         <h1 className='postdetails-comment-user-name' >{each.user}</h1>
                                         <p className='postdetails-comment-user-text'>{each.text}</p>
                                         <p className='postdetails-comment-user-date'>{each.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-                                    </div></li>
+                                    </div>
+
+                                     </div>
+                                    <button type="button" className='postdetails-delete-button' onClick={()=>onClickDelete(each.id)} >
+                                        <MdDelete />
+                                    </button>
+                                    </li>
                                 ))}
                             </ul>
                     </div>

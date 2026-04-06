@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {useContext,useState} from 'react'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
@@ -6,10 +6,18 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Home =()=>{
-    const {allposts} = useContext(DevContext)   
+    const {allposts} = useContext(DevContext)  
+    const [filteredPost,setFilteredPost] = useState(allposts)
+    const onSearchedByInput=(value)=>{
+
+        const filtered = allposts.filter(each => each.title.toLowerCase().includes(value.toLowerCase())|| each.tag.toLowerCase().includes(value.toLowerCase())||each.user.toLowerCase().includes(value.toLowerCase()))
+        
+        setFilteredPost(filtered)
+
+    }
          return(
             <div className="home-bg-container">
-            <NavBar/>
+            <NavBar onSearchedByInput={onSearchedByInput}/>
             <div className='second-container'>      
                 < Sidebar/>
                 <div className='home-content'>
@@ -24,12 +32,12 @@ const Home =()=>{
                         </select>
                         </div>
                     </div>
-                   {allposts.length === 0 ? (<div className="empty-state">
+                   {filteredPost.length === 0 ? (<div className="empty-state">
                         <p className="empty-title">📭 No posts yet</p>
                          <p className="empty-text">Start sharing your thoughts 🚀</p>
                          <button className="create-btn">+ Create Post</button>
                     </div>) : <ul className="posts-list" >
-                                {allposts.map(each => (
+                                {filteredPost.map(each => (
                                     <li key={each.id}  className="post-item" ><PostCard  post={each} /></li>
                                 ))}
                         </ul>}
