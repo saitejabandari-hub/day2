@@ -1,0 +1,276 @@
+.postdetails-bgContainer{
+    display: flex;
+    flex-direction: column;
+    background-size:cover;
+    height:100vh;
+}
+.postdetails-firstContainer{
+    display: flex;
+    width:100%;
+
+}
+
+.postdetails-secondContainer{
+    display: flex;
+    flex-direction: column;
+    width:82%;
+    padding:10px;
+}
+
+
+.postdetails-section{
+    display: flex;
+    gap:10px;
+    width:100%;
+}
+
+.postdetails-card{
+    width:60%;
+    border:2px solid #E5E7EB;
+    border-radius:10px;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.postdetails-heading{
+    color:#111827;
+    font-family: "Roboto";
+    font-size:30px;
+    font-weight:600;
+    margin-bottom:0px;
+}
+
+.postbytimecard{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    margin-top:0px;
+    padding-top: 0px;
+    margin-bottom:0px;
+    padding-bottom: 0px;
+}
+
+.byusername{
+    color:#6B7280;
+    font-family:"Roboto";
+    font-size:15px;
+    font-weight:500;
+}
+
+.name{
+    color:#3B82F6;
+    font-family:"Roboto";
+    font-size:15px;
+    font-weight:500;
+}
+
+.postdate{
+    color:#6B7280;
+    font-family:"Roboto";
+    font-size:15px;
+    font-weight:500;
+}
+
+
+
+.post-image{
+    height:300px;
+    min-width:100%;
+    border-radius: 10px;
+}
+
+.postdetails-content{
+     color:#6B7280;
+    font-family:"Roboto";
+    font-size:15px;
+    font-weight:500;
+}
+
+.postdetails-other-container{
+    display: flex;
+    flex-direction: column;
+    width:35% ;
+}
+
+.postdetails-tag-card{
+    width:100%;
+    border:2px solid #E5E7EB;
+    border-radius:10px;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+    height:150px;
+}
+
+.postdetails-tags-headding{
+    color:#111827;
+    font-family: "Roboto";
+    font-size:20px;
+    font-weight:600;
+
+}
+
+.post-tags{
+    color:#3B82F6;
+    /* background-color: #EEF2FF; */
+    font-family:"Roboto";
+    font-size:15px;
+    font-weight:500;
+}
+
+.postdetails-comment-card{
+    width:100%;
+    border:2px solid #E5E7EB;
+    border-radius:10px;
+    padding:10px;
+    height:300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.postdetails-comment-headding{
+    color:#111827;
+    font-family: "Roboto";
+    font-size:20px;
+    font-weight:600;
+
+}
+
+.postdetails-commentinput{
+    border:2px solid #E5E7EB;
+    border-radius:10px;
+    padding:10px;
+    font-family: "Roboto";
+    background-color:transparent;
+    outline:none;
+}
+
+.postdetails-commentinput:focus {
+  border-color: #6B7280;/*#3b82f6*/
+  box-shadow: 0 0 5px #3b82f6; /*#3b82f6*/
+}
+.postdetails-button-card{
+    display: flex;
+    justify-content: flex-end;
+    margin-top:10px;
+}
+
+.postdetails-Button{
+    background-color:#3B82F6;
+    border-width:0px;
+    padding:10px;
+    width:70px;
+    border-radius:10px;
+    color:#ffffff;
+    font-weight:500;
+    font-family: "Roboto";
+    align-items: flex-end;
+    cursor:pointer;
+}
+
+.postdetails-comment-by-user{
+    list-style-type:none;
+    overflow-y: scroll;
+}
+
+.postdetails-comment-profile{
+    height:40px;
+    border-radius: 25px;
+}
+.postdetails-comment-list{
+    display: flex;
+    gap:5px;
+    margin-top:10px;
+}
+
+.postdetals-comment-profile-comment{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.postdetails-comment-user-name{
+     color:#111827;
+font-family:"Roboto";
+font-size:10px;
+font-weight:500;
+
+}
+
+.postdetails-comment-user-text{
+    color: #6B7280;
+font-family:"Roboto";
+font-size:10px;
+font-weight:500;
+
+}
+
+.postdetails-comment-user-date{
+color: #6B7280;
+font-family:"Roboto";
+font-size:10px;
+font-weight:500;
+
+}
+
+
+
+
+
+
+
+
+/* From Uiverse.io by cssbuttons-io */ 
+.backhome {
+  --color: #560bad;
+  font-family: inherit;
+  display: inline-block;
+  width: 8em;
+  height: 2.6em;
+  line-height: 2.5em;
+  margin: 20px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid var(--color);
+  transition: color 0.5s;
+  z-index: 1;
+  font-size: 17px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: var(--color);
+}
+
+.backhome:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.backhome:hover {
+  color: #fff;
+}
+
+.backhome:before {
+  top: 100%;
+  left: 100%;
+  transition: all 0.7s;
+}
+
+.backhome:hover:before {
+  top: -30px;
+  left: -30px;
+}
+
+.backhome:active:before {
+  background: #3a0ca3;
+  transition: background 0s;
+}

@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {useContext} from 'react'
 import {FaHeart, FaRegCommentDots} from 'react-icons/fa'
 import DevContext from '../../context/DevContext'
@@ -15,15 +16,17 @@ const PostCard = (props) =>{
     
     return (
          <div className="post-card">
-      <div className="post-header">
-        <div className="user-info">
-          <div className="avatar">{user[0]}</div>
-          <p className="user-name">{user}</p>
-        </div>
+          <Link to={`/post/${id}`} >
+           <div className="post-header">
+              <div className="user-info">
+              <div className="avatar">{user[0]}</div>
+          <   p className="user-name">{user}</p>
+          </div>
 
-        <p className="post-tag">{tag}</p>
-      </div>
-      <p className="post-text">{content}</p>
+          <p className="post-tag">{tag}</p>
+        </div>
+          <p className="post-text">{content}</p>
+     </Link>
       <div className="post-footer">
   <div className={isLiked ? "post-liked" : "post-like"} onClick={onClickLike} >
     <FaHeart className="icon" />

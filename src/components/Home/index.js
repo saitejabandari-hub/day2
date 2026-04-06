@@ -6,7 +6,7 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Home =()=>{
-    const {allposts} = useContext(DevContext)       
+    const {allposts} = useContext(DevContext)   
          return(
             <div className="home-bg-container">
             <NavBar/>
