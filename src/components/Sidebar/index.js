@@ -7,7 +7,7 @@ import { AiOutlineTags } from "react-icons/ai";
 const Sidebar =()=>(
     <div className='sidebar-container'>
         <Link to="/"><p className="menu-item active"><FiHome/>  Home</p></Link>
-        <p className="menu-item"><RxDashboard/>Dashboard</p>
+        <Link to="/dashboard"><p className="menu-item"><RxDashboard/>Dashboard</p></Link>
         <Link to="/create-post" ><p className="menu-item"><FiPlus/>create post</p></Link>
         <p className="menu-item"><FiBookmark/>save</p>
         <p className="menu-item"><FiUser/>profile</p>

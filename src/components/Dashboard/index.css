@@ -1,0 +1,264 @@
+
+.dashboard-bgContainer{
+    display: flex;
+    flex-direction: column;
+    height:100vh;
+    background-size:cover;
+    background-color:#F9FAFB;
+}
+.dashboard-firstContainer{
+    display: flex;
+    width:100%;
+}
+.dashboard-secondContainer{
+    display: flex;
+    flex-direction: column;
+    width:82%;
+    padding:10px;
+}
+
+.dashboard-heading{
+    color:#111827;
+    font-family:"Roboto";
+    font-weight:600;
+    font-size:30px;
+}
+
+.dashboard-reaction-card{
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    justify-content: space-between;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.deashboard-each-reaction-card{
+    border:2px solid #E5E7EB;
+    border-radius: 10px;
+    padding:5px;
+    height:80px;
+    width:150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.2s ease;
+    outline: none;
+    cursor:pointer;
+    background-color:transparent;
+}
+
+.deashboard-each-reaction-card:hover{
+    transform: translateY(-5px);
+     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+}
+
+
+.dashboard-each-reaction-heading{
+    font-family: "Roboto";
+    font-size:15px;
+    font-family:"Roboto";
+    font-weight:500;
+    color: #6B7280;
+     margin-bottom: 5px;
+}
+
+.dashboard-each-reaction-aligment{
+    display: flex;
+    gap:10px;
+    margin-top: 0;
+    padding-top: 0;
+   
+}
+
+.dashboard-each-reaction-counts{
+    font-family:"Roboto";
+    font-size:25px;
+    font-weight:600;
+    color:#212223;
+     margin-top: 0;
+    padding-top: 0;
+}
+
+.dashboard-each-reaction-posts-icon{
+    font-size:30px;
+     margin-top: 0;
+    padding-top: 0;
+    color:#4A90E2;
+    
+}
+
+.dashboard-thredContainer{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    width:100%;
+}
+
+.dashboard-recentposts{
+    border:2px solid #E5E7EB;
+    border-radius:10px;
+    width:70%;
+    height:460px;
+    flex:1;
+    border:2px solid #000000;
+}
+
+.dashboard-recent-posts-card{
+    padding-left:15px;
+}
+
+.dashboard-recent-posts-heading{
+    color:#212223;
+    font-family:"Roboto";
+    font-size:25px;
+    font-weight:600;
+}
+
+.dashboard-horizontal{
+   border:2px solid #E5E7EB;
+}
+
+.dashboard-recent-posts{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    overflow-y:scroll;
+   height:370px;
+   flex-grow: 1;
+}
+
+.dashboard-recent-each-post{
+    display: flex;
+    align-items: center;
+    margin-bottom:10px;
+    gap:6px;
+    cursor:pointer;
+}
+.dashboard-recent-post-image{
+    height:70px;
+    width:120px;
+    object-fit: cover;
+    border-radius:8px;
+}
+.dashboard-recent-each-post-details{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+
+.dashboard-recent-each-post-details-title{
+    font-family: "Roboto";
+    font-size: 12px;
+    font-weight: 500;
+}
+.dashboard-recent-each-post-details-date-likes-comment-card{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.dashboard-recent-each-post-details-like-comment{
+    display: flex;
+    align-items: center;
+    gap:6px;
+}
+
+
+.dashboard-recent-each-post-details-like {
+  display: flex;
+  align-items: center;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  gap:6px;
+}
+
+.dashboard-recent-each-post-details-liked {
+  display: flex;
+  align-items: center;
+  color: #ef4444;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  gap:6px;
+}
+
+
+.dashboard-recent-each-post-details-like:hover {
+  color: #ef4444; 
+}
+.dashboard-recent-each-post-details-liked:hover {
+  color: #94a3b8; 
+}
+
+.dashboard-recent-each-post-details-comment {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-right:10px;
+}
+
+.dashboard-recent-each-post-details-comment:hover {
+  color: #3b82f6; 
+}
+.dashboard-each-tag{
+    margin-top:10px;
+    margin-bottom:20px;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-each-tag-name{
+    background-color: #EEF2FF;
+    color:#4F46E5;
+    font-family: "Roboto";
+    font-weight: 500;
+    padding:10px;
+    border-radius: 10px;
+    border-width:0px;
+    transition: 0.2s ease;
+    outline: none;
+    cursor:pointer;
+}
+.dashboard-each-tag-name:hover{
+    transform: translateY(-5px);
+     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+
+}
+
+.dashboard-each-tag-length{
+    color: #6B7280;
+    font-family: "Roboto";
+    font-weight:500;
+}
+
+
+
+
+
+
+
+.dashboard-populartags{
+    border:2px solid #E5E7EB;
+    border-radius:10px;
+    width:30%;
+    min-height:300px;
+     height:460px;
+     border:2px solid #000000;
+}
+.dashboard-alltags{
+     list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    overflow-y:scroll;
+   height:370px;
+   flex-grow: 1;
+
+}

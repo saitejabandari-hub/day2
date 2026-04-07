@@ -33,7 +33,7 @@ const CreatePost =()=>{
    const onAddPost = () =>{
     const newone = {
         title,
-        tag:tags,
+        tag:tags.replace(/#/g,''),
         content,
         comments:0,
         likes:0,

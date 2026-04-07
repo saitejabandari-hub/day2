@@ -56,7 +56,7 @@ const PostDetails =(props)=>{
                     <h1 className='postdetails-heading'>{particularPost.title}</h1>
                     <div className='postbytimecard' >
                         <p className='byusername'>By <span className='name'>{particularPost.user}</span></p>
-                        <p className='postdate'>{particularPost.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                        <p className='postdate'>{new Date(particularPost.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                         <p className='name'>#{particularPost.tag}</p>
                     </div>
                     <img src={particularPost.imgUrl} alt="No Image" className='post-image' />
@@ -83,7 +83,7 @@ const PostDetails =(props)=>{
                                     <div className='postdetals-comment-profile-comment'>
                                         <h1 className='postdetails-comment-user-name' >{each.user}</h1>
                                         <p className='postdetails-comment-user-text'>{each.text}</p>
-                                        <p className='postdetails-comment-user-date'>{each.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                                        <p className='postdetails-comment-user-date'>{new Date(each.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                                     </div>
 
                                      </div>

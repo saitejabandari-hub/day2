@@ -3,6 +3,7 @@
     flex-direction: column;
     background-size:cover;
     height:100vh;
+    background-color:#F9FAFB;
 }
 .postdetails-firstContainer{
     display: flex;

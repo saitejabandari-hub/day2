@@ -13,6 +13,8 @@ const PostCard = (props) =>{
      
       onAddingLike(id)
     }
+
+    console.log(isLiked)
     
     return (
          <div className="post-card">
@@ -23,7 +25,7 @@ const PostCard = (props) =>{
           <   p className="user-name">{user}</p>
           </div>
 
-          <p className="post-tag">{tag}</p>
+          <p className="post-tag">#{tag}</p>
         </div>
           <p className="post-text">{content}</p>
      </Link>
