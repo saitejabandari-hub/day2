@@ -5,7 +5,8 @@ const DevContext = React.createContext({
     onAddingPostToDB:()=>{},
     onAddingLike:()=>{},
     addComment:()=>{},
-    onDeleteComment:()=>{}
+    onDeleteComment:()=>{},
+    onClickedSave:()=>{}
 })
 
 export default DevContext

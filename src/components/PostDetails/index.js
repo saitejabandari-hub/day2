@@ -65,7 +65,7 @@ const PostDetails =(props)=>{
                  <div className='postdetails-other-container'>
                     <div className='postdetails-tag-card'>
                         <h1 className='postdetails-tags-headding'>Tags</h1>
-                        <p className='post-tags'>{particularPost.tag}</p>
+                        <p className='post-tags'>#{particularPost.tag}</p>
 
                     </div>
                     <div className='postdetails-comment-card'>

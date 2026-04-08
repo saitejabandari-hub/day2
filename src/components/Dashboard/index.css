@@ -101,7 +101,6 @@
     width:70%;
     height:460px;
     flex:1;
-    border:2px solid #000000;
 }
 
 .dashboard-recent-posts-card{
@@ -251,7 +250,6 @@
     width:30%;
     min-height:300px;
      height:460px;
-     border:2px solid #000000;
 }
 .dashboard-alltags{
      list-style-type: none;

@@ -37,9 +37,11 @@ const CreatePost =()=>{
         content,
         comments:0,
         likes:0,
+        date: new Date(),
         id : Date.now(),
         user : "Sasuke",
         isLiked:false,
+        isSaved : false,
         commentText:[]
     }
 
@@ -71,6 +73,12 @@ const CreatePost =()=>{
                         <label className='create-input-label' >Tags</label>
                         <input type="text" className='inputing' value={tags} placeholder='e.g React Java Webdev' onChange={onEnteringTag} />
                     </div>
+                </div>
+                <h1 className='create-content' >Cover Image</h1>
+                <div className='cover-image-container'>
+                    <h1 className='cover-image-heading'>📷Click to upload or drag image</h1>
+                    <p className='cover-image-paragraph'>PNG, JPG up to 5MB</p>
+
                 </div>
                 <h1 className='create-content' >Content</h1>
                 <div className='create-content-container'>

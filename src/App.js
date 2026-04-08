@@ -5,6 +5,9 @@ import Home from './components/Home'
 import CreatePost from './components/CreatePost'
 import PostDetails from './components/PostDetails';
 import Dashboard from './components/Dashboard'
+import SavedPosts from './components/SavedPosts'
+import Profile from './components/Profile'
+import Tag from './components/Tag'
 import Tags from './components/Tags'
 import './App.css';
 import DevContext from './context/DevContext.js'
@@ -31,6 +34,7 @@ const[allposts,setAllposts] = useState([
     date: new Date('2026-04-01'),
     tag: 'React',
     isLiked: false,
+    isSaved : false,
     commentText: [
       { id: uuidv4(), text: "nice one", user: "Ino", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Ino&backgroundColor=b6e3f4", date: new Date('2026-04-01') },
       { id: uuidv4(), text: "Keep it up!", user: 'Shikamaru', imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Shikamaru&backgroundColor=8d8d5b", date: new Date('2026-04-02') },
@@ -47,6 +51,7 @@ const[allposts,setAllposts] = useState([
     date: new Date('2026-04-02'),
     tag: 'Motivation',
     isLiked: false,
+    isSaved : false,
     commentText: [
       { id: uuidv4(), text: "This hit different today 🙏", user: "Ino", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Ino&backgroundColor=b6e3f4", date: new Date('2026-04-02') },
       { id: uuidv4(), text: "Needed this, thank you sensei!", user: 'Shikamaru', imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Shikamaru&backgroundColor=8d8d5b", date: new Date('2026-04-02') },
@@ -66,6 +71,7 @@ const[allposts,setAllposts] = useState([
     date: new Date('2026-04-02'),
     tag: 'FullStack',
     isLiked: false,
+    isSaved : false,
     commentText: [
       { id: uuidv4(), text: "That's amazing! What database did you use?", user: "Naruto", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Naruto&backgroundColor=ffcc00", date: new Date('2026-04-02') },
       { id: uuidv4(), text: "Congrats! Full-stack is the way to go 🔥", user: "Kakashi", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Kakashi&backgroundColor=c0c0c0", date: new Date('2026-04-03') },
@@ -82,6 +88,7 @@ const[allposts,setAllposts] = useState([
     date: new Date('2026-04-03'),
     tag: 'Tips',
     isLiked: false,
+    isSaved : false,
     commentText: [
       { id: uuidv4(), text: "This is so true! Learned it the hard way 😅", user: "Sakura", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Sakura&backgroundColor=ff9eb5", date: new Date('2026-04-03') },
       { id: uuidv4(), text: "Great advice sensei!", user: "Naruto", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Naruto&backgroundColor=ffcc00", date: new Date('2026-04-03') },
@@ -99,6 +106,7 @@ const[allposts,setAllposts] = useState([
     date: new Date('2026-04-03'),
     tag: 'Motivation',
     isLiked: false,
+    isSaved : false,
     commentText: [
       { id: uuidv4(), text: "Haha missing semicolon got me last week too 💀", user: "Naruto", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Naruto&backgroundColor=ffcc00", date: new Date('2026-04-03') },
       { id: uuidv4(), text: "The struggle is real but so is the growth!", user: "Kakashi", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Kakashi&backgroundColor=c0c0c0", date: new Date('2026-04-04') },
@@ -115,6 +123,7 @@ const[allposts,setAllposts] = useState([
     date: new Date('2026-04-04'),
     tag: 'React',
     isLiked: false,
+    isSaved : false,
     commentText: [
       { id: uuidv4(), text: "Believe it! You did it! 🎉", user: "Sakura", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Sakura&backgroundColor=ff9eb5", date: new Date('2026-04-04') },
       { id: uuidv4(), text: "Centering a div is still my final boss 😂", user: "Rock Lee", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=RockLee&backgroundColor=2d6a4f", date: new Date('2026-04-05') },
@@ -132,6 +141,7 @@ const[allposts,setAllposts] = useState([
     date: new Date('2026-04-05'),
     tag: 'Career',
     isLiked: false,
+    isSaved : false,
     commentText: [
       { id: uuidv4(), text: "This is the most Sasuke thing ever 😂 Congrats tho!", user: "Naruto", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Naruto&backgroundColor=ffcc00", date: new Date('2026-04-05') },
       { id: uuidv4(), text: "Quietly becoming the GOAT 👏", user: "Kakashi", imgUrl: "https://api.dicebear.com/7.x/bottts/svg?seed=Kakashi&backgroundColor=c0c0c0", date: new Date('2026-04-05') },
@@ -173,6 +183,23 @@ document.title="DevConnect"
     setAllposts(updatedPosts)
   }
 
+  const onClickedSave = (id) =>{
+
+    const updatedSavedPost = allposts.map(each => {
+
+      if (each.id === id) {
+        return {
+          ...each,
+          isSaved : !each.isSaved
+        }
+      } return each
+
+    })
+
+    setAllposts(updatedSavedPost)
+
+  }
+
   const addComment =(id,comment) =>{
     const updatedPostComment = allposts.map(each => {
       if (each.id === id) {
@@ -203,9 +230,8 @@ document.title="DevConnect"
 
   }
   
-
     return(
-      <DevContext.Provider value={{allposts,onAddingPostToDB,onAddingLike,addComment,onDeleteComment}}>
+      <DevContext.Provider value={{allposts,onAddingPostToDB,onAddingLike,addComment,onDeleteComment,onClickedSave}}>
 
             <Switch>
               <Route exact path="/" component={Home} />
@@ -213,6 +239,9 @@ document.title="DevConnect"
               <Route exact path="/post/:id" component={PostDetails}/>
               <Route exact path="/dashboard" component={Dashboard}/>
               <Route exact path="/tag/:id" component={Tags} />
+              <Route exact path="/savedposts" component={SavedPosts}/>
+              <Route exact path="/profile" component={Profile}/>
+              <Route exact path="/tags" component={Tag}/>
         </Switch>
 
       </DevContext.Provider>

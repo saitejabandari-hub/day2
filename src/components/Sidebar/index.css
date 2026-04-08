@@ -19,6 +19,14 @@
 }
 
 .active {
+    display:flex;
+    align-items: center;
+    font-weight:600;
+    padding-left:10px;
+    cursor:pointer;
+    transition:0.2s ease;
+    padding:10px;
+    gap:6px;
   background-color: rgba(59, 130, 246, 0.2);
   color:#4F46E5;
 }

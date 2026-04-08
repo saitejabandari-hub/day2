@@ -114,10 +114,13 @@
 
 .post-tags{
     color:#3B82F6;
-    /* background-color: #EEF2FF; */
+    background-color: #EEF2FF;
     font-family:"Roboto";
     font-size:15px;
     font-weight:500;
+    padding: 10px;
+    border-radius:10px;
+    align-self: flex-start;
 }
 
 .postdetails-comment-card{
