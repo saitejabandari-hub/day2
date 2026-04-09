@@ -4,7 +4,7 @@
   margin-bottom: 20px;
   border:2px solid #E5E7EB;
   transition: all 0.2s ease;
-
+width:96%;
 }
 
 .post-card:hover {
@@ -16,12 +16,23 @@
   display: flex;
   align-items: center;
   gap:10px;
+  width:100%;
+}
+
+.postcard-Link{
+  display: flex;
+  width:100%;
 }
 
 .postCard-image{
   height:70px; 
   width:100px;
   border-radius: 10px;
+}
+.postCard-inndercard{
+  display: flex;
+  flex-direction: column;
+  width:100%;
 }
 
 .post-header {

@@ -1,7 +1,7 @@
 .sidebar-container{
     width:18%;
     background-color:#EEF2FF; /*#0f172a*/
-    height:90vh;
+    height:92vh;
     flex-grow: 0;
     border-right:2px solid #E5E7EB;
 }

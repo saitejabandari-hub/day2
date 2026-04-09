@@ -22,36 +22,39 @@ const PostCard = (props) =>{
     
     return (
       <div className="post-card">
-      <div className='postCard-firstContainer'>
-        <img src={imgUrl} alt="post image" className='postCard-image' />
-        <Link to={`/post/${id}`} >
-           <div className="post-header">
-              <h1 className='post-title'>{title}</h1>
-            <p className="post-tag">#{tag}</p>
-        </div>
-          <p className="post-text">{content}</p>
-     </Link>
-      </div>
-      <div className="post-footer">
-      <div className='post-footer-inner-card'>
-          <div>
-          <p className='post-date'>{new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-        </div>
-  <div className={isLiked ? "post-liked" : "post-like"} onClick={onClickLike} >
-    <FaHeart className="icon" />
-    <span className="count">{likes}</span>
-  </div>
+            <div className='postCard-firstContainer'>
+              <img src={imgUrl} alt="post image" className='postCard-image' />
+              <Link to={`/post/${id}` } className="postcard-Link" >
+                <div className='postCard-inndercard'>
+                  <div className="post-header">
+                    <h1 className='post-title'>{title}</h1>
+                    <p className="post-tag">#{tag}</p>
+              </div>
+                <p className="post-text">{content}</p>
 
-  <div className="post-comment">
-    <FaRegCommentDots className="icon" />
-    <span className="count">{commentText.length}</span>
-  </div>
-      </div>
-  <div className={isSaved ? 'post-saved-container' : 'post-save-container'} onClick={onClickingSave} >
-      <FaBookmark />
-     </div>
-     </div>
-     
+                </div>
+          </Link>
+            </div>
+              <div className="post-footer">
+              <div className='post-footer-inner-card'>
+                  <div>
+                  <p className='post-date'>{new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                </div>
+          <div className={isLiked ? "post-liked" : "post-like"} onClick={onClickLike} >
+            <FaHeart className="icon" />
+            <span className="count">{likes}</span>
+          </div>
+
+          <div className="post-comment">
+            <FaRegCommentDots className="icon" />
+            <span className="count">{commentText.length}</span>
+          </div>
+              </div>
+          <div className={isSaved ? 'post-saved-container' : 'post-save-container'} onClick={onClickingSave} >
+              <FaBookmark />
+            </div>
+            </div>
+            
     </div>
     )
          
@@ -63,4 +66,4 @@ export default PostCard
 {/* <div className="user-info">
               <div className="avatar">{user[0]}</div>
           <   p className="user-name">{user}</p>
-          </div> */}
+  </div> */}

@@ -26,7 +26,7 @@ Border:     #1f2937 */
     padding:20px;
     border:2px solid #E5E7EB;
     overflow-y: scroll;
-    height: 84vh;
+    height: 86vh;
 }
 
 .home-heading-container{
@@ -137,6 +137,8 @@ Border:     #1f2937 */
     padding:0;
     margin: 0;
     width:100%;
+    overflow-y: scroll;
+    height:100%;
 }
 
 .post-item{
