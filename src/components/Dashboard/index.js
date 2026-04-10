@@ -20,7 +20,7 @@ const Dashboard =() =>{
 
     const allTags = allposts.map(each => each.tag) // give all tags and tags are repeted if different posts has with same tags
     const fliteredtags = allTags.filter((item,index,all) => all.indexOf(item) === index) //give unique tags
-    // const newwayFilteredtags = [...new Set(allTags)] // new way of new only unique tags works for strings and number
+    // const newwayFilteredtags = [...new Set(allTags)] // new way of only unique tags works for strings and number
 
     return (
     <div className="dashboard-bgContainer">

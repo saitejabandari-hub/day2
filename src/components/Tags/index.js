@@ -21,7 +21,7 @@ const Tags = () =>{
             <div className='tags-secondContainer'>
                 <div className='tags-heading-container'><h1 className='tags-Container-heading'>#{id}</h1></div>
 
-                 {<ul className="posts-list" >
+                 {<ul className="tags-posts-list" >
                                 {filterdPost.map(each => (
                                     <li key={each.id}  className="post-item" ><PostCard  post={each} /></li>
                                 ))}

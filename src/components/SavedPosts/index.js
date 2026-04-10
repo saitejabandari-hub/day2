@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import { useNavigation} from 'react-router-dom'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
