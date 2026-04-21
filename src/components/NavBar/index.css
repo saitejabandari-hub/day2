@@ -98,6 +98,12 @@
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
 }
 
+.nav-profile-card{
+  display: flex;
+  align-items: center;
+  gap:6px;
+}
+
 
 .user-card{
  display: flex;
@@ -128,4 +134,24 @@ padding: 5px;
   font-size:15px;
 }
 
+.nav-logout-button{
+  background-color: transparent;
+  font-family:"Roboto";
+  font-weight:600;
+  color:#ffffff;
+  background-color: #2563eb;
+  transition: 0.2s ease;
+  border-width:0px;
+  padding:5px;
+  font-size: 15px;
+  border-radius:8px;
+  outline: none;
+  cursor:pointer;
+}
+
+.nav-logout-button:hover{
+  transform:  translateY(-5px);
+  border-color: #6B7280;/*#3b82f6*/
+  box-shadow: 0 0 5px #3b82f6;
+}
 

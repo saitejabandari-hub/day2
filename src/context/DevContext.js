@@ -2,11 +2,13 @@ import React from 'react'
 
 const DevContext = React.createContext({
     allposts:[],
+    profile:0,
     onAddingPostToDB:()=>{},
     onAddingLike:()=>{},
     addComment:()=>{},
     onDeleteComment:()=>{},
-    onClickedSave:()=>{}
+    onClickedSave:()=>{},
+    onGetprofile:()=>{}
 })
 
 export default DevContext

@@ -14,6 +14,7 @@ const CreatePost =()=>{
     const [title , setTitle] = useState('')
     const [tags , setTags ] = useState('')
     const [content , setContent] = useState('')
+    const [file, setFile] = useState(null)
     const {onAddingPostToDB} = useContext(DevContext)
 
     const onEnteringTitle = (event) =>{
@@ -28,13 +29,45 @@ const CreatePost =()=>{
     setContent(event.target.value)
    }
 
+    const handleFile = (event) => {
+        setFile(event.target.files[0])
+    }
+
+const uploadImage = async () => {
+  const formData = new FormData()
+
+  formData.append("file", file)
+  formData.append("upload_preset", "devconnect_upload")
+
+  const response = await fetch(
+    "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
+    {
+      method: "POST",
+      body: formData
+    }
+  )
+
+  const data = await response.json()
+
+  console.log("FULL DATA:", data)
+  console.log("IMAGE URL:", data.secure_url)
+
+  return data.secure_url
+}
 
 
-   const onAddPost = () =>{
+
+   const onAddPost = async () =>{
+     let imageUrl = ""
+
+    if (file) {
+        imageUrl = await uploadImage()
+    }
     const newone = {
         title,
         tag:tags.replace(/#/g,''),
         content,
+        imgUrl : imageUrl,
         comments:0,
         likes:0,
         date: new Date(),
@@ -45,6 +78,7 @@ const CreatePost =()=>{
         commentText:[]
     }
 
+    console.log(newone)
   
 
     setTags('')
@@ -78,6 +112,8 @@ const CreatePost =()=>{
                 <div className='cover-image-container'>
                     <h1 className='cover-image-heading'>📷Click to upload or drag image</h1>
                     <p className='cover-image-paragraph'>PNG, JPG up to 5MB</p>
+                    <input type="file" onChange={handleFile} />
+                     <button onClick={uploadImage}>Upload Image</button>
 
                 </div>
                 <h1 className='create-content' >Content</h1>

@@ -46,7 +46,7 @@ const themeColors = [
 
    const result = {}
 
-   const yearsandtagsupdate = alltagsandyear.map(each => {
+   const yearsandtagsupdate = alltagsandyear.map(each => { //once recall this method
                 const year = each.year 
                 const tag = each.tag 
 
@@ -57,11 +57,11 @@ const themeColors = [
 
                        result[year][tag]=0
                 }
-                    result[year][tag] = result[year][tag] + 1
+               result[year][tag] = result[year][tag] + 1
    })
 
 
-    const data = Object.entries(result).map(each => {
+    const data = Object.entries(result).map(each => { //once recall this method
       const year = each[0] 
       const tags = each[1]
 
@@ -128,8 +128,7 @@ const themeColors = [
                               <p>{alltagposts.length} Posts</p>
                       </li>
                     </Link>
-                )
-                      
+                )     
                     })}
                 </ul>
             </div>

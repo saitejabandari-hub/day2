@@ -1,0 +1,8 @@
+
+.loader-container{
+    height:90vh;
+    width:82%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

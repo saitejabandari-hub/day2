@@ -1,0 +1,73 @@
+
+.register-Container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+    background-size:cover;
+    background-color:aliceblue;
+}
+
+.register-form-element{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    box-shadow: 0 0 5px #3b82f6;
+    padding:15px;
+}
+
+.register-heading{
+    color:#000000;
+    font-family:"Roboto";
+    font-weight:600;
+    font-size:30px;
+}
+
+.input-alignment{
+    display: flex;
+    align-items: center;
+}
+
+.register-input{
+    height:22px;
+    width:250px;
+    padding:10px;
+    background-color:transparent;
+    outline:none;
+    font-family:"Roboto";
+    font-weight:500;
+    font-size:18px;
+    margin-top:15px;
+    border-color:#000000;
+     border-left-width:0px;
+}
+
+.registers-icon{
+    border:2px solid #000000;
+    height:22px;
+    padding: 10px;
+    font-size:18px;
+    border-right-width:0px;
+    margin-top:15px;
+}
+
+.showpassword{
+    display: flex;
+    align-items: center;
+    gap:6px;
+    width:100%;
+}
+
+.register-button{
+    background-color:#0244ae;
+    border-width:0px;
+    border-radius: 5px;
+    padding:10px;
+    font-family: "Roboto";
+    font-size:20px;
+    font-weight:500;
+    color:#ffffff;
+    outline:none;
+    cursor:pointer;
+    margin-top:10px;
+}

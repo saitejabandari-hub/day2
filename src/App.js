@@ -1,6 +1,8 @@
 import {Route,Switch} from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
 import { useState ,useEffect } from 'react';
+import Register from "./components/Register"
+import Login from './components/Login';
 import Home from './components/Home'
 import CreatePost from './components/CreatePost'
 import PostDetails from './components/PostDetails';
@@ -9,10 +11,12 @@ import SavedPosts from './components/SavedPosts'
 import Profile from './components/Profile'
 import Tag from './components/Tag'
 import Tags from './components/Tags'
+import ProtectedRouter from './components/ProtectedRouter'
 import './App.css';
 import DevContext from './context/DevContext.js'
 
 const App =() => {
+  const [profile,setProfile]=useState('')
 // const[allposts,setAllposts] = useState(()=>{
 //   const data = localStorage.getItem("posts")
   
@@ -955,6 +959,10 @@ document.title="DevConnect"
 //   localStorage.setItem("posts", JSON.stringify(allposts))
 // }, [allposts])
 
+  const onGetprofile=(id)=>{
+    setProfile(id)
+  }
+
   const onAddingPostToDB=(value)=>{
       setAllposts(prev => [...prev , value])
   }
@@ -977,7 +985,9 @@ document.title="DevConnect"
       
       }
     )  
+
     setAllposts(updatedPosts)
+
   }
 
   const onClickedSave = (id) =>{
@@ -1026,19 +1036,20 @@ document.title="DevConnect"
   setAllposts(updatedComment)
 
   }
-  
-    return(
-      <DevContext.Provider value={{allposts,onAddingPostToDB,onAddingLike,addComment,onDeleteComment,onClickedSave}}>
 
+    return(
+      <DevContext.Provider value={{allposts,profile,onAddingPostToDB,onAddingLike,addComment,onDeleteComment,onClickedSave,onGetprofile}}>
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/create-post" component={CreatePost} />
-              <Route exact path="/post/:id" component={PostDetails}/>
-              <Route exact path="/dashboard" component={Dashboard}/>
-              <Route exact path="/tag/:id" component={Tags} />
-              <Route exact path="/savedposts" component={SavedPosts}/>
-              <Route exact path="/profile" component={Profile}/>
-              <Route exact path="/tags" component={Tag}/>
+              <ProtectedRouter exact path="/" component={Home} />
+              <ProtectedRouter exact path="/create-post" component={CreatePost} />
+              <ProtectedRouter exact path="/post/:id" component={PostDetails}/>
+              <ProtectedRouter exact path="/dashboard" component={Dashboard}/>
+              <ProtectedRouter exact path="/tag/:id" component={Tags} />
+              <ProtectedRouter exact path="/savedposts" component={SavedPosts}/>
+              <ProtectedRouter exact path="/profile" component={Profile}/>
+              <ProtectedRouter exact path="/tags" component={Tag}/>
+              <Route exact path="/register" component={Register}/>
+              <Route exact path="/login" component={Login}/>
         </Switch>
 
       </DevContext.Provider>

@@ -1,14 +1,55 @@
-import { useContext } from 'react'
+import { useState,useContext,useEffect} from 'react'
+import Cookies from 'js-cookie'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Profile =() =>{
-       const {allposts} = useContext(DevContext)
+       const {allposts,profile} = useContext(DevContext)
+       const [load,setLoad]=useState(true)
+       const [admin,setAdmin] = useState({name:'',email:''})
+
+       useEffect(()=>{
+        const fetchprofile = async () =>{
+             const jwt = Cookies.get("jwt_token")
+
+        const url = `http://localhost:3000/devconnect/profile/${profile}`
+        const options = {
+            method:"GET",
+            headers : {
+                "Content_Type":"application/json",
+                Authorization: `Bearer ${jwt}`
+            }
+
+        }
+
+        const response = await fetch(url,options)
+        const data = await response.text()
+        console.log(data)
+        if(response.ok){
+        const adminDetails = {
+            name:data.name,
+            email:data.email
+        }
+        console.log(adminDetails)
+        setLoad(false)
+        setAdmin(adminDetails)
+
+        }
+
+        }
+
+        fetchprofile()
+
+       },[profile])
 
     const filterdPost = allposts.filter(each => each.id === each.id)
+
+
+
     return (
     <div className="profile-bgContainer">
         <NavBar/>
@@ -16,7 +57,7 @@ const Profile =() =>{
             <Sidebar/>
             <div className="profile-secondContainer">
                 <h1 className='profile-heading'>Profile</h1>
-                <div className='profile-details-container'>
+                {load ? <Loadspinner/> :<><div className='profile-details-container'>
                     <div className='profile-inner-card'>
                         <div className='profile-card'>
                         <p className='profile-profile'>S</p>
@@ -44,7 +85,7 @@ const Profile =() =>{
                                 {filterdPost.map(each => (
                                     <li key={each.id}  className="post-item" ><PostCard  post={each} /></li>
                                 ))}
-                </ul>}
+                </ul>}</>}
             </div>
         </div>
     </div>

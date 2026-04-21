@@ -20,6 +20,8 @@ const PostDetails =(props)=>{
 
     const particularPost = allposts.find(each => each.id === parseInt(id))
 
+    console.log(particularPost)
+
      const onEnteringComment=(event)=>{
         setPostComment(event.target.value)
     }

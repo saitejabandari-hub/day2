@@ -11,7 +11,6 @@ const PostCard = (props) =>{
     const {id,title, content, likes, tag,isLiked,commentText,date,imgUrl,isSaved} = post
 
     const onClickLike = () =>{
-     
       onAddingLike(id)
     }
 
