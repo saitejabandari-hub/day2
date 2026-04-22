@@ -28,13 +28,11 @@ const Profile =() =>{
 
         const response = await fetch(url,options)
         const data = await response.json()
-        console.log(data)
         if(response.ok){
         const adminDetails = {
             name:data.name,
             email:data.email
         }
-        console.log(adminDetails)
         setLoad(false)
         setAdmin(adminDetails)
 
@@ -62,8 +60,8 @@ const Profile =() =>{
                         <div className='profile-card'>
                         <p className='profile-profile'>S</p>
                         <div className='profile-text-card'>
-                            <h1 className='profile-username'>@username</h1>
-                            <p className='profile-user-email'>user@email.com</p>
+                            <h1 className='profile-username'>{admin.name}</h1>
+                            <p className='profile-user-email'>{admin.email}</p>
                             <p className='profile-user-about'>Full stack dev. Writes about React, Node & the modern web.</p>
                         </div>
                     </div>

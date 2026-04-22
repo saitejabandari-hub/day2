@@ -1,4 +1,5 @@
 import {useContext,useState,useEffect} from 'react'
+import Cookies from 'js-cookie'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
@@ -6,19 +7,51 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Home =(props)=>{
-    const {allposts} = useContext(DevContext) 
-    const [filteredPost,setFilteredPost] = useState(allposts)
+    const [allposts ,setAllposts]=useState([])
+    const [filteredPost,setFilteredPost] = useState([])
     const onSearchedByInput=(value)=>{
 
-        const filtered = allposts.filter(each => each.title.toLowerCase().includes(value.toLowerCase())|| each.tag.toLowerCase().includes(value.toLowerCase())||each.user.toLowerCase().includes(value.toLowerCase()))
+        const filtered = allposts.filter(each => each.title.toLowerCase().includes(value.toLowerCase())|| each.tag.toLowerCase().includes(value.toLowerCase())||each.name.toLowerCase().includes(value.toLowerCase()))
         
         setFilteredPost(filtered)
 
     }
 
     useEffect(()=>{
-        setFilteredPost(allposts)
-    },[allposts])
+
+        const fetchposts = async () =>{
+            const url = "http://localhost:3000/devconnect/posts"
+        const  jwt = Cookies.get("jwt_token")
+        const options = {
+            method:"GET",
+            headers :{
+                Authorization:`Bearer ${jwt}`
+            }
+        }
+
+        const response = await fetch(url,options)
+        const data = await response.json()
+        const updateposts = data.map(each => (
+            {
+            commentsCount : each.commentsCount,
+            content : each.content,
+            id: each.id,
+            likesCount : each.likesCount,
+            name : each.name,
+            tag : each.tag,
+            title : each.title,
+            date:each.created_at,
+            imgUrl:each.image_url,
+            }
+        ))
+        setAllposts(updateposts)
+        setFilteredPost(updateposts)
+        }
+
+        fetchposts()
+
+        // setFilteredPost(allposts) // dummy data
+    },[])
 
 
     const onTaketoCreatePost =  () =>{

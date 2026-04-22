@@ -8,7 +8,7 @@ import './index.css'
 const PostCard = (props) =>{
   const{onAddingLike,onClickedSave}=useContext(DevContext)
     const{post}=props
-    const {id,title, content, likes, tag,isLiked,commentText,date,imgUrl,isSaved} = post
+    const {id,title, content, likesCount, tag,isLiked,commentsCount,date,imgUrl,isSaved} = post
 
     const onClickLike = () =>{
       onAddingLike(id)
@@ -18,6 +18,8 @@ const PostCard = (props) =>{
       onClickedSave(id)
 
     }
+
+    
     
     return (
       <div className="post-card">
@@ -41,12 +43,12 @@ const PostCard = (props) =>{
                 </div>
           <div className={isLiked ? "post-liked" : "post-like"} onClick={onClickLike} >
             <FaHeart className="icon" />
-            <span className="count">{likes}</span>
+            <span className="count">{likesCount}</span>
           </div>
 
           <div className="post-comment">
             <FaRegCommentDots className="icon" />
-            <span className="count">{commentText.length}</span>
+            <span className="count">{commentsCount}</span>
           </div>
               </div>
           <div className={isSaved ? 'post-saved-container' : 'post-save-container'} onClick={onClickingSave} >

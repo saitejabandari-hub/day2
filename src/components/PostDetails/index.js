@@ -1,4 +1,5 @@
-import{useContext,useState} from 'react'
+import{useContext,useState,useEffect} from 'react'
+import Cookies from 'js-cookie'
 import {v4 as uuidv4} from 'uuid'
 import { MdDelete } from "react-icons/md";
 import NavBar from '../NavBar'
@@ -7,43 +8,82 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const PostDetails =(props)=>{
-    const {allposts,addComment,onDeleteComment}=useContext(DevContext)
+    const [particularPost,setParticularPost]=useState({})
     const [postcomment,setPostComment] =useState('')
-    const onGoback=()=>{
-        const{history}=props
-        history.replace("/")
-    }
 
     const {match}=props 
     const {params} = match
     const {id}=params
+    useEffect(()=>{
+        const jwt = Cookies.get("jwt_token")
+        const fetchpost = async ()=>{
+            const url = `http://localhost:3000/devconnect/posts/${id}`
+            const options = {
+                method:"GET",
+                headers:{
+                    authorization:`Bearer ${jwt}`
+                }
+            }
 
-    const particularPost = allposts.find(each => each.id === parseInt(id))
+            const response = await fetch(url ,options)
+            const data = await response.json()
+            console.log(data)
+            if(response.ok){
+                const updatedpost =  {
+            content : data.content,
+            id: data.id,
+            likesCount : data.likesCount,
+            name : data.name,
+            tag : data.tag,
+            title : data.title,
+            date:data.created_at,
+            imgUrl:data.image_url,
+            comments:data.comments,
+            likes:data.likes.likesCount
+            }
 
-    console.log(particularPost)
+           
+
+            setParticularPost(updatedpost)
+
+            }
+
+        }
+
+        fetchpost()
+    },[])
+
+     const onGoback=()=>{
+        const{history}=props
+        history.replace("/")
+    }
+
+
+
+
+   
+
 
      const onEnteringComment=(event)=>{
         setPostComment(event.target.value)
     }
 
     const addPostComment =()=>{
-        const comment = {
-        id : uuidv4(),
-        user:"Uchiha",
-        text:postcomment,
-        date: new Date(),
-        imgUrl : "https://www.gravatar.com/avatar/?d=mp&s=128"
-        }
+        // const comment = {
+        // id : uuidv4(),
+        // user:"Uchiha",
+        // text:postcomment,
+        // date: new Date(),
+        // imgUrl : "https://www.gravatar.com/avatar/?d=mp&s=128"
+        // }
 
-        setPostComment('')
+        // setPostComment('')
 
-        addComment(particularPost.id,comment)
 
     }
 
     const onClickDelete=(comId)=>{
-       onDeleteComment(particularPost.id,comId)
-
+      
     }
 
     return (
@@ -57,7 +97,7 @@ const PostDetails =(props)=>{
                 <div className='postdetails-card' >
                     <h1 className='postdetails-heading'>{particularPost.title}</h1>
                     <div className='postbytimecard' >
-                        <p className='byusername'>By <span className='name'>{particularPost.user}</span></p>
+                        <p className='byusername'>By <span className='name'>{particularPost.name}</span></p>
                         <p className='postdate'>{new Date(particularPost.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                         <p className='name'>#{particularPost.tag}</p>
                     </div>
@@ -71,13 +111,13 @@ const PostDetails =(props)=>{
 
                     </div>
                     <div className='postdetails-comment-card'>
-                            <h1 className='postdetails-comment-headding'>{`Comments(${particularPost.commentText.length})`}</h1>
+                            <h1 className='postdetails-comment-headding'>{`Comments(${particularPost.commentsCount})`}</h1>
                             <input type="text" placeholder="Add a comment..." className='postdetails-commentinput' value={postcomment} onChange={onEnteringComment} />
                             <div className='postdetails-button-card'>
                                 <button className='postdetails-Button' type="button" onClick={addPostComment} >Post</button>
                             </div>
                             
-                            <ul className='postdetails-comment-by-user'>
+                            {/* <ul className='postdetails-comment-by-user'>
                                 {particularPost.commentText.map(each => (
                                     <li key={each.id} className='postdetails-comment-list' >
                                      <div className='postdetails-comment-extra'>
@@ -94,7 +134,7 @@ const PostDetails =(props)=>{
                                     </button>
                                     </li>
                                 ))}
-                            </ul>
+                            </ul> */}
                     </div>
                  </div>
             </div>

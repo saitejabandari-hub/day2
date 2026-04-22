@@ -1,4 +1,5 @@
 import {useState,useContext} from 'react'
+import Cookies from 'js-cookie'
 import { RxFontBold } from "react-icons/rx";
 import { RxFontItalic } from "react-icons/rx";
 import { IoListSharp } from "react-icons/io5";
@@ -67,18 +68,29 @@ const uploadImage = async () => {
         title,
         tag:tags.replace(/#/g,''),
         content,
-        imgUrl : imageUrl,
-        comments:0,
-        likes:0,
-        date: new Date(),
-        id : Date.now(),
-        user : "Sasuke",
-        isLiked:false,
-        isSaved : false,
-        commentText:[]
+        image_url : imageUrl,
     }
 
     console.log(newone)
+
+    const url = "http://localhost:3000/devconnect/create-post"
+
+    const jwt = Cookies.get("jwt_token")
+
+    const options = {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            Authorization: `Bearer ${jwt}`
+        },
+
+        body: JSON.stringify(newone)
+
+    }
+
+    const response = await fetch(url,options)
+
+    console.log(response)
   
 
     setTags('')

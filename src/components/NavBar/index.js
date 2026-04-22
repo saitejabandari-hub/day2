@@ -1,10 +1,13 @@
-import {Link,withRouter} from 'react-router-dom'
+import {Link,withRouter,} from 'react-router-dom'
+import {useState, useEffect,useContext } from 'react'
 import Cookies from 'js-cookie'
+import DevContext from '../../context/DevContext'
 
 import './index.css'
 
 const NavBar =(props) =>{
-
+    const [admin,setAdmin] = useState({name:'',email:''})
+    const {profile} = useContext(DevContext)
     const {onSearchedByInput} = props
     
     const onSearchforPost =(event) =>{
@@ -12,11 +15,41 @@ const NavBar =(props) =>{
     }
 
     const onClickLogout=()=>{
-        console.log(props)
         Cookies.remove("jwt_token")
        const{history}=props
        history.replace("/login")
     }
+
+    useEffect(()=>{
+            const fetchprofile = async () =>{
+                 const jwt = Cookies.get("jwt_token")
+    
+            const url = `http://localhost:3000/devconnect/profile/${profile}`
+            const options = {
+                method:"GET",
+                headers : {
+                    "Content_Type":"application/json",
+                    Authorization: `Bearer ${jwt}`
+                }
+    
+            }
+    
+            const response = await fetch(url,options)
+            const data = await response.json()
+            if(response.ok){
+            const adminDetails = {
+                name:data.name,
+                email:data.email
+            }
+            setAdmin(adminDetails)
+    
+            }
+    
+            }
+    
+            fetchprofile()
+    
+           },[profile])
     
     return(
 
@@ -29,7 +62,7 @@ const NavBar =(props) =>{
             <Link to="/profile">
         <div className='user-card'>
         <img src="https://www.gravatar.com/avatar/?d=mp&s=128" alt="profile" className='user-profile' />
-        <h1 className='user-heading'>user</h1>
+        <h1 className='user-heading'>{admin.name}</h1>
         </div>
         </Link>
         <button type="button" className='nav-logout-button' onClick={onClickLogout} >Logout</button>
