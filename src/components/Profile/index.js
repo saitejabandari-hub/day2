@@ -27,7 +27,7 @@ const Profile =() =>{
         }
 
         const response = await fetch(url,options)
-        const data = await response.text()
+        const data = await response.json()
         console.log(data)
         if(response.ok){
         const adminDetails = {
