@@ -3,6 +3,7 @@ import React from 'react'
 const DevContext = React.createContext({
     allposts:[],
     profile:0,
+    rerender:false,
     onAddingPostToDB:()=>{},
     onAddingLike:()=>{},
     addComment:()=>{},

@@ -11,12 +11,15 @@ const Profile =() =>{
        const {allposts,profile} = useContext(DevContext)
        const [load,setLoad]=useState(true)
        const [admin,setAdmin] = useState({name:'',email:''})
+       const [usersposts,setUserspost]=useState([])
+       const [likesposts,setLikesposts] = useState([])
 
        useEffect(()=>{
+        const jwt = Cookies.get("jwt_token")
+        const jwtuser = Cookies.get("user_id")
         const fetchprofile = async () =>{
-             const jwt = Cookies.get("jwt_token")
 
-        const url = `http://localhost:3000/devconnect/profile/${profile}`
+        const url = `http://localhost:3000/devconnect/profile/${jwtuser}`
         const options = {
             method:"GET",
             headers : {
@@ -40,9 +43,41 @@ const Profile =() =>{
 
         }
 
-        fetchprofile()
+        const usersownposts = async()=>{
+            const url = "http://localhost:3000/devconnect/usersposts"
+            const options = {
+                method:"GET",
+                headers:{
+                    Authorization:`Bearer ${jwt}`
+                }
 
-       },[profile])
+            }
+
+            const response = await fetch(url,options)
+             const data = await response.json()
+        const updateposts = data.posts.map(each => (
+            {
+            commentsCount : each.commentsCount,
+            content : each.content,
+            id: each.id,
+            likesCount : each.likesCount,
+            name : each.name,
+            tag : each.tag,
+            title : each.title,
+            date:each.created_at,
+            imgUrl:each.image_url,
+            }
+        ))
+        const likedpostdetails = data.likesusers
+        setUserspost(updateposts)
+        setLikesposts(likedpostdetails)
+
+        }
+
+        fetchprofile()
+        usersownposts()
+
+       },[])
 
     const filterdPost = allposts.filter(each => each.id === each.id)
 
@@ -76,12 +111,12 @@ const Profile =() =>{
                     </div>
                 </div>
                 <h1 className='profile-mypost-heading'>My Posts</h1>
-                 {filterdPost.length === 0 ? (<div className="empty-state">
+                 {usersposts.length === 0 ? (<div className="empty-state">
                         <p className="empty-title">📭 No posts are posted yet</p>
                          <p className="empty-text">Go hurry up and staring posting 🛒</p>
                     </div>) : <ul className="profile-posts-list" >
-                                {filterdPost.map(each => (
-                                    <li key={each.id}  className="post-item" ><PostCard  post={each} /></li>
+                                {usersposts.map(each => (
+                                    <li key={each.id}  className="post-item" ><PostCard  post={each} likesposts={likesposts} /></li>
                                 ))}
                 </ul>}</>}
             </div>

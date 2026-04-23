@@ -9,6 +9,8 @@ import './index.css'
 const Home =(props)=>{
     const [allposts ,setAllposts]=useState([])
     const [filteredPost,setFilteredPost] = useState([])
+    const [likesposts,setLikesposts] = useState([])
+    const {rerender}=useContext(DevContext)
     const onSearchedByInput=(value)=>{
 
         const filtered = allposts.filter(each => each.title.toLowerCase().includes(value.toLowerCase())|| each.tag.toLowerCase().includes(value.toLowerCase())||each.name.toLowerCase().includes(value.toLowerCase()))
@@ -31,7 +33,7 @@ const Home =(props)=>{
 
         const response = await fetch(url,options)
         const data = await response.json()
-        const updateposts = data.map(each => (
+        const updateposts = data.posts.map(each => (
             {
             commentsCount : each.commentsCount,
             content : each.content,
@@ -44,6 +46,9 @@ const Home =(props)=>{
             imgUrl:each.image_url,
             }
         ))
+        const likedpostdetails = data.likesusers
+        
+        setLikesposts(likedpostdetails)
         setAllposts(updateposts)
         setFilteredPost(updateposts)
         }
@@ -51,7 +56,7 @@ const Home =(props)=>{
         fetchposts()
 
         // setFilteredPost(allposts) // dummy data
-    },[])
+    },[rerender])
 
 
     const onTaketoCreatePost =  () =>{
@@ -81,7 +86,7 @@ const Home =(props)=>{
                          <button className="create-btn" onClick={onTaketoCreatePost} >+ Create Post</button>
                     </div>) : <ul className="posts-list" >
                                 {filteredPost.map(each => (
-                                    <li key={each.id}  className="post-item" ><PostCard  post={each} /></li>
+                                    <li key={each.id}  className="post-item" ><PostCard  post={each} likesposts={likesposts} /></li>
                                 ))}
                         </ul>}
                 </div>

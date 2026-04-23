@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import {useContext} from 'react'
 import {FaHeart, FaRegCommentDots,} from 'react-icons/fa'
 import { FaBookmark } from "react-icons/fa6";
@@ -6,12 +7,26 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const PostCard = (props) =>{
-  const{onAddingLike,onClickedSave}=useContext(DevContext)
-    const{post}=props
-    const {id,title, content, likesCount, tag,isLiked,commentsCount,date,imgUrl,isSaved} = post
+  const{onClickedSave,onAddingLike}=useContext(DevContext)
+    const{post,likesposts}=props
+    const {id,title, content, likesCount, tag,commentsCount,date,imgUrl,isSaved} = post
+    
+    const jwtuser = Cookies.get("user_id")
 
-    const onClickLike = () =>{
-      onAddingLike(id)
+    const onClickLike = async () =>{
+      const jwt = Cookies.get("jwt_token")
+      const url=`http://localhost:3000/devconnect/${id}/like`
+
+      const options = {
+        method:"POST",
+        headers:{
+          Authorization:`Bearer ${jwt}`
+        }
+      }
+
+      const response = await fetch(url,options)
+      onAddingLike()
+
     }
 
     const onClickingSave=()=>{
@@ -19,6 +34,7 @@ const PostCard = (props) =>{
 
     }
 
+    const isLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
     
     
     return (

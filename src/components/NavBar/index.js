@@ -7,14 +7,16 @@ import './index.css'
 
 const NavBar =(props) =>{
     const [admin,setAdmin] = useState({name:'',email:''})
-    const {profile} = useContext(DevContext)
     const {onSearchedByInput} = props
     
     const onSearchforPost =(event) =>{
         onSearchedByInput(event.target.value)
     }
 
+    const jwtuser = Cookies.get("user_id")
+
     const onClickLogout=()=>{
+        Cookies.remove("user_id")
         Cookies.remove("jwt_token")
        const{history}=props
        history.replace("/login")
@@ -24,7 +26,7 @@ const NavBar =(props) =>{
             const fetchprofile = async () =>{
                  const jwt = Cookies.get("jwt_token")
     
-            const url = `http://localhost:3000/devconnect/profile/${profile}`
+            const url = `http://localhost:3000/devconnect/profile/${jwtuser}`
             const options = {
                 method:"GET",
                 headers : {
@@ -49,7 +51,7 @@ const NavBar =(props) =>{
     
             fetchprofile()
     
-           },[profile])
+           },[])
     
     return(
 
