@@ -14,6 +14,7 @@ const NavBar =(props) =>{
     }
 
     const jwtuser = Cookies.get("user_id")
+    const jwt = Cookies.get("jwt_token")
 
     const onClickLogout=()=>{
         Cookies.remove("user_id")
@@ -24,21 +25,20 @@ const NavBar =(props) =>{
 
     useEffect(()=>{
             const fetchprofile = async () =>{
-                 const jwt = Cookies.get("jwt_token")
     
             const url = `http://localhost:3000/devconnect/profile/${jwtuser}`
             const options = {
                 method:"GET",
                 headers : {
-                    "Content_Type":"application/json",
+                    "Content-Type":"application/json",
                     Authorization: `Bearer ${jwt}`
                 }
     
             }
     
             const response = await fetch(url,options)
-            const data = await response.json()
             if(response.ok){
+            const data = await response.json()
             const adminDetails = {
                 name:data.name,
                 email:data.email
@@ -51,7 +51,7 @@ const NavBar =(props) =>{
     
             fetchprofile()
     
-           },[])
+           },[jwt,jwtuser])
     
     return(
 

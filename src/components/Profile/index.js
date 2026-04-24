@@ -8,30 +8,32 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Profile =() =>{
-       const {allposts,profile} = useContext(DevContext)
        const [load,setLoad]=useState(true)
        const [admin,setAdmin] = useState({name:'',email:''})
        const [usersposts,setUserspost]=useState([])
        const [likesposts,setLikesposts] = useState([])
+       const {rerender}=useContext(DevContext)
+       const jwt = Cookies.get("jwt_token")
+        const jwtuser = Cookies.get("user_id")
 
        useEffect(()=>{
-        const jwt = Cookies.get("jwt_token")
-        const jwtuser = Cookies.get("user_id")
+        
         const fetchprofile = async () =>{
 
         const url = `http://localhost:3000/devconnect/profile/${jwtuser}`
         const options = {
             method:"GET",
             headers : {
-                "Content_Type":"application/json",
+                "Content-Type":"application/json",
                 Authorization: `Bearer ${jwt}`
             }
 
         }
 
         const response = await fetch(url,options)
-        const data = await response.json()
+        
         if(response.ok){
+        const data = await response.json()
         const adminDetails = {
             name:data.name,
             email:data.email
@@ -55,6 +57,7 @@ const Profile =() =>{
 
             const response = await fetch(url,options)
              const data = await response.json()
+             console.log(data)
         const updateposts = data.posts.map(each => (
             {
             commentsCount : each.commentsCount,
@@ -77,11 +80,7 @@ const Profile =() =>{
         fetchprofile()
         usersownposts()
 
-       },[])
-
-    const filterdPost = allposts.filter(each => each.id === each.id)
-
-
+       },[rerender,jwt,jwtuser])
 
     return (
     <div className="profile-bgContainer">

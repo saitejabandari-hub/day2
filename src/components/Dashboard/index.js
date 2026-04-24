@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import { useContext,useState,useEffect } from 'react';
+import Cookies from 'js-cookie'
 import {Link} from 'react-router-dom'
 import { HiDocumentText } from 'react-icons/hi';  
 import { FaHeart } from 'react-icons/fa';           
@@ -12,11 +13,54 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Dashboard =() =>{
-    const {allposts,onAddingLike} = useContext(DevContext) 
+    const {allposts,onAddingLike,rerender} = useContext(DevContext) 
+    const [usersposts,setUserspost]=useState([])
+    const [likesposts,setLikesposts] = useState([])
 
     const onDashboardeachLike =(id) =>{
         onAddingLike(id)
     }
+
+     useEffect(()=>{
+            const jwt = Cookies.get("jwt_token")
+            const jwtuser = Cookies.get("user_id")
+    
+            const usersownposts = async()=>{
+                const url = "http://localhost:3000/devconnect/usersposts"
+                const options = {
+                    method:"GET",
+                    headers:{
+                        Authorization:`Bearer ${jwt}`
+                    }
+    
+                }
+    
+                const response = await fetch(url,options)
+                 const data = await response.json()
+                 console.log(data)
+            const updateposts = data.posts.map(each => (
+                {
+                commentsCount : each.commentsCount,
+                content : each.content,
+                id: each.id,
+                likesCount : each.likesCount,
+                name : each.name,
+                tag : each.tag,
+                title : each.title,
+                date:each.created_at,
+                imgUrl:each.image_url,
+                }
+            ))
+            const likedpostdetails = data.likesusers
+            setUserspost(updateposts)
+            setLikesposts(likedpostdetails)
+    
+            }
+            usersownposts()
+    
+           },[rerender])
+
+
 
     const allTags = allposts.map(each => each.tag) // give all tags and tags are repeted if different posts has with same tags
     const fliteredtags = allTags.filter((item,index,all) => all.indexOf(item) === index) //give unique tags
