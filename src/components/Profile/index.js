@@ -20,7 +20,7 @@ const Profile =() =>{
         
         const fetchprofile = async () =>{
 
-        const url = `http://localhost:3000/devconnect/profile/${jwtuser}`
+        const url = `http://localhost:3000/devconnect/profile`
         const options = {
             method:"GET",
             headers : {
@@ -57,7 +57,6 @@ const Profile =() =>{
 
             const response = await fetch(url,options)
              const data = await response.json()
-             console.log(data)
         const updateposts = data.posts.map(each => (
             {
             commentsCount : each.commentsCount,
@@ -69,6 +68,7 @@ const Profile =() =>{
             title : each.title,
             date:each.created_at,
             imgUrl:each.image_url,
+            users:each.user_id
             }
         ))
         const likedpostdetails = data.likesusers

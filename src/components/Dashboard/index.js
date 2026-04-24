@@ -8,22 +8,20 @@ import { FaBookmark } from 'react-icons/fa';
 import {FaRegCommentDots} from 'react-icons/fa'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
+import PostCard from '../PostCard'
 import DevContext from '../../context/DevContext'
 
 import './index.css'
 
-const Dashboard =() =>{
-    const {allposts,onAddingLike,rerender} = useContext(DevContext) 
+const Dashboard =(props) =>{
+    const {allposts,rerender} = useContext(DevContext) 
     const [usersposts,setUserspost]=useState([])
     const [likesposts,setLikesposts] = useState([])
 
-    const onDashboardeachLike =(id) =>{
-        onAddingLike(id)
-    }
+     const jwt = Cookies.get("jwt_token")
+     const jwtuser = Cookies.get("user_id")
 
      useEffect(()=>{
-            const jwt = Cookies.get("jwt_token")
-            const jwtuser = Cookies.get("user_id")
     
             const usersownposts = async()=>{
                 const url = "http://localhost:3000/devconnect/usersposts"
@@ -37,7 +35,6 @@ const Dashboard =() =>{
     
                 const response = await fetch(url,options)
                  const data = await response.json()
-                 console.log(data)
             const updateposts = data.posts.map(each => (
                 {
                 commentsCount : each.commentsCount,
@@ -49,6 +46,7 @@ const Dashboard =() =>{
                 title : each.title,
                 date:each.created_at,
                 imgUrl:each.image_url,
+                users:each.user_id
                 }
             ))
             const likedpostdetails = data.likesusers
@@ -61,10 +59,16 @@ const Dashboard =() =>{
            },[rerender])
 
 
+          
 
     const allTags = allposts.map(each => each.tag) // give all tags and tags are repeted if different posts has with same tags
     const fliteredtags = allTags.filter((item,index,all) => all.indexOf(item) === index) //give unique tags
     // const newwayFilteredtags = [...new Set(allTags)] // new way of only unique tags works for strings and number
+
+    const onTaketoCreatePost =  () =>{
+            const{history}=props
+            history.replace("/create-post")
+    }
 
     return (
     <div className="dashboard-bgContainer">
@@ -114,23 +118,17 @@ const Dashboard =() =>{
                     <div className='dashboard-recentposts'>
                          <div className='dashboard-recent-posts-card'><h1 className='dashboard-recent-posts-heading'>Your Recent Posts</h1></div>
                          <hr className='dashboard-horizontal'/>
-                         <ul className='dashboard-recent-posts' >
-                            {allposts.map(each => (
-                                <li key={each.id} className='dashboard-recent-each-post' >
-                                  <Link to={`/post/${each.id}`}> <img src={each.imgUrl} alt="recent post" className='dashboard-recent-post-image' /></Link>
-                                    <div className='dashboard-recent-each-post-details' >
-                                        <h1 className='dashboard-recent-each-post-details-title' >{each.title}</h1>
-                                        <div className='dashboard-recent-each-post-details-date-likes-comment-card' >
-                                            <p className='dashboard-recent-each-post-details-date'>{new Date(each.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-                                            <div className='dashboard-recent-each-post-details-like-comment' >
-                                                <p className={each.isLiked ? "dashboard-recent-each-post-details-liked" : "dashboard-recent-each-post-details-like" } onClick={()=>onDashboardeachLike(each.id)}><FaHeart/>{each.likes}</p>
-                                                <p className='dashboard-recent-each-post-details-comment'><FaRegCommentDots/>{each.commentText.length}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            ))}
-                         </ul>
+                         <div className='dashboard-recent-posts' >
+                            {usersposts.length === 0 ? (<div className="empty-state">
+                        <p className="empty-title">📭 No posts yet</p>
+                         <p className="empty-text">Start sharing your thoughts 🚀</p>
+                         <button className="create-btn" onClick={onTaketoCreatePost} >+ Create Post</button>
+                    </div>) : <ul className="posts-list" >
+                                {usersposts.map(each => (
+                                    <li key={each.id}  className="post-item" ><PostCard  post={each} likesposts={likesposts} /></li>
+                                ))}
+                        </ul>}
+                         </div>
                     </div>
                     <div className='dashboard-populartags'>
                         <div className='dashboard-recent-posts-card'><h1 className='dashboard-recent-posts-heading'>Popular Tags</h1></div>

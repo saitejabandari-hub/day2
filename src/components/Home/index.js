@@ -44,6 +44,7 @@ const Home =(props)=>{
             title : each.title,
             date:each.created_at,
             imgUrl:each.image_url,
+            users:each.user_id
             }
         ))
         const likedpostdetails = data.likesusers

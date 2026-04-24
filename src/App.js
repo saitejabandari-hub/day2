@@ -12,6 +12,7 @@ import SavedPosts from './components/SavedPosts'
 import Profile from './components/Profile'
 import Tag from './components/Tag'
 import Tags from './components/Tags'
+import EditPost from './components/EditPost'
 import ProtectedRouter from './components/ProtectedRouter'
 import './App.css';
 import DevContext from './context/DevContext.js'
@@ -819,72 +820,21 @@ const [allposts, setAllposts] = useState([
 
 document.title="DevConnect"
 
-// useEffect(() => {
-//   localStorage.setItem("posts", JSON.stringify(allposts))
-// }, [allposts])
 
   const onGetprofile=(id)=>{
     setProfile(id)
     Cookies.set("user_id", id)
-  }
+     }
 
   const onAddingPostToDB=(value)=>{
       setAllposts(prev => [...prev , value])
   }
 
-  const onAddingLike=(id) =>{
+  const onRender=(id) =>{
     setRender(prev =>!prev)
   }
-
-  const onClickedSave = (id) =>{
-
-    const updatedSavedPost = allposts.map(each => {
-
-      if (each.id === id) {
-        return {
-          ...each,
-          isSaved : !each.isSaved
-        }
-      } return each
-
-    })
-
-    setAllposts(updatedSavedPost)
-
-  }
-
-  const addComment =(id,comment) =>{
-    const updatedPostComment = allposts.map(each => {
-      if (each.id === id) {
-        return {
-          ...each,
-           commentText :[ ...each.commentText,comment]
-        }
-
-      }return each
-    })
-    setAllposts(updatedPostComment)
-   
-  }
-
-  const onDeleteComment=(postId,comId)=>{
-
-  const updatedComment = allposts.map(each => {
-    if (each.id === postId) {
-      return {
-        ...each,
-        commentText : each.commentText.filter(del => del.id !== comId) 
-      }
-
-    }return each
-  })
-
-  setAllposts(updatedComment)
-
-  }
-
     return(
-      <DevContext.Provider value={{allposts,profile,rerender,onAddingPostToDB,onAddingLike,addComment,onDeleteComment,onClickedSave,onGetprofile}}>
+      <DevContext.Provider value={{allposts,profile,rerender,onAddingPostToDB,onRender,onGetprofile}}>
             <Switch>
               <ProtectedRouter exact path="/" component={Home} />
               <ProtectedRouter exact path="/create-post" component={CreatePost} />
@@ -894,6 +844,7 @@ document.title="DevConnect"
               <ProtectedRouter exact path="/savedposts" component={SavedPosts}/>
               <ProtectedRouter exact path="/profile" component={Profile}/>
               <ProtectedRouter exact path="/tags" component={Tag}/>
+              <ProtectedRouter exact path="/edit-post/:id"  component={EditPost}/>
               <Route exact path="/register" component={Register}/>
               <Route exact path="/login" component={Login}/>
         </Switch>

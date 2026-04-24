@@ -1,20 +1,39 @@
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
-import {useContext} from 'react'
+import {useContext,useState,useRef,useEffect} from 'react'
 import {FaHeart, FaRegCommentDots,} from 'react-icons/fa'
 import { FaBookmark } from "react-icons/fa6";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import DevContext from '../../context/DevContext'
 import './index.css'
 
 const PostCard = (props) =>{
-  const{onClickedSave,onAddingLike}=useContext(DevContext)
+  const{onClickedSave,onRender}=useContext(DevContext)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
     const{post,likesposts}=props
-    const {id,title, content, likesCount, tag,commentsCount,date,imgUrl,isSaved} = post
+    const {id,title, content, likesCount, tag,commentsCount,date,imgUrl,isSaved,users} = post
     
     const jwtuser = Cookies.get("user_id")
+    const jwt = Cookies.get("jwt_token")
+   
+
+    useEffect(()=>{
+      const handleClickOutside = (event) =>{
+        if(menuRef.current && !menuRef.current.contains(event.target)){
+          setMenuOpen(false)
+        }
+      }
+        document.addEventListener('mousedown',handleClickOutside)
+
+        return () => {
+          document.removeEventListener('mousedown',handleClickOutside)
+        }
+    },[])
 
     const onClickLike = async () =>{
-      const jwt = Cookies.get("jwt_token")
       const url=`http://localhost:3000/devconnect/${id}/like`
 
       const options = {
@@ -25,7 +44,7 @@ const PostCard = (props) =>{
       }
 
       const response = await fetch(url,options)
-      onAddingLike()
+      onRender()
 
     }
 
@@ -35,7 +54,30 @@ const PostCard = (props) =>{
     }
 
     const isLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
-    
+
+      const onClickEdit =()=>{
+        setMenuOpen(false)
+
+      }
+
+      const onClickDelete= async()=>{
+        onRender()
+        setMenuOpen(false)
+        const url = `http://localhost:3000/devconnect/posts/${id}`
+        const options = {
+          method:"DELETE",
+          headers:{
+            Authorization:`Bearer ${jwt}`
+          }
+        }
+
+        const response = await fetch(url,options)
+
+        if(response.ok){
+          console.log("post deleted")
+        }
+
+      }
     
     return (
       <div className="post-card">
@@ -51,6 +93,22 @@ const PostCard = (props) =>{
 
                 </div>
           </Link>
+          {Number(users) === Number(jwtuser) && <div className="three-dot-wrapper" ref={menuRef}>
+             <div className="three-dots" onClick={() => setMenuOpen(prev => !prev)}>
+                        < BsThreeDotsVertical className='three-dots-span'/>
+              </div>
+              {menuOpen && (
+                        <div className="dropdown">
+                            <button className="edit-btn" onClick={onClickEdit}>
+                              <FaRegEdit/> <Link to={`/edit-post/${id}`} >Edit</Link>
+                            </button>
+                            <div className="dropdown-divider"></div>
+                            <button className="delete-btn" onClick={onClickDelete}>
+                                <RiDeleteBin6Line/> Delete
+                            </button>
+                        </div>
+                    )}
+          </div>}
             </div>
               <div className="post-footer">
               <div className='post-footer-inner-card'>

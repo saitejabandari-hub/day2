@@ -1,4 +1,4 @@
-import {useState,useContext} from 'react'
+import {useState,useContext,useEffect} from 'react'
 import Cookies from 'js-cookie'
 import { RxFontBold } from "react-icons/rx";
 import { RxFontItalic } from "react-icons/rx";
@@ -7,11 +7,9 @@ import { IoImageOutline } from "react-icons/io5";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import DevContext from '../../context/DevContext';
-
 import './index.css'
 
-
-const CreatePost =()=>{
+const EditPost = (props)=>{
     const [title , setTitle] = useState('')
     const [tags , setTags ] = useState('')
     const [content , setContent] = useState('')
@@ -34,6 +32,47 @@ const CreatePost =()=>{
     const handleFile = (event) => {
         setFile(event.target.files[0])
     }
+
+    const jwt = Cookies.get("jwt_token")
+    const jwtuser = Cookies.get("user_id")
+    const {match} = props
+    const {params} = match
+    const {id} = params
+
+    useEffect(()=>{
+    const getpostdetails = async () =>{
+
+          const url = `http://localhost:3000/devconnect/posts/${id}`
+            const options = {
+                method:"GET",
+                headers:{
+                    authorization:`Bearer ${jwt}`
+                }
+            }
+            const response = await fetch(url ,options)
+            const data = await response.json()
+            if(response.ok){
+                const getpost =  {
+                content : data.content,
+                tag : data.tag,
+                title : data.title,
+                imgUrl:data.image_url,
+                }
+
+                setContent(getpost.content)
+                setGeneratedUrl(getpost.imgUrl)
+                setTags(getpost.tag)
+                setTitle(getpost.title)
+
+            }
+
+       
+
+    }
+
+    getpostdetails()
+
+    },[])
 
 const uploadImage = async () => {
   const formData = new FormData()
@@ -64,16 +103,16 @@ const uploadImage = async () => {
         title,
         tag:tags.replace(/#/g,''),
         content,
-        image_url : imageUrl,
+        imgUrl : generatedUrl,
     }
 
 
-    const url = "http://localhost:3000/devconnect/create-post"
+    const url = `http://localhost:3000/devconnect/updatepost/${id}`
 
     const jwt = Cookies.get("jwt_token")
 
     const options = {
-        method:"POST",
+        method:"PUT",
         headers:{
             "Content-Type":"application/json",
             Authorization: `Bearer ${jwt}`
@@ -93,10 +132,39 @@ const uploadImage = async () => {
     setContent('')
     setGeneratedUrl('')
 
-    onAddingPostToDB(newone)
+    const {history}=props
+    history.replace('/')
 
    }
-   
+
+   const onCancelupdate = async () =>{
+
+     const url = `http://localhost:3000/devconnect/posts/${id}`
+            const options = {
+                method:"GET",
+                headers:{
+                    authorization:`Bearer ${jwt}`
+                }
+            }
+            const response = await fetch(url ,options)
+            const data = await response.json()
+            if(response.ok){
+                const getpost =  {
+                content : data.content,
+                tag : data.tag,
+                title : data.title,
+                imgUrl:data.image_url,
+                }
+
+                setContent(getpost.content)
+                setGeneratedUrl(getpost.imgUrl)
+                setTags(getpost.tag)
+                setTitle(getpost.title)
+
+            }
+
+   }
+    
   
     return (
 
@@ -113,14 +181,11 @@ const uploadImage = async () => {
                     </div>
                     <div className='create-title-card'>
                         <label className='create-input-label' >Tags</label>
-                        <input type="text" className='inputing' value={tags} placeholder='e.g React Java Webdev' onChange={onEnteringTag} />
+                        <input type="text" className='inputing' value={`#${tags}`} placeholder='e.g React Java Webdev' onChange={onEnteringTag} />
                     </div>
                 </div>
                 <h1 className='create-content' >Cover Image</h1>
-                <div className='cover-image-container' style={{ backgroundImage: `url(${generatedUrl})`,
-                                                                    backgroundSize: "cover",       
-                                                                    backgroundPosition: "center", 
-                                                                    backgroundRepeat: "no-repeat"}}>
+                <div className='cover-image-container' style={{ backgroundImage: `url(${generatedUrl})`}}>
                     <h1 className='cover-image-heading'>📷Click to upload or drag image</h1>
                     <p className='cover-image-paragraph'>PNG, JPG up to 5MB</p>
                     <input type="file" onChange={handleFile} />
@@ -139,12 +204,13 @@ const uploadImage = async () => {
                     <textarea placeholder='Write your post content here...' value={content} className='textarea' onChange={onEnteringContent} />
                 </div>
                 <div className='create-button-card'>
-                    <button className='create-cancel-button' >Cancel</button>
-                    <button className='create-publish-button' onClick={onAddPost} >Publish Post</button>
+                    <button className='create-cancel-button'onClick={onCancelupdate} >Cancel</button>
+                    <button className='create-publish-button' onClick={onAddPost} >Update Post</button>
                 </div>
             </div>
         </div>
     </div>
-)}
+)
+}
 
-export default CreatePost
+export default EditPost

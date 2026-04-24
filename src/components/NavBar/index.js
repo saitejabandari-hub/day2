@@ -26,7 +26,7 @@ const NavBar =(props) =>{
     useEffect(()=>{
             const fetchprofile = async () =>{
     
-            const url = `http://localhost:3000/devconnect/profile/${jwtuser}`
+            const url = `http://localhost:3000/devconnect/profile/`
             const options = {
                 method:"GET",
                 headers : {
