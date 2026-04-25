@@ -7,7 +7,7 @@ import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
-const Profile =() =>{
+const Profile =(props) =>{
        const [load,setLoad]=useState(true)
        const [admin,setAdmin] = useState({name:'',email:''})
        const [usersposts,setUserspost]=useState([])
@@ -82,6 +82,12 @@ const Profile =() =>{
 
        },[rerender,jwt,jwtuser])
 
+       const onEditprofile=()=>{
+        const{history}=props 
+        history.replace("/EditProfile")
+
+       }
+
     return (
     <div className="profile-bgContainer">
         <NavBar/>
@@ -99,14 +105,9 @@ const Profile =() =>{
                             <p className='profile-user-about'>Full stack dev. Writes about React, Node & the modern web.</p>
                         </div>
                     </div>
-                    <div className='profile-post-counts'>
-                        <p className='profile-post-conts-details'> <span className='profile-post-conts-details-number-posts'>120</span > Posts</p>
-                        <p className='profile-post-conts-details'> <span className='profile-post-conts-details-number-likes'>483</span> Like</p>
-                        <p className='profile-post-conts-details'> <span className='profile-post-conts-details-number-saved'>86</span> Saved</p>
-                    </div>
                     </div>
                     <div className='profile-button-card'>
-                        <button type="button" className='profile-button'>Edit Profile</button>
+                        <button type="button" className='profile-button' onClick={onEditprofile}>Edit Profile</button>
                     </div>
                 </div>
                 <h1 className='profile-mypost-heading'>My Posts</h1>

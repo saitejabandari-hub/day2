@@ -7,9 +7,11 @@ import { AiOutlineTags } from "react-icons/ai";
 const Sidebar =()=>{
     const location = useLocation()
     const path = location.pathname.replace('/','')
+    const knownPaths = ['dashboard', 'create-post', 'savedposts', 'profile', 'tags'];
+    const isknownpage = knownPaths.includes(path)
     return (
     <div className='sidebar-container'>
-        <Link to="/"><p className={path === '' ? "active" : "menu-item"}><FiHome/>  Home</p></Link>
+        <Link to="/"><p className={!isknownpage ? "active" : "menu-item"}><FiHome/>  Home</p></Link>
         <Link to="/dashboard"><p className={path === 'dashboard' ? "active" : "menu-item"}><RxDashboard/>Dashboard</p></Link>
         <Link to="/create-post" ><p className={path === 'create-post' ? "active" : "menu-item"}><FiPlus/>Create Post</p></Link>
         <Link to="/savedposts"><p className={path === 'savedposts' ? "active" : "menu-item"}><FiBookmark/>Bookmark</p></Link>

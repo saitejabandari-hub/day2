@@ -14,9 +14,11 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Dashboard =(props) =>{
-    const {allposts,rerender} = useContext(DevContext) 
+     const [allposts ,setAllposts]=useState([])
+    const {rerender} = useContext(DevContext) 
     const [usersposts,setUserspost]=useState([])
     const [likesposts,setLikesposts] = useState([])
+    const [savedposts,setSavedposts] = useState([])
 
      const jwt = Cookies.get("jwt_token")
      const jwtuser = Cookies.get("user_id")
@@ -50,6 +52,7 @@ const Dashboard =(props) =>{
                 }
             ))
             const likedpostdetails = data.likesusers
+            
             setUserspost(updateposts)
             setLikesposts(likedpostdetails)
     
@@ -57,6 +60,77 @@ const Dashboard =(props) =>{
             usersownposts()
     
            },[rerender])
+    
+     useEffect(()=>{
+
+        const fetchposts = async () =>{
+            const url = "http://localhost:3000/devconnect/posts"
+        const  jwt = Cookies.get("jwt_token")
+        const options = {
+            method:"GET",
+            headers :{
+                Authorization:`Bearer ${jwt}`
+            }
+        }
+
+        const response = await fetch(url,options)
+        const data = await response.json()
+        const updateposts = data.posts.map(each => (
+            {
+            commentsCount : each.commentsCount,
+            content : each.content,
+            id: each.id,
+            likesCount : each.likesCount,
+            name : each.name,
+            tag : each.tag,
+            title : each.title,
+            date:each.created_at,
+            imgUrl:each.image_url,
+            users:each.user_id
+            }
+        ))
+        const likedpostdetails = data.likesusers
+        
+        setAllposts(updateposts)
+        }
+
+        fetchposts()
+
+        // setFilteredPost(allposts) // dummy data
+    },[rerender])
+
+useEffect(()=>{
+        const fetchposts = async () =>{
+        const url="http://localhost:3000/devconnect/savedposts"
+        const  jwt = Cookies.get("jwt_token")
+        const options = {
+            method:"GET",
+            headers :{
+                Authorization:`Bearer ${jwt}`
+            }
+        }
+
+        const response = await fetch(url,options)
+        const data = await response.json()
+        const updateposts = data.posts.map(each => (
+            {
+            commentsCount : each.commentsCount,
+            content : each.content,
+            id: each.id,
+            likesCount : each.likesCount,
+            name : each.name,
+            tag : each.tag,
+            title : each.title,
+            date:each.created_at,
+            imgUrl:each.image_url,
+            users:each.user_id
+            }
+        ))
+        setSavedposts(updateposts)
+        }
+
+        fetchposts()
+    },[rerender])
 
 
           
@@ -70,6 +144,7 @@ const Dashboard =(props) =>{
             history.replace("/create-post")
     }
 
+
     return (
     <div className="dashboard-bgContainer">
         <NavBar/>
@@ -82,7 +157,7 @@ const Dashboard =(props) =>{
                         <button  className='deashboard-each-reaction-card'>
                             <h1 className='dashboard-each-reaction-heading'>Total Posts</h1>
                         <div className='dashboard-each-reaction-aligment'>
-                            <p className='dashboard-each-reaction-counts'>180</p>
+                            <p className='dashboard-each-reaction-counts'>{usersposts.length}</p>
                             <p className='dashboard-each-reaction-posts-icon'><HiDocumentText/></p>
                         </div>
                         </button>
@@ -91,7 +166,7 @@ const Dashboard =(props) =>{
                         <button  className='deashboard-each-reaction-card'>
                             <h1 className='dashboard-each-reaction-heading'>Total Likes</h1>
                         <div className='dashboard-each-reaction-aligment'>
-                            <p className='dashboard-each-reaction-counts'>180</p>
+                            <p className='dashboard-each-reaction-counts'>{usersposts.reduce((acc,item) => acc+item.likesCount,0)}</p>
                             <p className='dashboard-each-reaction-posts-icon'><FaHeart/></p>
                         </div></button>
                     </li>
@@ -99,18 +174,20 @@ const Dashboard =(props) =>{
                         <button  className='deashboard-each-reaction-card'>
                             <h1 className='dashboard-each-reaction-heading'>Total Comments</h1>
                         <div className='dashboard-each-reaction-aligment'>
-                            <p className='dashboard-each-reaction-counts'>180</p>
+                            <p className='dashboard-each-reaction-counts'>{usersposts.reduce((acc,item) => acc+item.commentsCount,0)}</p>
                             <p className='dashboard-each-reaction-posts-icon'><FaComment/></p>
                         </div></button>
                     </li>
                      <li  >
+                       <Link to="/savedposts">
                        <button  className='deashboard-each-reaction-card'>
                          <h1 className='dashboard-each-reaction-heading'>Saved Posts</h1>
                         <div className='dashboard-each-reaction-aligment'>
-                            <p className='dashboard-each-reaction-counts'>180</p>
+                            <p className='dashboard-each-reaction-counts'>{savedposts.length}</p>
                             <p className='dashboard-each-reaction-posts-icon'><FaBookmark/></p>
                         </div>
                        </button>
+                       </Link>
                     </li>
 
                 </ul>

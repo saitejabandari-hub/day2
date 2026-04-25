@@ -13,6 +13,7 @@ import Profile from './components/Profile'
 import Tag from './components/Tag'
 import Tags from './components/Tags'
 import EditPost from './components/EditPost'
+import EditProfile from './components/EditProfile'
 import ProtectedRouter from './components/ProtectedRouter'
 import './App.css';
 import DevContext from './context/DevContext.js'
@@ -823,7 +824,6 @@ document.title="DevConnect"
 
   const onGetprofile=(id)=>{
     setProfile(id)
-    Cookies.set("user_id", id)
      }
 
   const onAddingPostToDB=(value)=>{
@@ -845,6 +845,7 @@ document.title="DevConnect"
               <ProtectedRouter exact path="/profile" component={Profile}/>
               <ProtectedRouter exact path="/tags" component={Tag}/>
               <ProtectedRouter exact path="/edit-post/:id"  component={EditPost}/>
+              <ProtectedRouter exact path="/EditProfile" component={EditProfile} />
               <Route exact path="/register" component={Register}/>
               <Route exact path="/login" component={Login}/>
         </Switch>

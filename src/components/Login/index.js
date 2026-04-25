@@ -37,6 +37,7 @@ const Login =()=>{
 
     const onLoginsuccess=(data)=>{
         Cookies.set("jwt_token",data.token,{expires : 30})
+        Cookies.set("user_id", data.id,{expires : 30})
         onGetprofile(data.id)
         history.push("/")
 

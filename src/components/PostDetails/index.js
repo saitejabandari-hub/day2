@@ -1,7 +1,11 @@
-import{useContext,useState,useEffect} from 'react'
+import{useContext,useState,useEffect,useRef} from 'react'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import {v4 as uuidv4} from 'uuid'
 import { MdDelete } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import DevContext from '../../context/DevContext'
@@ -11,6 +15,8 @@ const PostDetails =(props)=>{
     const [particularPost,setParticularPost]=useState({})
     const [postcomment,setPostComment] =useState('')
     const [refresh, setRefresh] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false)
+    const menuRef = useRef(null)
    
     const jwt = Cookies.get("jwt_token")
     const jwtuser = Cookies.get("user_id")
@@ -29,7 +35,7 @@ const PostDetails =(props)=>{
             const response = await fetch(url ,options)
             const data = await response.json()
             if(response.ok){
-                const updatedpost =  {
+            const updatedpost =  {
             content : data.content,
             id: data.id,
             likesCount : data.likesCount,
@@ -38,6 +44,7 @@ const PostDetails =(props)=>{
             title : data.title,
             date:data.created_at,
             imgUrl:data.image_url,
+            users : data.user_id,
             comments:data.comments.map(each=>({
                 id:each.comment_id,
                 comment:each.comment,
@@ -56,6 +63,21 @@ const PostDetails =(props)=>{
 
         fetchpost()
     },[postcomment,refresh])
+
+
+    useEffect(()=>{
+      const handleClickOutside = (event) =>{
+        if(menuRef.current && !menuRef.current.contains(event.target)){
+          setMenuOpen(false)
+        }
+      }
+        document.addEventListener('mousedown',handleClickOutside)
+
+        return () => {
+          document.removeEventListener('mousedown',handleClickOutside)
+        }
+    },[])
+
 
      const onGoback=()=>{
         const{history}=props
@@ -81,7 +103,7 @@ const PostDetails =(props)=>{
 
     }
 
-    const onClickDelete= async(comId)=>{
+    const onClickDeleteComment= async(comId)=>{
 
         const url = `http://localhost:3000/devconnect/commentdelete/${comId}/post/${id}`
          const options = {
@@ -95,6 +117,31 @@ const PostDetails =(props)=>{
         setRefresh(prev => !prev)
     }
 
+      const onClickEdit =()=>{
+        setMenuOpen(false)
+
+      }
+
+      const onClickDelete= async()=>{
+        setMenuOpen(false)
+        const url = `http://localhost:3000/devconnect/posts/${id}`
+        const options = {
+          method:"DELETE",
+          headers:{
+            Authorization:`Bearer ${jwt}`
+          }
+        }
+
+        const response = await fetch(url,options)
+
+        if(response.ok){
+          console.log("post deleted")
+        }
+
+      }
+
+    
+
     return (
     <div className='postdetails-bgContainer'>
         <NavBar/>
@@ -104,7 +151,25 @@ const PostDetails =(props)=>{
             <button className='backhome' onClick={onGoback} >Go Back Home</button>
             <div className='postdetails-section' >
                 <div className='postdetails-card' >
-                    <h1 className='postdetails-heading'>{particularPost.title}</h1>
+                    <div className='postdetailsaddpostedit'>
+                            <h1 className='postdetails-heading'>{particularPost.title}</h1>
+                {Number(particularPost.users) === Number(jwtuser) && <div className="three-dot-wrapper" ref={menuRef}>
+                    <div className="three-dots" onClick={() => setMenuOpen(prev => !prev)}>
+                                < BsThreeDotsVertical className='three-dots-span'/>
+                    </div>
+              {menuOpen && (
+                        <div className="dropdown">
+                            <button className="edit-btn" onClick={onClickEdit}>
+                              <FaRegEdit/> <Link to={`/edit-post/${id}`} >Edit</Link>
+                            </button>
+                            <div className="dropdown-divider"></div>
+                            <button className="delete-btn" onClick={onClickDelete}>
+                                <RiDeleteBin6Line/> Delete
+                            </button>
+                        </div>
+                    )}
+          </div>}
+                    </div>
                     <div className='postbytimecard' >
                         <p className='byusername'>By <span className='name'>{particularPost.name}</span></p>
                         <p className='postdate'>{new Date(particularPost.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
@@ -139,7 +204,7 @@ const PostDetails =(props)=>{
                                     </div>
 
                                      </div>
-                                    {String(jwtuser) === String(each.owner) && <button type="button" className='postdetails-delete-button' onClick={()=>onClickDelete(each.id)} >
+                                    {String(jwtuser) === String(each.owner) && <button type="button" className='postdetails-delete-button' onClick={()=>onClickDeleteComment(each.id)} >
                                         <MdDelete />
                                     </button> }
                                     </li>

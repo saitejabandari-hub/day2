@@ -11,7 +11,7 @@ import DevContext from '../../context/DevContext';
 import './index.css'
 
 
-const CreatePost =()=>{
+const CreatePost =(props)=>{
     const [title , setTitle] = useState('')
     const [tags , setTags ] = useState('')
     const [content , setContent] = useState('')
@@ -96,6 +96,12 @@ const uploadImage = async () => {
     onAddingPostToDB(newone)
 
    }
+
+   const onCancelupdate = () =>{
+    const{history}=props
+    history.replace('/')
+
+   }
    
   
     return (
@@ -139,7 +145,7 @@ const uploadImage = async () => {
                     <textarea placeholder='Write your post content here...' value={content} className='textarea' onChange={onEnteringContent} />
                 </div>
                 <div className='create-button-card'>
-                    <button className='create-cancel-button' >Cancel</button>
+                    <button className='create-cancel-button' onClick={onCancelupdate} >Cancel</button>
                     <button className='create-publish-button' onClick={onAddPost} >Publish Post</button>
                 </div>
             </div>

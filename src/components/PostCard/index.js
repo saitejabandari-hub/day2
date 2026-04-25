@@ -10,11 +10,12 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const PostCard = (props) =>{
-  const{onClickedSave,onRender}=useContext(DevContext)
+  const{rerender,onRender}=useContext(DevContext)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isSaved,setIssaved] = useState(false)
   const menuRef = useRef(null)
     const{post,likesposts}=props
-    const {id,title, content, likesCount, tag,commentsCount,date,imgUrl,isSaved,users} = post
+    const {id,title, content, likesCount, tag,commentsCount,date,imgUrl,users} = post
     
     const jwtuser = Cookies.get("user_id")
     const jwt = Cookies.get("jwt_token")
@@ -33,6 +34,23 @@ const PostCard = (props) =>{
         }
     },[])
 
+    useEffect(()=>{
+      const fetchIsSavedpost = async () =>{
+        const url=`http://localhost:3000/devconnect/issaved/${id}`
+      const options={
+        method:"GET",
+        headers:{
+          Authorization:`Bearer ${jwt}`
+        }
+      }
+
+      const response = await fetch(url, options);
+      const data = await response.json(); 
+      setIssaved(data.message)
+      }
+      fetchIsSavedpost()
+    },[rerender])
+
     const onClickLike = async () =>{
       const url=`http://localhost:3000/devconnect/${id}/like`
 
@@ -45,12 +63,20 @@ const PostCard = (props) =>{
 
       const response = await fetch(url,options)
       onRender()
-
     }
 
-    const onClickingSave=()=>{
-      onClickedSave(id)
+    const onClickingSave=async()=>{
+      const url=`http://localhost:3000/devconnect/saveposts/${id}`
+      const options={
+        method:"POST",
+        headers:{
+          Authorization:`Bearer ${jwt}`
+        }
+      }
 
+      const response = await fetch(url, options);
+      const data = await response.json(); 
+       onRender()
     }
 
     const isLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
@@ -71,11 +97,7 @@ const PostCard = (props) =>{
           }
         }
 
-        const response = await fetch(url,options)
-
-        if(response.ok){
-          console.log("post deleted")
-        }
+         await fetch(url,options)
 
       }
     

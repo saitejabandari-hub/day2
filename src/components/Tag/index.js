@@ -1,5 +1,6 @@
-import { useContext } from "react"
+import { useContext,useState,useEffect } from "react"
 import {Link} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import {
   BarChart,
   Bar,
@@ -14,7 +15,50 @@ import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Tag =() =>{
-    const {allposts} = useContext(DevContext)
+    // const {allposts} = useContext(DevContext)
+    const [allposts ,setAllposts]=useState([])
+
+    useEffect(()=>{
+
+        const fetchposts = async () =>{
+            const url = "http://localhost:3000/devconnect/posts"
+        const  jwt = Cookies.get("jwt_token")
+        const options = {
+            method:"GET",
+            headers :{
+                Authorization:`Bearer ${jwt}`
+            }
+        }
+
+        const response = await fetch(url,options)
+        const data = await response.json()
+        const updateposts = data.posts.map(each => (
+            {
+            commentsCount : each.commentsCount,
+            content : each.content,
+            id: each.id,
+            likesCount : each.likesCount,
+            name : each.name,
+            tag : each.tag,
+            title : each.title,
+            date:each.created_at,
+            imgUrl:each.image_url,
+            users:each.user_id
+            }
+        ))
+        const likedpostdetails = data.likesusers
+        
+        setAllposts(updateposts)
+        }
+
+        fetchposts()
+
+        // setFilteredPost(allposts) // dummy data
+    },[])
+
+
+
+
     const allTags = allposts.map(each => each.tag) // give all tags and tags are repeted if different posts has with same tags
     const fliteredtags = allTags.filter((item,index,all) => all.indexOf(item) === index) //give unique tags
     const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff7f50", "#00c49f","#ff4d6d","#4dabf7"] // colours
@@ -28,15 +72,15 @@ const Tag =() =>{
   "#b07aa1", // purple
 ]
 
-const themeColors = [
-  "#f6a5c0", // soft pink (flower)
-  "#e87ea1", // deep pink
-  "#6ec1e4", // sky blue (leaves)
-  "#4fa3c7", // deeper blue
-  "#a8d5ba", // soft green leaf
-  "#fbd1a2", // light peach
-  "#c08497", // muted rose
-]
+// const themeColors = [
+//   "#f6a5c0", // soft pink (flower)
+//   "#e87ea1", // deep pink
+//   "#6ec1e4", // sky blue (leaves)
+//   "#4fa3c7", // deeper blue
+//   "#a8d5ba", // soft green leaf
+//   "#fbd1a2", // light peach
+//   "#c08497", // muted rose
+// ]
    const alltagsandyear = allposts.map(each => {
             return {
                 year :  new Date(each.date).getFullYear(),
