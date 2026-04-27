@@ -6,10 +6,11 @@ import { FaLock } from "react-icons/fa6";
 import DevContext from '../../context/DevContext'
 import './index.css'
 
-const Login =()=>{
+const Login =(props)=>{
     const [loginmail,setLoginMail]=useState('')
     const [loginpassword,setLoginPassword]=useState('')
     const [showpassword,setShowpassword]=useState(false)
+    const [error,setError]=useState('')
     const {onGetprofile}=useContext(DevContext)
 
     const onGiveMail=(event)=>{
@@ -45,6 +46,7 @@ const Login =()=>{
 
     const onLoginfailure=(error)=>{
         console.log(error)
+        setError(error)
     }
 
 
@@ -71,9 +73,14 @@ const Login =()=>{
         if (response.ok){
             onLoginsuccess(data)
         }else{
-            const error = await response.text()
-            onLoginfailure(error)
+            onLoginfailure(data.error)
         }
+    }
+
+    const onGotoRegisteration=()=>{
+        const{history}=props 
+        history.replace('/register')
+
     }
 
     return(
@@ -95,7 +102,11 @@ const Login =()=>{
                     <input type="checkbox" id="Showpassword" onChange={onclickcheckbox} />
                     <label htmlFor="Showpassword">show password</label>
                 </div>
-                <button type="submit" className='login-button'>login</button>
+               <div className="button-card">
+                 <button type="submit" className='login-button'>login</button>
+                <button type="button" className='login-button' onClick={onGotoRegisteration}>Register</button>
+               </div>
+               <p>{error}</p>
             </form>
 
         </div>

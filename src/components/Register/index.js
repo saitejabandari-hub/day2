@@ -4,7 +4,7 @@ import { IoMdMail } from "react-icons/io";
 import { FaLock } from "react-icons/fa6";
 import './index.css'
 
-const Register =()=>{
+const Register =(props)=>{
     const [username,setUserName]=useState('')
     const [mail,setMail]=useState('')
     const [password,setPassword]=useState('')
@@ -23,6 +23,10 @@ const Register =()=>{
 
     }
 
+    const  onSuccessfulRegister=()=>{
+        const {history}=props 
+        history.replace('/login')
+        }
     
     const onRegister=async(event)=>{
         event.preventDefault()
@@ -46,11 +50,12 @@ const Register =()=>{
 
     const response = await fetch(url,options) 
     const data = await response.text()
-    console.log(response)
-    console.log(data)
+   if(response.ok){
     setMail('')
     setPassword('')
     setUserName('')
+    onSuccessfulRegister()
+   }
 
     }
 

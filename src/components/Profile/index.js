@@ -98,7 +98,7 @@ const Profile =(props) =>{
                 {load ? <Loadspinner/> :<><div className='profile-details-container'>
                     <div className='profile-inner-card'>
                         <div className='profile-card'>
-                        <p className='profile-profile'>S</p>
+                        <p className='profile-profile'>{admin.name[0]}</p>
                         <div className='profile-text-card'>
                             <h1 className='profile-username'>{admin.name}</h1>
                             <p className='profile-user-email'>{admin.email}</p>
