@@ -11,12 +11,14 @@ import {
 } from "recharts"
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Tag =() =>{
     // const {allposts} = useContext(DevContext)
     const [allposts ,setAllposts]=useState([])
+    const [load,setLoad]=useState(true)
 
     useEffect(()=>{
 

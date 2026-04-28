@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 
 import './index.css'
@@ -12,10 +13,12 @@ const Tags = () =>{
     const [allposts ,setAllposts]=useState([])
     const [likesposts,setLikesposts] = useState([])
     const {rerender}=useContext(DevContext)
+    const [load,setLoad]=useState(true)
     const {id} = useParams()
      useEffect(()=>{
 
         const fetchposts = async () =>{
+            setLoad(true)
             const url = "http://localhost:3000/devconnect/posts"
         const  jwt = Cookies.get("jwt_token")
         const options = {
@@ -44,6 +47,7 @@ const Tags = () =>{
         const likedpostdetails = data.likesusers
         setLikesposts(likedpostdetails)
         setAllposts(updateposts)
+        setLoad(false)
         }
 
         fetchposts()
@@ -61,11 +65,11 @@ const Tags = () =>{
             <div className='tags-secondContainer'>
                 <div className='tags-heading-container'><h1 className='tags-Container-heading'>#{id}</h1></div>
 
-                 {<ul className="tags-posts-list" >
+                {load?<Loadspinner/>:<> {<ul className="tags-posts-list" >
                                 {filterdPost.map(each => (
                                     <li key={each.id}  className="post-item" ><PostCard  post={each} likesposts={likesposts} /></li>
                                 ))}
-                </ul>}
+                </ul>}</>}
             </div>
         </div>
     </div>

@@ -1,12 +1,14 @@
 import {Link,withRouter,} from 'react-router-dom'
 import {useState, useEffect,useContext } from 'react'
 import Cookies from 'js-cookie'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 
 import './index.css'
 
 const NavBar =(props) =>{
     const [admin,setAdmin] = useState({name:'',email:''})
+    const [load,setLoad]=useState(true)
     const {onSearchedByInput} = props
     
     const onSearchforPost =(event) =>{
@@ -41,7 +43,8 @@ const NavBar =(props) =>{
             const data = await response.json()
             const adminDetails = {
                 name:data.name,
-                email:data.email
+                email:data.email,
+                imgUrl:data.image_url
             }
             setAdmin(adminDetails)
     
@@ -50,6 +53,7 @@ const NavBar =(props) =>{
             }
     
             fetchprofile()
+            setLoad(false)
     
            },[jwt,jwtuser])
     
@@ -63,7 +67,7 @@ const NavBar =(props) =>{
         <div className='nav-profile-card'>
             <Link to="/profile">
         <div className='user-card'>
-        <img src="https://www.gravatar.com/avatar/?d=mp&s=128" alt="profile" className='user-profile' />
+        <img src={admin.imgUrl? admin.imgUrl:"https://www.gravatar.com/avatar/?d=mp&s=128"} alt="profile" className='user-profile' />
         <h1 className='user-heading'>{admin.name}</h1>
         </div>
         </Link>

@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
@@ -11,6 +12,7 @@ const Home =(props)=>{
     const [filteredPost,setFilteredPost] = useState([])
     const [likesposts,setLikesposts] = useState([])
     const {rerender}=useContext(DevContext)
+    const [load,setLoad]=useState(true)
     const onSearchedByInput=(value)=>{
 
         const filtered = allposts.filter(each => each.title.toLowerCase().includes(value.toLowerCase())|| each.tag.toLowerCase().includes(value.toLowerCase())||each.name.toLowerCase().includes(value.toLowerCase()))
@@ -57,6 +59,7 @@ const Home =(props)=>{
         fetchposts()
 
         // setFilteredPost(allposts) // dummy data
+        setLoad(false)
     },[rerender])
 
 
@@ -70,7 +73,7 @@ const Home =(props)=>{
             <div className='second-container'>      
                 < Sidebar/>
                 <div className='home-content'>
-                    <div className='home-heading-container'>
+                   {load?<Loadspinner/>:<> <div className='home-heading-container'>
                         <h1 className='feed-heading'>All Posts</h1>
                         {/* <button type="button" className='addpost-button' >+ Post</button> */}
                         <div className='sorting-container'>
@@ -89,7 +92,7 @@ const Home =(props)=>{
                                 {filteredPost.map(each => (
                                     <li key={each.id}  className="post-item" ><PostCard  post={each} likesposts={likesposts} /></li>
                                 ))}
-                        </ul>}
+                        </ul>}</>}
                 </div>
             </div>
             </div>

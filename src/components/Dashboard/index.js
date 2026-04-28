@@ -9,6 +9,7 @@ import {FaRegCommentDots} from 'react-icons/fa'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 
 import './index.css'
@@ -19,11 +20,13 @@ const Dashboard =(props) =>{
     const [usersposts,setUserspost]=useState([])
     const [likesposts,setLikesposts] = useState([])
     const [savedposts,setSavedposts] = useState([])
+    const [load,setLoad]=useState(true)
 
      const jwt = Cookies.get("jwt_token")
      const jwtuser = Cookies.get("user_id")
 
      useEffect(()=>{
+        
     
             const usersownposts = async()=>{
                 const url = "http://localhost:3000/devconnect/usersposts"
@@ -37,7 +40,8 @@ const Dashboard =(props) =>{
     
                 const response = await fetch(url,options)
                  const data = await response.json()
-            const updateposts = data.posts.map(each => (
+           if(response.ok){
+             const updateposts = data.posts.map(each => (
                 {
                 commentsCount : each.commentsCount,
                 content : each.content,
@@ -48,21 +52,23 @@ const Dashboard =(props) =>{
                 title : each.title,
                 date:each.created_at,
                 imgUrl:each.image_url,
-                users:each.user_id
+                users:each.user_id,
                 }
             ))
             const likedpostdetails = data.likesusers
-            
+            setLoad(false)
             setUserspost(updateposts)
             setLikesposts(likedpostdetails)
+           }
     
             }
+
             usersownposts()
-    
+            
            },[rerender])
     
      useEffect(()=>{
-
+        setLoad(true)
         const fetchposts = async () =>{
             const url = "http://localhost:3000/devconnect/posts"
         const  jwt = Cookies.get("jwt_token")
@@ -75,7 +81,8 @@ const Dashboard =(props) =>{
 
         const response = await fetch(url,options)
         const data = await response.json()
-        const updateposts = data.posts.map(each => (
+       if(response.ok){
+         const updateposts = data.posts.map(each => (
             {
             commentsCount : each.commentsCount,
             content : each.content,
@@ -92,6 +99,8 @@ const Dashboard =(props) =>{
         const likedpostdetails = data.likesusers
         
         setAllposts(updateposts)
+        setLoad(false)
+       }
         }
 
         fetchposts()
@@ -100,6 +109,7 @@ const Dashboard =(props) =>{
     },[rerender])
 
 useEffect(()=>{
+     setLoad(true)
         const fetchposts = async () =>{
         const url="http://localhost:3000/devconnect/savedposts"
         const  jwt = Cookies.get("jwt_token")
@@ -112,7 +122,8 @@ useEffect(()=>{
 
         const response = await fetch(url,options)
         const data = await response.json()
-        const updateposts = data.posts.map(each => (
+        if(response.ok){
+             const updateposts = data.posts.map(each => (
             {
             commentsCount : each.commentsCount,
             content : each.content,
@@ -127,6 +138,8 @@ useEffect(()=>{
             }
         ))
         setSavedposts(updateposts)
+         setLoad(false)
+        }
         }
 
         fetchposts()
@@ -151,7 +164,7 @@ useEffect(()=>{
         <div className='dashboard-firstContainer'>
             <Sidebar/>
             <div className='dashboard-secondContainer'>
-                <h1 className='dashboard-heading'>Dashboard</h1>
+               {load? <Loadspinner/>:<> <h1 className='dashboard-heading'>Dashboard</h1>
                 <ul className='dashboard-reaction-card' >
                     <li >
                         <button  className='deashboard-each-reaction-card'>
@@ -217,7 +230,7 @@ useEffect(()=>{
                             } )}
                         </ul>
                     </div>
-                </div>
+                </div></>}
             </div>
         </div>
     </div>

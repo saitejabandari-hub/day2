@@ -8,6 +8,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
@@ -16,6 +17,7 @@ const PostDetails =(props)=>{
     const [postcomment,setPostComment] =useState('')
     const [refresh, setRefresh] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
+    const [load,setLoad]=useState(true)
     const menuRef = useRef(null)
    
     const jwt = Cookies.get("jwt_token")
@@ -24,6 +26,7 @@ const PostDetails =(props)=>{
     const {params} = match
     const {id}=params
     useEffect(()=>{
+        setLoad(true)
         const fetchpost = async ()=>{
             const url = `http://localhost:3000/devconnect/posts/${id}`
             const options = {
@@ -51,12 +54,13 @@ const PostDetails =(props)=>{
                 commentPostId:each.post_id,
                 date:each.date,
                 name:each.name,
-                owner :each.commented_by
+                owner :each.commented_by,
+                ownerImg:each.image_url
             })),
             likes:data.likes.likesCount
             }
             setParticularPost(updatedpost)
-
+            setLoad(false)
             }
 
         }
@@ -196,7 +200,7 @@ const PostDetails =(props)=>{
                                     <li key={each.id} className='postdetails-comment-list' >
                                         
                                      <div className='postdetails-comment-extra'>
-                                        <img src={each.imgUrl} alt="user comment Image" className='postdetails-comment-profile' />
+                                        <img src={each.ownerImg} alt="user comment Image" className='postdetails-comment-profile' />
                                     <div className='postdetals-comment-profile-comment'>
                                         <h1 className='postdetails-comment-user-name' >{each.name}</h1>
                                         <p className='postdetails-comment-user-text'>{each.comment}</p>

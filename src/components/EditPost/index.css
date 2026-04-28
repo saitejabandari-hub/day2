@@ -82,6 +82,8 @@
     align-items: center;
     background-position: center;
     background-repeat: no-repeat;
+    object-fit: cover;
+  object-position: center;
 }
 
 .cover-image-heading{

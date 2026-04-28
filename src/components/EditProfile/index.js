@@ -2,20 +2,23 @@ import { useEffect,useContext,useState } from 'react'
 import Cookies from 'js-cookie'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 
 import './index.css'
-const EditProfile = () =>{
+const EditProfile = (props) =>{
 const {rerender}=useContext(DevContext)
 const [adminname,setAdminname] = useState('')
 const [adminemail,setAdminemail] = useState('')
 const [adminbio,setAdminbio] = useState('')
 const [file, setFile] = useState(null)
 const [adminimg,setAdminimg] = useState('')
+const [load,setLoad]=useState(true)
 const jwt = Cookies.get("jwt_token")
 const jwtuser = Cookies.get("user_id")
 
 useEffect(()=>{
+            setLoad(true)
         
         const fetchprofile = async () =>{
 
@@ -40,16 +43,18 @@ useEffect(()=>{
             profileImg:data.image_url,
 
         }
+        console.log(adminDetails)
      
-       setAdminname(data.name)
-       setAdminemail(data.email)
-       setAdminbio(data.bio)
-       setAdminimg(data.profileImg)
+       setAdminname(adminDetails.name)
+       setAdminemail(adminDetails.email)
+       setAdminbio(adminDetails.bio)
+       setAdminimg(adminDetails.profileImg)
 
         }
 
         }
         fetchprofile()
+        setLoad(false)
 
        },[rerender,jwt,jwtuser])
 
@@ -121,7 +126,7 @@ const onCancelingedit=async()=>{
 }
 
 const onClicksaveChanges= async()=>{
-
+setLoad(true)
     const profiledetailsnew = {
         name:adminname,
         email:adminemail,
@@ -133,13 +138,16 @@ const onClicksaveChanges= async()=>{
     const options={
         method:"PUT",
         headers:{
+            "Content-Type":"application/json",
             Authorization:`Bearer ${jwt}`
         },
         body:JSON.stringify(profiledetailsnew)
     }
 
     const response = await fetch(url,options)
-    console.log(response)
+    setLoad(false)
+   const{history}=props 
+   history.replace('/profile')
 
 }
 
@@ -151,8 +159,8 @@ const onClicksaveChanges= async()=>{
                 <div className='editprofile-secondContainer'>
                     <div className='main-card'>
                         <p className='profileedit-heading'>Profile Picture</p>
-                        <div className='profile-editing-card'>
-                            {adminimg ? <img src={adminimg} className='profile-image-non' alt="admin" /> :<p className='profile-image-non'>{adminname[0]}</p>}
+                        {load?<Loadspinner/>:<><div className='profile-editing-card'>
+                            {adminimg? <img src={adminimg} className='profile-image-non' alt="admin" /> :<p className='profile-image-non'>{adminname[0]}</p>}
                             <div className='edit-image-details'>
                                  <h1 className='edit-image-heading'>📷Click to upload or drag image</h1>
                                  <p className='edit-image-paragraph'>PNG, JPG up to 5MB</p>
@@ -178,7 +186,7 @@ const onClicksaveChanges= async()=>{
                         <div className='edit-profile-button-card'>
                             <button type="button" className='edit-cancel-button' onClick={onCancelingedit}>Cancel</button>
                             <button type="button" className='edit-save-button' onClick={onClicksaveChanges}>Save Change</button>
-                        </div>
+                        </div></>}
 
                     </div>
                 </div>

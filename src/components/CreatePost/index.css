@@ -80,6 +80,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    object-fit: cover;
+  object-position: center;
 }
 
 .cover-image-heading{

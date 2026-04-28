@@ -6,6 +6,7 @@ import { FaBookmark } from "react-icons/fa6";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
@@ -13,6 +14,7 @@ const PostCard = (props) =>{
   const{rerender,onRender}=useContext(DevContext)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isSaved,setIssaved] = useState(false)
+  const [load,setLoad]=useState(true)
   const menuRef = useRef(null)
     const{post,likesposts}=props
     const {id,title, content, likesCount, tag,commentsCount,date,imgUrl,users} = post
@@ -35,6 +37,7 @@ const PostCard = (props) =>{
     },[])
 
     useEffect(()=>{
+      setLoad(true)
       const fetchIsSavedpost = async () =>{
         const url=`http://localhost:3000/devconnect/issaved/${id}`
       const options={
@@ -49,6 +52,7 @@ const PostCard = (props) =>{
       setIssaved(data.message)
       }
       fetchIsSavedpost()
+      setLoad(false)
     },[rerender])
 
     const onClickLike = async () =>{

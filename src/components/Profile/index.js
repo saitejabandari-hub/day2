@@ -17,7 +17,7 @@ const Profile =(props) =>{
         const jwtuser = Cookies.get("user_id")
 
        useEffect(()=>{
-        
+        setLoad(true)
         const fetchprofile = async () =>{
 
         const url = `http://localhost:3000/devconnect/profile`
@@ -36,7 +36,9 @@ const Profile =(props) =>{
         const data = await response.json()
         const adminDetails = {
             name:data.name,
-            email:data.email
+            email:data.email,
+            bio:data.bio,
+            imgUrl:data.image_url
         }
         setLoad(false)
         setAdmin(adminDetails)
@@ -98,11 +100,11 @@ const Profile =(props) =>{
                 {load ? <Loadspinner/> :<><div className='profile-details-container'>
                     <div className='profile-inner-card'>
                         <div className='profile-card'>
-                        <p className='profile-profile'>{admin.name[0]}</p>
+                        {admin.imgUrl? <img src={admin.imgUrl} className='profile-profile-img' alt="profile"/>:<p className='profile-profile'>{admin.name[0]}</p>}
                         <div className='profile-text-card'>
                             <h1 className='profile-username'>{admin.name}</h1>
                             <p className='profile-user-email'>{admin.email}</p>
-                            <p className='profile-user-about'>Full stack dev. Writes about React, Node & the modern web.</p>
+                            <p className='profile-user-about'>{admin.bio}</p>
                         </div>
                     </div>
                     </div>

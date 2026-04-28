@@ -3,12 +3,14 @@ import Cookies from'js-cookie'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
 const SavedPosts = (props) =>{
      const [allposts ,setAllposts]=useState([])
      const [likesposts,setLikesposts] = useState([])
+     const [load,setLoad]=useState(true)
 
      const onTackBack =() =>{
         const{history}=props
@@ -16,6 +18,7 @@ const SavedPosts = (props) =>{
      }
 
     useEffect(()=>{
+        setLoad(true)
         const fetchposts = async () =>{
         const url="http://localhost:3000/devconnect/savedposts"
         const  jwt = Cookies.get("jwt_token")
@@ -49,7 +52,8 @@ const SavedPosts = (props) =>{
         }
 
         fetchposts()
-    })
+        setLoad(false)
+    },[])
 
     
     return (
@@ -58,7 +62,7 @@ const SavedPosts = (props) =>{
         <div className="savedposts-firstContainer">
             <Sidebar/>
             <div className="savedposts-secondContainer">
-                <div className='saved-heading-container'><h1 className='saved-Container-heading'>Saved Posts</h1></div>
+              {load?<Loadspinner/>:<>  <div className='saved-heading-container'><h1 className='saved-Container-heading'>Saved Posts</h1></div>
                 {allposts.length === 0 ? (<div className="empty-state">
                         <p className="empty-title">📭 No posts saved yet</p>
                          <p className="empty-text">Go hurry up and save posts 🛒</p>
@@ -67,7 +71,7 @@ const SavedPosts = (props) =>{
                                 {allposts.map(each => (
                                     <li key={each.id}  className="post-item" ><PostCard  post={each} likesposts={likesposts} /></li>
                                 ))}
-                </ul>}
+                </ul>}</>}
             </div>
 
         </div>

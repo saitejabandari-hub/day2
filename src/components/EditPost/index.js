@@ -6,6 +6,7 @@ import { IoListSharp } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext';
 import './index.css'
 
@@ -15,6 +16,7 @@ const EditPost = (props)=>{
     const [content , setContent] = useState('')
     const [file, setFile] = useState(null)
     const [generatedUrl,setGeneratedUrl] = useState('')
+    const [load,setLoad]=useState(true)
     const {onAddingPostToDB} = useContext(DevContext)
 
     const onEnteringTitle = (event) =>{
@@ -40,6 +42,7 @@ const EditPost = (props)=>{
     const {id} = params
 
     useEffect(()=>{
+        setLoad(true)
     const getpostdetails = async () =>{
 
           const url = `http://localhost:3000/devconnect/posts/${id}`
@@ -63,6 +66,7 @@ const EditPost = (props)=>{
                 setGeneratedUrl(getpost.imgUrl)
                 setTags(getpost.tag)
                 setTitle(getpost.title)
+                setLoad(false)
 
             }
 
@@ -94,6 +98,7 @@ const uploadImage = async () => {
 }
 
    const onAddPost = async () =>{
+    setLoad(true)
      let imageUrl = ""
 
     if (file) {
@@ -131,6 +136,7 @@ const uploadImage = async () => {
     setTitle('')
     setContent('')
     setGeneratedUrl('')
+    setLoad(false)
 
     const {history}=props
     history.replace('/')
@@ -174,7 +180,7 @@ const uploadImage = async () => {
             <Sidebar/>
             <div className='create-secondContainer' >
                 <h1 className='create-heading'>Create a New Post</h1>
-                <div className='create-input-card'>
+              {load?<Loadspinner/>:<>  <div className='create-input-card'>
                     <div className='create-title-card'>
                         <label className='create-input-label'>Title</label>
                         <input type="text" className='inputing' value={title} placeholder="Enter post title..." onChange={onEnteringTitle} />
@@ -206,7 +212,7 @@ const uploadImage = async () => {
                 <div className='create-button-card'>
                     <button className='create-cancel-button'onClick={onCancelupdate} >Cancel</button>
                     <button className='create-publish-button' onClick={onAddPost} >Update Post</button>
-                </div>
+                </div></>}
             </div>
         </div>
     </div>

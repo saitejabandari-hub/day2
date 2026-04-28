@@ -1,4 +1,4 @@
-import {useState,useContext} from 'react'
+import {useState,useContext,useEffect} from 'react'
 import Cookies from 'js-cookie'
 import { RxFontBold } from "react-icons/rx";
 import { RxFontItalic } from "react-icons/rx";
@@ -6,6 +6,7 @@ import { IoListSharp } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
+import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext';
 
 import './index.css'
@@ -18,6 +19,7 @@ const CreatePost =(props)=>{
     const [file, setFile] = useState(null)
     const [generatedUrl,setGeneratedUrl] = useState('')
     const {onAddingPostToDB} = useContext(DevContext)
+    const [load,setLoad]=useState(true)
 
     const onEnteringTitle = (event) =>{
         setTitle(event.target.value)
@@ -35,7 +37,12 @@ const CreatePost =(props)=>{
         setFile(event.target.files[0])
     }
 
+    useEffect(()=>{
+        setLoad(false)
+    })
+
 const uploadImage = async () => {
+    setLoad(true)
   const formData = new FormData()
 
   formData.append("file", file)
@@ -51,10 +58,12 @@ const uploadImage = async () => {
 
   const data = await response.json()
   setGeneratedUrl(data.secure_url)
+  setLoad(false)
   return data.secure_url
 }
 
    const onAddPost = async () =>{
+    setLoad(true)
      let imageUrl = ""
 
     if (file) {
@@ -92,12 +101,16 @@ const uploadImage = async () => {
     setTitle('')
     setContent('')
     setGeneratedUrl('')
-
+    setLoad(false)
     onAddingPostToDB(newone)
 
    }
 
    const onCancelupdate = () =>{
+     setTags('')
+    setTitle('')
+    setContent('')
+    setGeneratedUrl('')
     const{history}=props
     history.replace('/')
 
@@ -112,6 +125,7 @@ const uploadImage = async () => {
             <Sidebar/>
             <div className='create-secondContainer' >
                 <h1 className='create-heading'>Create a New Post</h1>
+                {load? <Loadspinner/> :<>
                 <div className='create-input-card'>
                     <div className='create-title-card'>
                         <label className='create-input-label'>Title</label>
@@ -147,7 +161,7 @@ const uploadImage = async () => {
                 <div className='create-button-card'>
                     <button className='create-cancel-button' onClick={onCancelupdate} >Cancel</button>
                     <button className='create-publish-button' onClick={onAddPost} >Publish Post</button>
-                </div>
+                </div></>}
             </div>
         </div>
     </div>

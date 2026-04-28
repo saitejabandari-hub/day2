@@ -75,6 +75,21 @@
     margin-bottom: 0;
    
 }
+.profile-profile-img{
+    height:100px;
+    width:90px;
+    border-radius:120px;
+    color:#ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    object-fit: cover;
+    object-position: center;
+   
+}
 .profile-text-card{
     display: flex;
     flex-direction: column;
