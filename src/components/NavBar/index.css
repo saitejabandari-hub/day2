@@ -40,13 +40,11 @@
 .nav-container {
   background-color: #FFFFFF; /*#111827*/
   border-bottom: 1px solid #E5E7EB; /*#1f2937*/
-
   padding: 12px 24px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  width:100%;
  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);*/
 }
 
@@ -157,3 +155,54 @@ padding: 5px;
   box-shadow: 0 0 5px #3b82f6;
 }
 
+/* mobile version */
+
+@media screen and (max-width: 576px) {
+
+  .nav-container{
+    gap:15px;
+  }
+
+  /* Heading */
+  .nav-heading {
+    font-size: 15px;
+  }
+
+  /* Search bar */
+  .nav-search {
+    width: 90%;
+  }
+
+ 
+  .nav-profile-card {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .user-card {
+    gap: 4px;
+    padding: 3px;
+  }
+
+  .user-profile {
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-heading {
+    font-size: 10px;
+  }
+
+  
+  .nav-logout-button {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+ 
+  .nav-button {
+    width: 100%;
+    text-align: center;
+  }
+
+}

@@ -18,8 +18,10 @@
 }
 
 .tag-headding-container{
-    font-family:"Roboto";
-    font-weight: 600;
+    color: #374151;
+  font-size: 18px;
+  font-weight: 600;
+   font-family: "Roboto";
 }
 
 .barchart{
@@ -49,4 +51,59 @@
 .tag-each-list:hover{
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+} 
+
+/* mobile version  */
+
+@media screen and (max-width: 576px) {
+
+  /* Main layout */
+  .tag-bgContainer {
+    height: auto;
+  }
+
+  .tag-firstContainer {
+    flex-direction: column;
+  }
+
+  .tag-secondContainer {
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    padding: 10px;
+  }
+
+  /* Heading */
+  .tag-headding-container {
+    font-size: 16px;
+  }
+
+  /* Bar chart container */
+  .barchart {
+    width: 100%;
+    overflow-x: auto;   /* IMPORTANT */
+    margin-top: 10px;
+  }
+
+  /* If using canvas (chart.js) */
+  .barchart canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* If using Recharts or similar */
+  .barchart > div {
+    width: 100% !important;
+  }
+
+  /* Tags grid */
+  .tag-snips {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .tag-each-list {
+    width: 100px;
+  }
+
 }

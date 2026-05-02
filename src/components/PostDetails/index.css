@@ -306,3 +306,114 @@ margin-top: 0;
   background: #3a0ca3;
   transition: background 0s;
 }
+
+/* mobile version */ 
+
+@media screen and (max-width: 576px) {
+
+  /* Main layout */
+  .postdetails-bgContainer {
+    height: auto;
+  }
+
+  .postdetails-firstContainer {
+    flex-direction: column;
+  }
+
+  .postdetails-secondContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Main section (post + sidebar) */
+  .postdetails-section {
+    flex-direction: column;
+  }
+
+  .postdetails-card {
+    width: 100%;
+  }
+
+  .postdetails-other-container {
+    width: 100%;
+  }
+
+  /* Heading */
+  .postdetails-heading {
+    font-size: 22px;
+  }
+
+  /* Image */
+  .post-image {
+    height: 200px;
+  }
+
+  /* Tags box */
+  .postdetails-tag-card {
+    height: auto;
+    margin-top: 10px;
+  }
+
+  .post-tags {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  /* Comment section */
+  .postdetails-comment-card {
+    height: auto;
+  }
+
+  .postdetails-commentinput {
+    width: 100%;
+  }
+
+  .postdetails-button-card {
+    justify-content: flex-start;
+  }
+
+  .postdetails-Button {
+    width: 100%;
+  }
+
+  /* Comments list */
+  .postdetails-comment-by-user {
+    overflow-y: visible;
+  }
+
+  .postdetails-comment-list {
+    flex-direction: column;
+    height: auto;
+    gap: 5px;
+  }
+
+  .postdetails-comment-profile {
+    width: 32px;
+    height: 32px;
+  }
+
+  .postdetails-comment-user-name {
+    font-size: 14px;
+  }
+
+  .postdetails-comment-user-text {
+    font-size: 13px;
+  }
+
+  .postdetails-comment-user-date {
+    font-size: 12px;
+  }
+
+  .postdetails-delete-button {
+    align-self: flex-end;
+    margin-top: 5px;
+  }
+
+  /* Back button */
+  .backhome {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+  }
+
+}

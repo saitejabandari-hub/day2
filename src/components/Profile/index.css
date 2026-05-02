@@ -16,19 +16,19 @@
     padding:10px ;
 }
 .profile-heading{
-    color: #111827;
-    font-family:"Roboto";
-    font-size:30px;
-    font-weight:600;
+   color: #111827; /*#e5e7eb*/
+   font-size: 30px;
+   font-weight: 600;
+   font-family: "Roboto";
     margin-top: 0;
     padding-top: 0;
 }
 
 .profile-mypost-heading{
-    color: #111827;
-    font-family:"Roboto";
-    font-size:20px;
-    font-weight:600;
+   color: #374151;
+  font-size: 18px;
+  font-weight: 600;
+ font-family:"Roboto";
     margin-top:0;
     padding-top: 0;
 }
@@ -147,20 +147,6 @@
     color:#6B7280;
 }
 
-.profile-post-conts-details-number-posts{
-     color: #111827;
-     font-weight:600;
-
-}
-.profile-post-conts-details-number-likes{
-    color:#EF4444;
-    font-weight:600;
-}
-.profile-post-conts-details-number-saved{
-    color:#4F46E5;
-     font-weight:600;
-}
-
 .profile-button{
     background-color:#4F46E5;
     width:100px;
@@ -201,4 +187,102 @@
 
 .post-item{
     margin-bottom: 20px;
+}
+
+/* mobile version */
+
+@media screen and (max-width: 576px) {
+
+  /* Main layout */
+  .profile-bgContainer {
+    height: auto;
+  }
+
+  .profile-firstContainer {
+    flex-direction: column;
+  }
+
+  .profile-secondContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Heading */
+  .profile-heading {
+    font-size: 22px;
+  }
+
+  .profile-mypost-heading {
+    font-size: 16px;
+  }
+
+  /* Profile card */
+  .profile-details-container {
+    height: auto;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .profile-card {
+   
+    align-items: center;
+  }
+
+  /* Profile image */
+  .profile-profile,
+  .profile-profile-img {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+
+  /* Text */
+  .profile-username {
+    font-size: 14px;
+  }
+
+  .profile-user-email,
+  .profile-user-about {
+    font-size: 13px;
+  }
+
+  /* Stats */
+  .profile-post-counts {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .profile-post-conts-details {
+    font-size: 13px;
+  }
+
+  /* Buttons */
+  .profile-button-card {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .profile-button {
+    width: 100%;
+  }
+
+  /* Posts list */
+  .profile-posts-list {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  /* Empty state */
+  .empty-state {
+    margin-top: 40px;
+  }
+
+  .empty-title {
+    font-size: 16px;
+  }
+
+  .empty-text {
+    font-size: 13px;
+  }
+
 }

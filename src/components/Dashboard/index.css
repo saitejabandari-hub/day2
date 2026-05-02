@@ -260,3 +260,110 @@
    flex-grow: 1;
 
 }
+
+/* mobile verson */
+
+@media screen and (max-width: 576px) {
+
+  /* Main layout */
+  .dashboard-bgContainer {
+    height: auto;
+  }
+
+  .dashboard-firstContainer {
+    flex-direction: column;
+  }
+
+  .dashboard-secondContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .dashboard-heading {
+    font-size: 22px;
+  }
+
+  .dashboard-reaction-card {
+    flex-wrap: wrap;
+    gap:5px;
+    justify-content: center;
+  }
+
+  .deashboard-each-reaction-card {
+    width: 80px;
+    padding: 10px;
+    height:100px;
+  }
+
+  .dashboard-recent-posts-heading{
+    font-size:15px;
+  }
+
+  .dashboard-each-reaction-counts {
+    font-size: 20px;
+  }
+
+  .dashboard-each-reaction-posts-icon {
+    font-size: 24px;
+  }
+
+  /* Main content (posts + tags) */
+  .dashboard-thredContainer {
+    flex-direction: column;
+  }
+
+  .dashboard-recentposts {
+    width: 100%;
+    height: auto;
+  }
+
+  .dashboard-populartags {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+
+  /* Recent posts list */
+  .dashboard-recent-posts {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  /* Each post */
+  .dashboard-recent-each-post {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-recent-post-image {
+    width: 100%;
+    height: 150px;
+  }
+
+  .dashboard-recent-each-post-details-title {
+    font-size: 14px;
+  }
+
+  .dashboard-recent-each-post-details-date-likes-comment-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  /* Tags */
+  .dashboard-each-tag {
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .dashboard-each-tag-name {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dashboard-alltags {
+    height: auto;
+    overflow-y: visible;
+  }
+
+}

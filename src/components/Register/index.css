@@ -71,3 +71,61 @@
     cursor:pointer;
     margin-top:10px;
 }
+
+
+/* mobile version */
+
+@media screen and (max-width: 576px) {
+
+  /* Container */
+  .register-Container {
+    padding: 10px;
+    height: auto;
+  }
+
+  /* Form */
+  .register-form-element {
+    width: 100%;
+    max-width: 350px;
+    padding: 20px 15px;
+  }
+
+  /* Heading */
+  .register-heading {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  /* Input row */
+  .input-alignment {
+    width: 100%;
+  }
+
+  /* Input */
+  .register-input {
+    width: 100%;
+    font-size: 14px;
+    height: auto;
+    padding: 8px;
+  }
+
+  /* Icon */
+  .registers-icon {
+    font-size: 14px;
+    padding: 8px;
+    height: auto;
+  }
+
+  /* Show password */
+  .showpassword {
+    font-size: 13px;
+  }
+
+  /* Button */
+  .register-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+}

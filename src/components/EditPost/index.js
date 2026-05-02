@@ -179,7 +179,7 @@ const uploadImage = async () => {
         <div className='create-firstContainer' >
             <Sidebar/>
             <div className='create-secondContainer' >
-                <h1 className='create-heading'>Create a New Post</h1>
+                <h1 className='create-heading'>Edit Post</h1>
               {load?<Loadspinner/>:<>  <div className='create-input-card'>
                     <div className='create-title-card'>
                         <label className='create-input-label'>Title</label>
@@ -210,8 +210,8 @@ const uploadImage = async () => {
                     <textarea placeholder='Write your post content here...' value={content} className='textarea' onChange={onEnteringContent} />
                 </div>
                 <div className='create-button-card'>
-                    <button className='create-cancel-button'onClick={onCancelupdate} >Cancel</button>
-                    <button className='create-publish-button' onClick={onAddPost} >Update Post</button>
+                    <button className='edit-cancel-button'onClick={onCancelupdate} >Cancel</button>
+                    <button className='edit-publish-button' onClick={onAddPost} >Update Post</button>
                 </div></>}
             </div>
         </div>

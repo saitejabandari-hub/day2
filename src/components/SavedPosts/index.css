@@ -52,10 +52,66 @@
 }
 
 .saved-Container-heading{
-    color:#111827;
-    font-family: "Roboto";
-    font-size: 25px;
-    font-weight: 600;
+    color: #111827; /*#e5e7eb*/
+   font-size: 30px;
+   font-weight: 600;
+   font-family: "Roboto";
     padding:10px;
     border-radius: 10px;
+} 
+
+/* mobile version */ 
+
+@media screen and (max-width: 576px) {
+
+  /* Main layout */
+  .savedposts-bgContainer {
+    height: auto;
+  }
+
+  .savedposts-firstContainer {
+    flex-direction: column;
+  }
+
+  .savedposts-secondContainer {
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    padding: 10px;
+  }
+
+  /* Heading */
+  .saved-heading-container {
+    justify-content: center;
+  }
+
+  .saved-Container-heading {
+    font-size: 20px;
+    text-align: center;
+    padding: 8px;
+  }
+
+  /* Posts list */
+  .posts-list {
+    width: 100%;
+  }
+
+  .post-item {
+    margin-bottom: 15px;
+  }
+
+  /* Empty state */
+  .empty-state {
+    margin-top: 40px;
+    padding: 10px;
+  }
+
+  .empty-title {
+    font-size: 16px;
+  }
+
+  .empty-text {
+    font-size: 13px;
+  }
+
 }

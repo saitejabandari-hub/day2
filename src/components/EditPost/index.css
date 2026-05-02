@@ -152,12 +152,12 @@
     gap:10px;
 }
 
-.create-cancel-button{
+.edit-cancel-button{
     padding: 9px;
     border-radius:10px;
-    color:#6B7280;
-    background-color:#F9FAFB;
-    border-color: #EEF2FF;
+    background: #F3F4F6;
+    color: #374151;
+    border: 1px solid #d1d5db;
     width:90px;
     outline:none;
     transition:0.2s ease;
@@ -166,13 +166,13 @@
     font-weight:600;
 }
 
-.create-cancel-button:hover{
+.edit-cancel-button:hover{
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
 
 }
 
-.create-publish-button{
+.edit-publish-button{
     padding: 10px;
     border-radius:10px;
     color:#ffffff;
@@ -186,8 +186,99 @@
     font-weight:600;
 }
 
-.create-publish-button:hover{
+.edit-publish-button:hover{
     transform: translateY(-5px);
      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+
+}
+
+
+/* mobile version */
+
+@media screen and (max-width: 576px) {
+
+  /* Main layout */
+  .create-bgcontainer {
+    height: auto;
+  }
+
+  .create-firstContainer {
+    flex-direction: column;
+  }
+
+  .create-secondContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Heading */
+  .create-heading {
+    font-size: 20px;
+  }
+
+  .create-content {
+    font-size: 20px;
+  }
+
+  /* Input section */
+  .create-input-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .inputing {
+    width: 100%;
+  }
+
+  .create-input-label {
+    font-size: 16px;
+  }
+
+  /* Cover image */
+  .cover-image-container {
+    height: 130px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .cover-image-heading {
+    font-size: 16px;
+  }
+
+  .cover-image-paragraph {
+    font-size: 13px;
+  }
+
+  /* Content editor */
+  .create-content-container {
+    height: auto;
+  }
+
+  .content-container-header {
+    height: auto;
+    padding: 8px;
+    flex-wrap: wrap;
+  }
+
+  .change-font-bold {
+    font-size: 20px;
+  }
+
+  .textarea {
+    height: 150px;
+    font-size: 14px;
+  }
+
+  /* Buttons */
+  .create-button-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .edit-cancel-button,
+  .edit-publish-button {
+    width: 100%;
+  }
 
 }

@@ -62,7 +62,9 @@ const SavedPosts = (props) =>{
         <div className="savedposts-firstContainer">
             <Sidebar/>
             <div className="savedposts-secondContainer">
-              {load?<Loadspinner/>:<>  <div className='saved-heading-container'><h1 className='saved-Container-heading'>Saved Posts</h1></div>
+              {load?<Loadspinner/>:<>  <div className='saved-heading-container'>
+                <h1 className='saved-Container-heading'>Saved Posts</h1>
+                </div>
                 {allposts.length === 0 ? (<div className="empty-state">
                         <p className="empty-title">📭 No posts saved yet</p>
                          <p className="empty-text">Go hurry up and save posts 🛒</p>

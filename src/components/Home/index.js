@@ -76,13 +76,7 @@ const Home =(props)=>{
                    {load?<Loadspinner/>:<> <div className='home-heading-container'>
                         <h1 className='feed-heading'>All Posts</h1>
                         {/* <button type="button" className='addpost-button' >+ Post</button> */}
-                        <div className='sorting-container'>
-                            <p className='sort-heading'>Sort : </p>
-                            <select className='select-element'>
-                        <option >Latest</option>
-                        <option>old</option>
-                        </select>
-                        </div>
+            
                     </div>
                    {filteredPost.length === 0 ? (<div className="empty-state">
                         <p className="empty-title">📭 No posts yet</p>

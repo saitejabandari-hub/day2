@@ -109,7 +109,8 @@ const PostCard = (props) =>{
       <div className="post-card">
             <div className='postCard-firstContainer'>
               <img src={imgUrl} alt="post image" className='postCard-image' />
-              <Link to={`/post/${id}` } className="postcard-Link" >
+             <div className='post-option-card'>
+               <Link to={`/post/${id}` } className="postcard-Link" >
                 <div className='postCard-inndercard'>
                   <div className="post-header">
                     <h1 className='post-title'>{title}</h1>
@@ -135,6 +136,7 @@ const PostCard = (props) =>{
                         </div>
                     )}
           </div>}
+             </div>
             </div>
               <div className="post-footer">
               <div className='post-footer-inner-card'>

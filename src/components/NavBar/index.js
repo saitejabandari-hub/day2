@@ -71,7 +71,7 @@ const NavBar =(props) =>{
         <h1 className='user-heading'>{admin.name}</h1>
         </div>
         </Link>
-        <button type="button" className='nav-logout-button' onClick={onClickLogout} >Logout</button>
+        {/* <button type="button" className='nav-logout-button' onClick={onClickLogout} >Logout</button> */}
         </div>
 
     </nav>
