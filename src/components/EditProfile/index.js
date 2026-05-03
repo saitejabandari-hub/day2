@@ -43,7 +43,6 @@ useEffect(()=>{
             profileImg:data.image_url,
 
         }
-        console.log(adminDetails)
      
        setAdminname(adminDetails.name)
        setAdminemail(adminDetails.email)
@@ -58,8 +57,25 @@ useEffect(()=>{
 
        },[rerender,jwt,jwtuser])
 
-const handleFile = (event) => {
+const handleFile = async(event) => {
         setFile(event.target.files[0])
+        const uploadSelectImage = event.target.files[0]
+         const formData = new FormData()
+
+  formData.append("file", uploadSelectImage)
+  formData.append("upload_preset", "devconnect_upload")
+
+  const response = await fetch(
+    "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
+    {
+      method: "POST",
+      body: formData
+    }
+  )
+
+  const data = await response.json()
+  setAdminimg(data.secure_url)
+  return data.secure_url
     }
 
 const uploadImage = async () => {
@@ -118,10 +134,10 @@ const onCancelingedit=async()=>{
 
         }
      
-       setAdminname(data.name)
-       setAdminemail(data.email)
-       setAdminbio(data.bio)
-       setAdminimg(data.profileImg)
+       setAdminname(adminDetails.name)
+       setAdminemail(adminDetails.email)
+       setAdminbio(adminDetails.bio)
+       setAdminimg(adminDetails.profileImg)
 }
 }
 
@@ -165,7 +181,6 @@ setLoad(true)
                                  <h1 className='edit-image-heading'>📷Click to upload or drag image</h1>
                                  <p className='edit-image-paragraph'>PNG, JPG up to 5MB</p>
                                  <input type="file"  onChange={handleFile} />
-                                <button type="button" className='choose-button' onClick={uploadImage}>upload</button>
                             </div>
                            
                         </div>

@@ -83,7 +83,7 @@
     background-position: center;
     background-repeat: no-repeat;
     object-fit: cover;
-  object-position: center;
+    object-position: center;
 }
 
 .cover-image-heading{
@@ -248,11 +248,6 @@
 
   .cover-image-paragraph {
     font-size: 13px;
-  }
-
-  /* Content editor */
-  .create-content-container {
-    height: auto;
   }
 
   .content-container-header {

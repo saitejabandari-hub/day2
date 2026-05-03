@@ -113,10 +113,6 @@ const CreatePost =(props)=>{
     }
 
     const response = await fetch(url,options)
-
-    console.log(response)
-  
-
     setTags('')
     setTitle('')
     setContent('')

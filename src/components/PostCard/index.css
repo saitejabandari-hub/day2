@@ -20,7 +20,8 @@ width:96%;
 
 .postcard-Link{
   display: flex;
-  width:88%;
+  flex-direction: row;
+  width: 100%;
   margin-top:0px;
   padding-top:0px;
 }
@@ -29,6 +30,12 @@ width:96%;
   height:100px; 
   width:150px;
   border-radius: 10px;
+}
+
+.post-option-card{
+  display: flex;
+  width: 100%;
+  gap:10px;
 }
 .postCard-inndercard{
   display: flex;
@@ -266,10 +273,7 @@ flex-direction: column;
 
   .post-option-card{
     display: flex;
-  }
-
-  .postcard-Link {
-    width: 100%;
+    align-items: flex-start;
   }
 
   /* Image */
@@ -279,11 +283,6 @@ flex-direction: column;
   }
 
   /* Header */
-  .post-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
 
   .post-title {
     font-size: 16px;
@@ -311,23 +310,10 @@ flex-direction: column;
     margin-top: 5px;
   }
 
-  /* Three dots */
-  .three-dots {
-    align-self: flex-end;
-    padding-top: 0;
-  }
-
   /* Text */
   .post-text {
     font-size: 13px;
     margin-top: 8px;
-  }
-
-  /* Footer */
-  .post-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
   }
 
   .post-footer-inner-card {

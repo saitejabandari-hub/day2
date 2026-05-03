@@ -155,6 +155,8 @@ padding: 5px;
   box-shadow: 0 0 5px #3b82f6;
 }
 
+
+
 /* mobile version */
 
 @media screen and (max-width: 576px) {
@@ -192,13 +194,6 @@ padding: 5px;
   .user-heading {
     font-size: 10px;
   }
-
-  
-  .nav-logout-button {
-    font-size: 13px;
-    padding: 6px 10px;
-  }
-
  
   .nav-button {
     width: 100%;

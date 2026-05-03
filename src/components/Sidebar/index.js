@@ -22,14 +22,16 @@
 
 // export default Sidebar 
 
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation,withRouter } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import { useState } from 'react'
 import './index.css'
 import { FiHome, FiPlus, FiBookmark, FiUser } from 'react-icons/fi'
 import { RxDashboard } from "react-icons/rx";
 import { AiOutlineTags } from "react-icons/ai";
+import { IoIosLogOut } from "react-icons/io";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const location = useLocation()
@@ -42,15 +44,24 @@ const Sidebar = () => {
     setIsOpen(false)
   }
 
+  const onClickLogout=()=>{
+          Cookies.remove("user_id")
+          Cookies.remove("jwt_token")
+         const{history}=props
+         history.replace("/login")
+      }
+
   return (
     <>
       <div className="menu-btn" onClick={() => setIsOpen(true)}>☰</div>
 
       <div className={`sidebar-container ${isOpen ? "open" : ""}`}>
 
-        <div className="close-btn" onClick={() => setIsOpen(false)}>✕</div>
+       <div className='sidebar-separate-elements'>
 
-        <Link to="/" onClick={handleClick}>
+     <div className="close-btn" onClick={() => setIsOpen(false)}>✕</div>
+
+         <Link to="/" onClick={handleClick}>
           <p className={!isknownpage ? "active" : "menu-item"}>
             <FiHome /> Home
           </p>
@@ -85,6 +96,9 @@ const Sidebar = () => {
             <AiOutlineTags /> Tags
           </p>
         </Link>
+       </div>
+
+        <button type="button" className='nav-logout-button' onClick={onClickLogout} > <IoIosLogOut className='logout-icon'/> Logout</button>
 
       </div>
 
@@ -93,4 +107,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
+export default withRouter(Sidebar)

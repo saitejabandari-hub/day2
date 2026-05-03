@@ -197,6 +197,7 @@
     align-items: flex-start;
     margin-top:10px;
     height:120px;
+    width:100%;
 }
 
 .postdetails-comment-extra{
@@ -381,12 +382,6 @@ margin-top: 0;
     overflow-y: visible;
   }
 
-  .postdetails-comment-list {
-    flex-direction: column;
-    height: auto;
-    gap: 5px;
-  }
-
   .postdetails-comment-profile {
     width: 32px;
     height: 32px;
@@ -405,7 +400,6 @@ margin-top: 0;
   }
 
   .postdetails-delete-button {
-    align-self: flex-end;
     margin-top: 5px;
   }
 

@@ -63,6 +63,11 @@ const Register =(props)=>{
        setShowpassword(prev => !prev)
     }
 
+    const onBackToLogin=()=>{
+        const{history}=props 
+        history.replace('/login')
+    }
+
 
     return(
         <div className="register-Container">
@@ -86,8 +91,10 @@ const Register =(props)=>{
                     <label htmlFor="Show">show password</label>
                 </div>
 
-                <button type="submit" className='register-button'>Register</button>
-
+                <div className='button-card'>
+                    <button type="submit" className='register-buttons'>Register</button>
+                <button type="button" onClick={onBackToLogin} className='register-buttons-backlogin'>Cancel</button>
+                </div>
             </form>
 
         </div>

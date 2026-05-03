@@ -29,7 +29,7 @@
 }
 
 .register-input{
-    height:22px;
+    height:30px;
     width:250px;
     padding:10px;
     background-color:transparent;
@@ -44,7 +44,7 @@
 
 .registers-icon{
     border:2px solid #000000;
-    height:22px;
+    height:30px;
     padding: 10px;
     font-size:18px;
     border-right-width:0px;
@@ -58,7 +58,15 @@
     width:100%;
 }
 
-.register-button{
+.button-card{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    width:100%;
+    justify-content: space-between;
+}
+
+.register-buttons{
     background-color:#0244ae;
     border-width:0px;
     border-radius: 5px;
@@ -70,18 +78,29 @@
     outline:none;
     cursor:pointer;
     margin-top:10px;
+    width:100px;
 }
 
+.register-buttons-backlogin{
+    background-color:#0244ae;
+    border-width:0px;
+    border-radius: 5px;
+    padding:10px;
+    font-family: "Roboto";
+    font-size:20px;
+    font-weight:500;
+    color:#ffffff;
+    outline:none;
+    cursor:pointer;
+    margin-top:10px;
+    width:100px;
+}
 
 /* mobile version */
 
 @media screen and (max-width: 576px) {
 
-  /* Container */
-  .register-Container {
-    padding: 10px;
-    height: auto;
-  }
+ 
 
   /* Form */
   .register-form-element {
@@ -104,16 +123,6 @@
   /* Input */
   .register-input {
     width: 100%;
-    font-size: 14px;
-    height: auto;
-    padding: 8px;
-  }
-
-  /* Icon */
-  .registers-icon {
-    font-size: 14px;
-    padding: 8px;
-    height: auto;
   }
 
   /* Show password */
@@ -122,10 +131,20 @@
   }
 
   /* Button */
-  .register-button {
+  .register-buttons {
     width: 100%;
     font-size: 16px;
     padding: 10px;
+  }
+
+  .register-buttons-backlogin{
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+  .button-card {
+    flex-direction: column;
+    gap: 5px;
   }
 
 }

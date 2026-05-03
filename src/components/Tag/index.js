@@ -157,7 +157,7 @@ const Tag =() =>{
                     }}
               />
               {fliteredtags.map((each,index) => (
-                <Bar dataKey={each} name={each} fill={proColors[index% proColors.length]} barSize="20%" />
+                <Bar key={each} dataKey={each} name={each} fill={proColors[index% proColors.length]} barSize="20%" />
               ))}
             </BarChart>
                  </ResponsiveContainer>
@@ -165,8 +165,8 @@ const Tag =() =>{
                   {fliteredtags.map(each => {
                     const alltagposts = allposts.filter(item => item.tag === each)
                 return (
-                    <Link to={`/tag/${each}`}>
-                    <li className="tag-each-list">
+                    <Link to={`/tag/${each}`} key={each}>
+                    <li className="tag-each-list" >
                             <p>{each}</p>
                               <p>{alltagposts.length} Posts</p>
                       </li>

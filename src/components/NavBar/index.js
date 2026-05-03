@@ -18,12 +18,6 @@ const NavBar =(props) =>{
     const jwtuser = Cookies.get("user_id")
     const jwt = Cookies.get("jwt_token")
 
-    const onClickLogout=()=>{
-        Cookies.remove("user_id")
-        Cookies.remove("jwt_token")
-       const{history}=props
-       history.replace("/login")
-    }
 
     useEffect(()=>{
             const fetchprofile = async () =>{
@@ -71,7 +65,7 @@ const NavBar =(props) =>{
         <h1 className='user-heading'>{admin.name}</h1>
         </div>
         </Link>
-        {/* <button type="button" className='nav-logout-button' onClick={onClickLogout} >Logout</button> */}
+        
         </div>
 
     </nav>

@@ -31,8 +31,25 @@ const EditPost = (props)=>{
     setContent(event.target.value)
    }
 
-    const handleFile = (event) => {
+    const handleFile = async(event) => {
         setFile(event.target.files[0])
+        const uploadSelectImage = event.target.files[0]
+         const formData = new FormData()
+
+  formData.append("file", uploadSelectImage)
+  formData.append("upload_preset", "devconnect_upload")
+
+  const response = await fetch(
+    "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
+    {
+      method: "POST",
+      body: formData
+    }
+  )
+
+  const data = await response.json()
+  setGeneratedUrl(data.secure_url)
+  return data.secure_url
     }
 
     const jwt = Cookies.get("jwt_token")
@@ -78,32 +95,32 @@ const EditPost = (props)=>{
 
     },[])
 
-const uploadImage = async () => {
-  const formData = new FormData()
+// const uploadImage = async () => {
+//   const formData = new FormData()
 
-  formData.append("file", file)
-  formData.append("upload_preset", "devconnect_upload")
+//   formData.append("file", file)
+//   formData.append("upload_preset", "devconnect_upload")
 
-  const response = await fetch(
-    "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
-    {
-      method: "POST",
-      body: formData
-    }
-  )
+//   const response = await fetch(
+//     "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
+//     {
+//       method: "POST",
+//       body: formData
+//     }
+//   )
 
-  const data = await response.json()
-  setGeneratedUrl(data.secure_url)
-  return data.secure_url
-}
+//   const data = await response.json()
+//   setGeneratedUrl(data.secure_url)
+//   return data.secure_url
+// }
 
    const onAddPost = async () =>{
     setLoad(true)
      let imageUrl = ""
 
-    if (file) {
-        imageUrl = await uploadImage()
-    }
+    // if (file) {
+    //     imageUrl = await uploadImage()
+    // }
     const newone = {
         title,
         tag:tags.replace(/#/g,''),
@@ -195,7 +212,6 @@ const uploadImage = async () => {
                     <h1 className='cover-image-heading'>📷Click to upload or drag image</h1>
                     <p className='cover-image-paragraph'>PNG, JPG up to 5MB</p>
                     <input type="file" onChange={handleFile} />
-                     <button onClick={uploadImage}>Upload Image</button>
 
                 </div>
                 <h1 className='create-content' >Content</h1>

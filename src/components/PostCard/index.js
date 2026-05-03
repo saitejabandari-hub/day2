@@ -14,6 +14,7 @@ const PostCard = (props) =>{
   const{rerender,onRender}=useContext(DevContext)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isSaved,setIssaved] = useState(false)
+  const [isLiked, setIsLiked] = useState(false)
   const [load,setLoad]=useState(true)
   const menuRef = useRef(null)
     const{post,likesposts}=props
@@ -22,7 +23,6 @@ const PostCard = (props) =>{
     const jwtuser = Cookies.get("user_id")
     const jwt = Cookies.get("jwt_token")
    
-
     useEffect(()=>{
       const handleClickOutside = (event) =>{
         if(menuRef.current && !menuRef.current.contains(event.target)){
@@ -55,7 +55,29 @@ const PostCard = (props) =>{
       setLoad(false)
     },[rerender])
 
+    useEffect(()=>{
+      // const fetchisLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
+      setLoad(true)
+      const fetchIslikepost = async()=>{
+        
+        const url =`http://localhost:3000/devconnect/isliked/${id}`
+        const options={
+        method:"GET",
+        headers:{
+          Authorization:`Bearer ${jwt}`
+        }
+      }
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setIsLiked(data.message)
+      }
+      fetchIslikepost()
+      setLoad(false)
+    },[rerender,id])
+
     const onClickLike = async () =>{
+      setIsLiked(prev => !prev)
       const url=`http://localhost:3000/devconnect/${id}/like`
 
       const options = {
@@ -65,9 +87,16 @@ const PostCard = (props) =>{
         }
       }
 
-      const response = await fetch(url,options)
-      onRender()
+      try{
+        const response = await fetch(url,options)
+        const data = await response.text(); 
+        onRender()
+      }catch(err){
+        setIsLiked(prev => !prev)
     }
+
+
+    } 
 
     const onClickingSave=async()=>{
       const url=`http://localhost:3000/devconnect/saveposts/${id}`
@@ -82,8 +111,6 @@ const PostCard = (props) =>{
       const data = await response.json(); 
        onRender()
     }
-
-    const isLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
 
       const onClickEdit =()=>{
         setMenuOpen(false)
@@ -104,6 +131,8 @@ const PostCard = (props) =>{
          await fetch(url,options)
 
       }
+
+      console.log(isLiked)
     
     return (
       <div className="post-card">
