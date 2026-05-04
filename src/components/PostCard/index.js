@@ -131,8 +131,6 @@ const PostCard = (props) =>{
          await fetch(url,options)
 
       }
-
-      console.log(isLiked)
     
     return (
       <div className="post-card">

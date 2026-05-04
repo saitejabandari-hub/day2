@@ -36,10 +36,10 @@ const CreatePost =(props)=>{
     const handleFile = async(event) => {
         setLoad(true)
         setFile(event.target.files[0])
-        const uploadSelectImage = event.target.files[0]
+        const uploadSelectImg = event.target.files[0]
         const formData = new FormData()
 
-  formData.append("file", uploadSelectImage)
+  formData.append("file", uploadSelectImg)
   formData.append("upload_preset", "devconnect_upload")
 
   const response = await fetch(
@@ -54,12 +54,12 @@ const CreatePost =(props)=>{
   setGeneratedUrl(data.secure_url)
   setLoad(false)
   return data.secure_url
-        
+        setLoad(false) 
     }
 
     useEffect(()=>{
         setLoad(false)
-    })
+    },[])
 
 // const uploadImage = async () => {
 //     setLoad(true)
@@ -86,14 +86,14 @@ const CreatePost =(props)=>{
     setLoad(true)
      let imageUrl = ""
 
-    if (file) {
-        imageUrl = await handleFile()
-    }
+    // if (file) {
+    //     imageUrl = await uploadImage()
+    // }
     const newone = {
         title,
         tag:tags.replace(/#/g,''),
         content,
-        image_url : imageUrl,
+        image_url : generatedUrl,
     }
 
 
@@ -160,7 +160,9 @@ const CreatePost =(props)=>{
                     {load ? <Loadspinner/> : <><h1 className='cover-image-heading'>📷Click to upload or drag image</h1>
                     <p className='cover-image-paragraph'>PNG, JPG up to 5MB</p>
                         
-                     <input type="file" onChange={handleFile} /></>}
+                     <input type="file" onChange={handleFile} />
+                     {/* <button type="button" className='edit-save-button' onClick={uploadImage}>Upload</button> */}
+                     </>}
                  
 
                 </div>
