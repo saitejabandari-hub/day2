@@ -20,7 +20,7 @@ const Profile =(props) =>{
         setLoad(true)
         const fetchprofile = async () =>{
 
-        const url = `http://localhost:3000/devconnect/profile`
+        const url = `https://day2backend-3.onrender.com/devconnect/profile`
         const options = {
             method:"GET",
             headers : {
@@ -48,7 +48,7 @@ const Profile =(props) =>{
         }
 
         const usersownposts = async()=>{
-            const url = "http://localhost:3000/devconnect/usersposts"
+            const url = "https://day2backend-3.onrender.com/devconnect/usersposts"
             const options = {
                 method:"GET",
                 headers:{

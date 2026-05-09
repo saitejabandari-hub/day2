@@ -37,7 +37,7 @@ const Register =(props)=>{
             password : password
         }
 
-        const url = "http://localhost:3000/devconnect/register"
+        const url = "https://day2backend-3.onrender.com/devconnect/register"
 
     const options={
         method:"POST",

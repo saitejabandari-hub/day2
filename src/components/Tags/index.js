@@ -19,7 +19,7 @@ const Tags = () =>{
 
         const fetchposts = async () =>{
             setLoad(true)
-            const url = "http://localhost:3000/devconnect/posts"
+            const url = "https://day2backend-3.onrender.com/devconnect/posts"
         const  jwt = Cookies.get("jwt_token")
         const options = {
             method:"GET",

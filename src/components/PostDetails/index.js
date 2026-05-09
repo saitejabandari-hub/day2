@@ -28,7 +28,7 @@ const PostDetails =(props)=>{
     useEffect(()=>{
         setLoad(true)
         const fetchpost = async ()=>{
-            const url = `http://localhost:3000/devconnect/posts/${id}`
+            const url = `https://day2backend-3.onrender.com/devconnect/posts/${id}`
             const options = {
                 method:"GET",
                 headers:{
@@ -92,7 +92,7 @@ const PostDetails =(props)=>{
     }
 
     const addPostComment = async ()=>{
-        const url = `http://localhost:3000/devconnect/${id}/comment`
+        const url = `https://day2backend-3.onrender.com/devconnect/${id}/comment`
         const options = {
             method:"POST",
             headers:{
@@ -109,7 +109,7 @@ const PostDetails =(props)=>{
 
     const onClickDeleteComment= async(comId)=>{
 
-        const url = `http://localhost:3000/devconnect/commentdelete/${comId}/post/${id}`
+        const url = `https://day2backend-3.onrender.com/devconnect/commentdelete/${comId}/post/${id}`
          const options = {
                 method:"DELETE",
                 headers:{
@@ -128,7 +128,7 @@ const PostDetails =(props)=>{
 
       const onClickDelete= async()=>{
         setMenuOpen(false)
-        const url = `http://localhost:3000/devconnect/posts/${id}`
+        const url = `https://day2backend-3.onrender.com/devconnect/posts/${id}`
         const options = {
           method:"DELETE",
           headers:{

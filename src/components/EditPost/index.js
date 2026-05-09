@@ -65,7 +65,7 @@ const EditPost = (props)=>{
         
     const getpostdetails = async () =>{
 
-          const url = `http://localhost:3000/devconnect/posts/${id}`
+          const url = `https://day2backend-3.onrender.com/devconnect/posts/${id}`
             const options = {
                 method:"GET",
                 headers:{
@@ -109,7 +109,7 @@ const EditPost = (props)=>{
     }
 
 
-    const url = `http://localhost:3000/devconnect/updatepost/${id}`
+    const url = `https://day2backend-3.onrender.com/devconnect/updatepost/${id}`
 
     const jwt = Cookies.get("jwt_token")
 
@@ -142,7 +142,7 @@ const EditPost = (props)=>{
 
    const onCancelupdate = async () =>{
 
-     const url = `http://localhost:3000/devconnect/posts/${id}`
+     const url = `https://day2backend-3.onrender.com/devconnect/posts/${id}`
             const options = {
                 method:"GET",
                 headers:{

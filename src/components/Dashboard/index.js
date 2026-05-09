@@ -29,7 +29,7 @@ const Dashboard =(props) =>{
         
     
             const usersownposts = async()=>{
-                const url = "http://localhost:3000/devconnect/usersposts"
+                const url = "https://day2backend-3.onrender.com/devconnect/usersposts"
                 const options = {
                     method:"GET",
                     headers:{
@@ -70,7 +70,7 @@ const Dashboard =(props) =>{
      useEffect(()=>{
         setLoad(true)
         const fetchposts = async () =>{
-            const url = "http://localhost:3000/devconnect/posts"
+            const url = "https://day2backend-3.onrender.com/devconnect/posts"
         const  jwt = Cookies.get("jwt_token")
         const options = {
             method:"GET",
@@ -111,7 +111,7 @@ const Dashboard =(props) =>{
 useEffect(()=>{
      setLoad(true)
         const fetchposts = async () =>{
-        const url="http://localhost:3000/devconnect/savedposts"
+        const url="https://day2backend-3.onrender.com/devconnect/savedposts"
         const  jwt = Cookies.get("jwt_token")
         const options = {
             method:"GET",

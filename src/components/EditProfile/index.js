@@ -22,7 +22,7 @@ useEffect(()=>{
         
         const fetchprofile = async () =>{
 
-        const url = `http://localhost:3000/devconnect/profile`
+        const url = `https://day2backend-3.onrender.com/devconnect/profile`
         const options = {
             method:"GET",
             headers : {
@@ -112,7 +112,7 @@ const onupdatinguserbio=(event)=>{
 }
 
 const onCancelingedit=async()=>{
-     const url = `http://localhost:3000/devconnect/profile`
+     const url = `https://day2backend-3.onrender.com/devconnect/profile`
         const options = {
             method:"GET",
             headers : {
@@ -150,7 +150,7 @@ setLoad(true)
         bio:adminbio
     } 
 
-    const url="http://localhost:3000/devconnect/profileupdate"
+    const url="https://day2backend-3.onrender.com/devconnect/profileupdate"
     const options={
         method:"PUT",
         headers:{

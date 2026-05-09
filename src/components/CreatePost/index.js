@@ -98,7 +98,7 @@ const CreatePost =(props)=>{
     }
 
 
-    const url = "http://localhost:3000/devconnect/create-post"
+    const url = "https://day2backend-3.onrender.com/devconnect/create-post"
 
     const jwt = Cookies.get("jwt_token")
 

@@ -39,7 +39,7 @@ const PostCard = (props) =>{
     useEffect(()=>{
       setLoad(true)
       const fetchIsSavedpost = async () =>{
-        const url=`http://localhost:3000/devconnect/issaved/${id}`
+        const url=`https://day2backend-3.onrender.com/devconnect/issaved/${id}`
       const options={
         method:"GET",
         headers:{
@@ -59,7 +59,7 @@ const PostCard = (props) =>{
       // const fetchisLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
       setLoad(true)
       const fetchIslikepost = async()=>{
-        const url =`http://localhost:3000/devconnect/isliked/${id}`
+        const url =`https://day2backend-3.onrender.com/devconnect/isliked/${id}`
         const options={
         method:"GET",
         headers:{
@@ -78,7 +78,7 @@ const PostCard = (props) =>{
 
     const onClickLike = async () =>{
       setIsLiked(prev => !prev)
-      const url=`http://localhost:3000/devconnect/${id}/like`
+      const url=`https://day2backend-3.onrender.com/devconnect/${id}/like`
 
       const options = {
         method:"POST",
@@ -101,7 +101,7 @@ const PostCard = (props) =>{
     } 
 
     const onClickingSave=async()=>{
-      const url=`http://localhost:3000/devconnect/saveposts/${id}`
+      const url=`https://day2backend-3.onrender.com/devconnect/saveposts/${id}`
       const options={
         method:"POST",
         headers:{
@@ -122,7 +122,7 @@ const PostCard = (props) =>{
       const onClickDelete= async()=>{
         onRender()
         setMenuOpen(false)
-        const url = `http://localhost:3000/devconnect/posts/${id}`
+        const url = `https://day2backend-3.onrender.com/devconnect/posts/${id}`
         const options = {
           method:"DELETE",
           headers:{

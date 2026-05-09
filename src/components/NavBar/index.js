@@ -22,7 +22,7 @@ const NavBar =(props) =>{
     useEffect(()=>{
             const fetchprofile = async () =>{
     
-            const url = `http://localhost:3000/devconnect/profile/`
+            const url = `https://day2backend-3.onrender.com/devconnect/profile/`
             const options = {
                 method:"GET",
                 headers : {
