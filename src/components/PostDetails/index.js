@@ -1,4 +1,4 @@
-import{useState,useEffect,useRef} from 'react'
+import{useState,useEffect,useRef, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { MdDelete } from "react-icons/md";
@@ -16,8 +16,9 @@ const PostDetails =(props)=>{
     const [postcomment,setPostComment] =useState('')
     const [refresh, setRefresh] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
-    const [load,setLoad]=useState(true)
+    const [load,setLoad]=useState(false)
     const menuRef = useRef(null)
+    const {rerender,onRender}=useContext(DevContext)
    
     const jwt = Cookies.get("jwt_token")
     const jwtuser = Cookies.get("user_id")
@@ -25,7 +26,7 @@ const PostDetails =(props)=>{
     const {params} = match
     const {id}=params
     useEffect(()=>{
-        setLoad(true)
+        
         const fetchpost = async ()=>{
             const url = `https://day2backend-3.onrender.com/devconnect/posts/${id}`
             const options = {
@@ -59,13 +60,13 @@ const PostDetails =(props)=>{
             likes:data.likes.likesCount
             }
             setParticularPost(updatedpost)
-            setLoad(false)
+            
             }
 
         }
 
         fetchpost()
-    },[postcomment,refresh,jwt,id])
+    },[rerender,jwt,id])
 
 
     useEffect(()=>{
@@ -101,7 +102,9 @@ const PostDetails =(props)=>{
             body:JSON.stringify({comment:postcomment})
         }
         const response = await fetch(url,options)
-        console.log(response)
+        if(response.ok){
+            onRender()
+        }
         setPostComment('')
 
     }
@@ -117,7 +120,7 @@ const PostDetails =(props)=>{
             }
 
         await fetch(url,options)
-        setRefresh(prev => !prev)
+        onRender()
     }
 
       const onClickEdit =()=>{
