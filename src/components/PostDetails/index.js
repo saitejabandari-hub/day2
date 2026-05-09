@@ -1,7 +1,6 @@
-import{useContext,useState,useEffect,useRef} from 'react'
+import{useState,useEffect,useRef} from 'react'
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
-import {v4 as uuidv4} from 'uuid'
 import { MdDelete } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
@@ -66,7 +65,7 @@ const PostDetails =(props)=>{
         }
 
         fetchpost()
-    },[postcomment,refresh])
+    },[postcomment,refresh,jwt,id])
 
 
     useEffect(()=>{
@@ -117,7 +116,7 @@ const PostDetails =(props)=>{
                 }
             }
 
-        const response = await fetch(url,options)
+        await fetch(url,options)
         setRefresh(prev => !prev)
     }
 
@@ -152,7 +151,7 @@ const PostDetails =(props)=>{
         <div className='postdetails-firstContainer'>
             <Sidebar/>
             <div className='postdetails-secondContainer' >
-            <button className='backhome' onClick={onGoback} >Go Back Home</button>
+            {load?<Loadspinner/>:<><button className='backhome' onClick={onGoback} >Go Back Home</button>
             <div className='postdetails-section' >
                 <div className='postdetails-card' >
                     <div className='postdetailsaddpostedit'>
@@ -179,7 +178,7 @@ const PostDetails =(props)=>{
                         <p className='postdate'>{new Date(particularPost.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                         <p className='name'>#{particularPost.tag}</p>
                     </div>
-                    <img src={particularPost.imgUrl} alt="No Image" className='post-image' />
+                    <img src={particularPost.imgUrl} alt="No-Image" className='post-image' />
                     <p className='postdetails-content' >{particularPost.content}</p>
                 </div >
                  <div className='postdetails-other-container'>
@@ -200,7 +199,7 @@ const PostDetails =(props)=>{
                                     <li key={each.id} className='postdetails-comment-list' >
                                         
                                      <div className='postdetails-comment-extra'>
-                                        <img src={each.ownerImg} alt="user comment Image" className='postdetails-comment-profile' />
+                                        <img src={each.ownerImg} alt="user-comment-Image" className='postdetails-comment-profile' />
                                     <div className='postdetals-comment-profile-comment'>
                                         <h1 className='postdetails-comment-user-name' >{each.name}</h1>
                                         <p className='postdetails-comment-user-text'>{each.comment}</p>
@@ -216,8 +215,7 @@ const PostDetails =(props)=>{
                             </ul>
                     </div>
                  </div>
-            </div>
-           
+            </div></>}
             </div>
         </div>
     </div>

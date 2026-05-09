@@ -63,7 +63,7 @@ const Dashboard =(props) =>{
 
             usersownposts()
             
-           },[rerender])
+           },[rerender,jwt])
     
      useEffect(()=>{
         setLoad(true)

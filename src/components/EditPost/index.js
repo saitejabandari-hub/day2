@@ -96,7 +96,7 @@ const EditPost = (props)=>{
 
     getpostdetails()
 
-    },[])
+    },[jwt,id])
 
    const onAddPost = async () =>{
     setLoad(true)

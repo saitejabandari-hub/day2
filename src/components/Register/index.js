@@ -48,8 +48,7 @@ const Register =(props)=>{
         body:JSON.stringify(userdetails)
     }
 
-    const response = await fetch(url,options) 
-    const data = await response.text()
+    const response = await fetch(url,options)
    if(response.ok){
     setMail('')
     setPassword('')

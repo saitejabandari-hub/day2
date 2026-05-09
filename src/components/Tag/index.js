@@ -93,7 +93,7 @@ const Tag =() =>{
 
    useEffect(()=>{
     const allresult = {}
-     alltagsandyear.map(each => { //once recall this method
+     alltagsandyear.forEach(each => { //once recall this method
                 const year = each.year 
                 const tag = each.tag 
 

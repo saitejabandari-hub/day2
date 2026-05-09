@@ -6,7 +6,6 @@ import { FaBookmark } from "react-icons/fa6";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import Loadspinner from '../Loadspinner'
 import DevContext from '../../context/DevContext'
 import './index.css'
 
@@ -15,9 +14,8 @@ const PostCard = (props) =>{
   const [menuOpen, setMenuOpen] = useState(false)
   const [isSaved,setIssaved] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
-  const [load,setLoad]=useState(true)
   const menuRef = useRef(null)
-    const{post,likesposts}=props
+    const{post}=props
     const {id,title, content, likesCount, tag,commentsCount,date,imgUrl,users} = post
     
     const jwtuser = Cookies.get("user_id")
@@ -37,7 +35,7 @@ const PostCard = (props) =>{
     },[])
 
     useEffect(()=>{
-      setLoad(true)
+      
       const fetchIsSavedpost = async () =>{
         const url=`https://day2backend-3.onrender.com/devconnect/issaved/${id}`
       const options={
@@ -52,12 +50,10 @@ const PostCard = (props) =>{
       setIssaved(data.message)
       }
       fetchIsSavedpost()
-      setLoad(false)
-    },[rerender])
+      
+    },[rerender,jwt,id])
 
     useEffect(()=>{
-      // const fetchisLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
-      setLoad(true)
       const fetchIslikepost = async()=>{
         const url =`https://day2backend-3.onrender.com/devconnect/isliked/${id}`
         const options={
@@ -72,9 +68,9 @@ const PostCard = (props) =>{
       setIsLiked(data.message)
       }
       fetchIslikepost()
-      setLoad(false)
       
-    },[rerender])
+      
+    },[rerender,jwt,id])
 
     const onClickLike = async () =>{
       setIsLiked(prev => !prev)
@@ -90,13 +86,12 @@ const PostCard = (props) =>{
       try{
         const response = await fetch(url,options)
         const data = await response.json();
-        
+        setIsLiked(data.message)
         onRender()
       }catch(err){
         setIsLiked(prev => !prev)
         console.log("error")
     }
-
 
     } 
 
@@ -109,14 +104,12 @@ const PostCard = (props) =>{
         }
       }
 
-      const response = await fetch(url, options);
-      const data = await response.json(); 
+      await fetch(url, options); 
        onRender()
     }
 
       const onClickEdit =()=>{
         setMenuOpen(false)
-
       }
 
       const onClickDelete= async()=>{
@@ -137,7 +130,7 @@ const PostCard = (props) =>{
     return (
       <div className="post-card">
             <div className='postCard-firstContainer'>
-              <img src={imgUrl} alt="post image" className='postCard-image' />
+              <img src={imgUrl} alt="post" className='postCard-image' />
              <div className='post-option-card'>
                <Link to={`/post/${id}` } className="postcard-Link" >
                 <div className='postCard-inndercard'>
@@ -194,8 +187,3 @@ const PostCard = (props) =>{
 }
 
 export default PostCard
-
-{/* <div className="user-info">
-              <div className="avatar">{user[0]}</div>
-          <   p className="user-name">{user}</p>
-  </div> */}

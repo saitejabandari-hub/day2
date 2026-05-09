@@ -1,14 +1,10 @@
 import {Link,withRouter,} from 'react-router-dom'
-import {useState, useEffect,useContext } from 'react'
+import {useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
-import Loadspinner from '../Loadspinner'
-import DevContext from '../../context/DevContext'
-
 import './index.css'
 
 const NavBar =(props) =>{
     const [admin,setAdmin] = useState({name:'',email:''})
-    const [load,setLoad]=useState(true)
     const {onSearchedByInput} = props
     
     const onSearchforPost =(event) =>{
@@ -47,7 +43,6 @@ const NavBar =(props) =>{
             }
     
             fetchprofile()
-            setLoad(false)
     
            },[jwt,jwtuser])
     
