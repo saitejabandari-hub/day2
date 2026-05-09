@@ -1,4 +1,4 @@
-import { useContext,useState,useEffect } from "react"
+import {useState,useEffect } from "react"
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import {
@@ -12,16 +12,16 @@ import {
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import Loadspinner from '../Loadspinner'
-import DevContext from '../../context/DevContext'
 import './index.css'
 
 const Tag =() =>{
-    // const {allposts} = useContext(DevContext)
     const [allposts ,setAllposts]=useState([])
-    const [load,setLoad]=useState(true)
+    const [load,setLoad]=useState(false)
+    const [result,setResult]=useState({})
+
 
     useEffect(()=>{
-
+      setLoad(true)
         const fetchposts = async () =>{
             const url = "https://day2backend-3.onrender.com/devconnect/posts"
         const  jwt = Cookies.get("jwt_token")
@@ -48,9 +48,10 @@ const Tag =() =>{
             users:each.user_id
             }
         ))
-        const likedpostdetails = data.likesusers
+        // const likedpostdetails = data.likesusers
         
         setAllposts(updateposts)
+        setLoad(false)
         }
 
         fetchposts()
@@ -63,7 +64,7 @@ const Tag =() =>{
 
     const allTags = allposts.map(each => each.tag) // give all tags and tags are repeted if different posts has with same tags
     const fliteredtags = allTags.filter((item,index,all) => all.indexOf(item) === index) //give unique tags
-    const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff7f50", "#00c49f","#ff4d6d","#4dabf7"] // colours
+    // const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff7f50", "#00c49f","#ff4d6d","#4dabf7"] // colours
     const proColors = [
   "#4e79a7", // blue
   "#f28e2b", // orange
@@ -90,22 +91,24 @@ const Tag =() =>{
             } 
    })
 
-   const result = {}
-
-   const yearsandtagsupdate = alltagsandyear.map(each => { //once recall this method
+   useEffect(()=>{
+    const allresult = {}
+     alltagsandyear.map(each => { //once recall this method
                 const year = each.year 
                 const tag = each.tag 
 
-                if (!result[year]){
-                    result[year]={}
+                if (!allresult[year]){
+                    allresult[year]={}
                 }
-                 if(!result[year][tag]){
+                 if(!allresult[year][tag]){
 
-                       result[year][tag]=0
+                       allresult[year][tag]=0
                 }
-               result[year][tag] = result[year][tag] + 1
+               allresult[year][tag] = allresult[year][tag] + 1
+               
    })
-
+  setResult(allresult)
+   },[allposts])
 
     const data = Object.entries(result).map(each => { //once recall this method
       const year = each[0] 
@@ -130,7 +133,7 @@ const Tag =() =>{
             <Sidebar/>
             <div className="tag-secondContainer">
               <h1 className="tag-headding-container">TAGS</h1>
-                 <ResponsiveContainer width="100%" height={500}>
+                 {load? <Loadspinner/> : <><ResponsiveContainer width="100%" height={500}>
                 <BarChart
                   data={data}
                   margin={{
@@ -173,7 +176,7 @@ const Tag =() =>{
                     </Link>
                 )     
                     })}
-                </ul>
+                </ul></>}
             </div>
         </div>
     </div>

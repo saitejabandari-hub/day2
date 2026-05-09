@@ -1,4 +1,4 @@
-import {useState,useContext,useEffect} from 'react'
+import {useState,useEffect} from 'react'
 import Cookies from 'js-cookie'
 import { RxFontBold } from "react-icons/rx";
 import { RxFontItalic } from "react-icons/rx";
@@ -7,18 +7,18 @@ import { IoImageOutline } from "react-icons/io5";
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import Loadspinner from '../Loadspinner'
-import DevContext from '../../context/DevContext';
+// import DevContext from '../../context/DevContext';
 import './index.css'
 
 const EditPost = (props)=>{
     const [title , setTitle] = useState('')
     const [tags , setTags ] = useState('')
     const [content , setContent] = useState('')
-    const [file, setFile] = useState(null)
+    // const [file, setFile] = useState(null)
     const [generatedUrl,setGeneratedUrl] = useState('')
     const [load,setLoad]=useState(true)
      const [imgload,setImagLoad]=useState(false)
-    const {onAddingPostToDB} = useContext(DevContext)
+    // const {onAddingPostToDB} = useContext(DevContext)
 
     const onEnteringTitle = (event) =>{
         setTitle(event.target.value)
@@ -34,7 +34,7 @@ const EditPost = (props)=>{
 
     const handleFile = async(event) => {
         setImagLoad(true)
-        setFile(event.target.files[0])
+        // setFile(event.target.files[0])
         const uploadSelectImage = event.target.files[0]
          const formData = new FormData()
 
@@ -56,7 +56,7 @@ const EditPost = (props)=>{
     }
 
     const jwt = Cookies.get("jwt_token")
-    const jwtuser = Cookies.get("user_id")
+    
     const {match} = props
     const {params} = match
     const {id} = params

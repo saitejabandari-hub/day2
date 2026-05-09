@@ -5,7 +5,6 @@ import { HiDocumentText } from 'react-icons/hi';
 import { FaHeart } from 'react-icons/fa';           
 import { FaComment } from 'react-icons/fa';          
 import { FaBookmark } from 'react-icons/fa'; 
-import {FaRegCommentDots} from 'react-icons/fa'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
@@ -23,7 +22,6 @@ const Dashboard =(props) =>{
     const [load,setLoad]=useState(true)
 
      const jwt = Cookies.get("jwt_token")
-     const jwtuser = Cookies.get("user_id")
 
      useEffect(()=>{
         
@@ -96,7 +94,7 @@ const Dashboard =(props) =>{
             users:each.user_id
             }
         ))
-        const likedpostdetails = data.likesusers
+        // const likedpostdetails = data.likesusers
         
         setAllposts(updateposts)
         setLoad(false)

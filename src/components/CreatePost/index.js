@@ -16,9 +16,9 @@ const CreatePost =(props)=>{
     const [title , setTitle] = useState('')
     const [tags , setTags ] = useState('')
     const [content , setContent] = useState('')
-    const [file, setFile] = useState(null)
+    // const [file, setFile] = useState(null)
     const [generatedUrl,setGeneratedUrl] = useState('')
-    const {onAddingPostToDB} = useContext(DevContext)
+    const {onRender} = useContext(DevContext)
     const [load,setLoad]=useState(true)
     const [imgload,setImagLoad]=useState(false)
 
@@ -36,7 +36,7 @@ const CreatePost =(props)=>{
 
     const handleFile = async(event) => {
         setImagLoad(true)
-        setFile(event.target.files[0])
+        // setFile(event.target.files[0])
         const uploadSelectImg = event.target.files[0]
         const formData = new FormData()
 
@@ -85,8 +85,6 @@ const CreatePost =(props)=>{
 
    const onAddPost = async () =>{
     setLoad(true)
-     let imageUrl = ""
-
     // if (file) {
     //     imageUrl = await uploadImage()
     // }
@@ -113,13 +111,14 @@ const CreatePost =(props)=>{
 
     }
 
-    const response = await fetch(url,options)
+     await fetch(url,options)
     setTags('')
     setTitle('')
     setContent('')
     setGeneratedUrl('')
     setLoad(false)
-    onAddingPostToDB(newone)
+    // onAddingPostToDB(newone)
+    onRender()
 
    }
 

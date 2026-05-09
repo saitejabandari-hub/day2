@@ -1,10 +1,9 @@
-import { useContext,useEffect,useState } from 'react'
+import {useEffect,useState } from 'react'
 import Cookies from'js-cookie'
 import NavBar from '../NavBar'
 import Sidebar from '../Sidebar'
 import PostCard from '../PostCard'
 import Loadspinner from '../Loadspinner'
-import DevContext from '../../context/DevContext'
 import './index.css'
 
 const SavedPosts = (props) =>{

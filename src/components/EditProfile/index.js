@@ -11,7 +11,7 @@ const {rerender}=useContext(DevContext)
 const [adminname,setAdminname] = useState('')
 const [adminemail,setAdminemail] = useState('')
 const [adminbio,setAdminbio] = useState('')
-const [file, setFile] = useState(null)
+// const [file, setFile] = useState(null)
 const [adminimg,setAdminimg] = useState('')
 const [load,setLoad]=useState(true)
 const jwt = Cookies.get("jwt_token")
@@ -58,7 +58,7 @@ useEffect(()=>{
        },[rerender,jwt,jwtuser])
 
 const handleFile = async(event) => {
-        setFile(event.target.files[0])
+        // setFile(event.target.files[0])
         const uploadSelectImage = event.target.files[0]
          const formData = new FormData()
 
@@ -78,24 +78,24 @@ const handleFile = async(event) => {
   return data.secure_url
     }
 
-const uploadImage = async () => {
-  const formData = new FormData()
+// const uploadImage = async () => {
+//   const formData = new FormData()
 
-  formData.append("file", file)
-  formData.append("upload_preset", "devconnect_upload")
+//   formData.append("file", file)
+//   formData.append("upload_preset", "devconnect_upload")
 
-  const response = await fetch(
-    "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
-    {
-      method: "POST",
-      body: formData
-    }
-  )
+//   const response = await fetch(
+//     "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
+//     {
+//       method: "POST",
+//       body: formData
+//     }
+//   )
 
-  const data = await response.json()
-  setAdminimg(data.secure_url)
-  return data.secure_url
-}
+//   const data = await response.json()
+//   setAdminimg(data.secure_url)
+//   return data.secure_url
+// }
 
 const onupdatingusername=(event)=>{
 
@@ -161,9 +161,11 @@ setLoad(true)
     }
 
     const response = await fetch(url,options)
-    setLoad(false)
+   if(response.ok){
+     setLoad(false)
    const{history}=props 
    history.replace('/profile')
+   }
 
 }
 
