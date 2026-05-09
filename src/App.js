@@ -832,6 +832,7 @@ document.title="DevConnect"
 
   const onRender=(id) =>{
     setRender(prev =>!prev)
+    console.log("Hello")
   }
     return(
       <DevContext.Provider value={{allposts,profile,rerender,onAddingPostToDB,onRender,onGetprofile}}>

@@ -17,6 +17,7 @@ const EditPost = (props)=>{
     const [file, setFile] = useState(null)
     const [generatedUrl,setGeneratedUrl] = useState('')
     const [load,setLoad]=useState(true)
+     const [imgload,setImagLoad]=useState(false)
     const {onAddingPostToDB} = useContext(DevContext)
 
     const onEnteringTitle = (event) =>{
@@ -32,6 +33,7 @@ const EditPost = (props)=>{
    }
 
     const handleFile = async(event) => {
+        setImagLoad(true)
         setFile(event.target.files[0])
         const uploadSelectImage = event.target.files[0]
          const formData = new FormData()
@@ -49,6 +51,7 @@ const EditPost = (props)=>{
 
   const data = await response.json()
   setGeneratedUrl(data.secure_url)
+  setImagLoad(false)
   return data.secure_url
     }
 
@@ -59,7 +62,7 @@ const EditPost = (props)=>{
     const {id} = params
 
     useEffect(()=>{
-        setLoad(true)
+        
     const getpostdetails = async () =>{
 
           const url = `http://localhost:3000/devconnect/posts/${id}`
@@ -95,32 +98,9 @@ const EditPost = (props)=>{
 
     },[])
 
-// const uploadImage = async () => {
-//   const formData = new FormData()
-
-//   formData.append("file", file)
-//   formData.append("upload_preset", "devconnect_upload")
-
-//   const response = await fetch(
-//     "https://api.cloudinary.com/v1_1/dfvz1trpi/image/upload",
-//     {
-//       method: "POST",
-//       body: formData
-//     }
-//   )
-
-//   const data = await response.json()
-//   setGeneratedUrl(data.secure_url)
-//   return data.secure_url
-// }
-
    const onAddPost = async () =>{
     setLoad(true)
-     let imageUrl = ""
 
-    // if (file) {
-    //     imageUrl = await uploadImage()
-    // }
     const newone = {
         title,
         tag:tags.replace(/#/g,''),
@@ -208,12 +188,12 @@ const EditPost = (props)=>{
                     </div>
                 </div>
                 <h1 className='create-content' >Cover Image</h1>
-                <div className='cover-image-container' style={{ backgroundImage: `url(${generatedUrl})`}}>
+                 { imgload ? <Loadspinner/> :<div className='cover-image-container' style={{ backgroundImage: `url(${generatedUrl})`}}>
                     <h1 className='cover-image-heading'>📷Click to upload or drag image</h1>
                     <p className='cover-image-paragraph'>PNG, JPG up to 5MB</p>
                     <input type="file" onChange={handleFile} />
 
-                </div>
+                </div>}
                 <h1 className='create-content' >Content</h1>
                 <div className='create-content-container'>
                     <div className='content-container-header'>

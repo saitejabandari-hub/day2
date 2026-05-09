@@ -59,7 +59,6 @@ const PostCard = (props) =>{
       // const fetchisLiked = likesposts?.some(each => Number(each.likeby) === Number(jwtuser) && Number(each.postId) === Number(id) )
       setLoad(true)
       const fetchIslikepost = async()=>{
-        
         const url =`http://localhost:3000/devconnect/isliked/${id}`
         const options={
         method:"GET",
@@ -74,7 +73,8 @@ const PostCard = (props) =>{
       }
       fetchIslikepost()
       setLoad(false)
-    },[rerender,id])
+      
+    },[rerender])
 
     const onClickLike = async () =>{
       setIsLiked(prev => !prev)
@@ -89,10 +89,12 @@ const PostCard = (props) =>{
 
       try{
         const response = await fetch(url,options)
-        const data = await response.text(); 
+        const data = await response.json();
+        
         onRender()
       }catch(err){
         setIsLiked(prev => !prev)
+        console.log("error")
     }
 
 

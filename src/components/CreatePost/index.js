@@ -20,6 +20,7 @@ const CreatePost =(props)=>{
     const [generatedUrl,setGeneratedUrl] = useState('')
     const {onAddingPostToDB} = useContext(DevContext)
     const [load,setLoad]=useState(true)
+    const [imgload,setImagLoad]=useState(false)
 
     const onEnteringTitle = (event) =>{
         setTitle(event.target.value)
@@ -34,7 +35,7 @@ const CreatePost =(props)=>{
    }
 
     const handleFile = async(event) => {
-        setLoad(true)
+        setImagLoad(true)
         setFile(event.target.files[0])
         const uploadSelectImg = event.target.files[0]
         const formData = new FormData()
@@ -52,9 +53,9 @@ const CreatePost =(props)=>{
 
   const data = await response.json()
   setGeneratedUrl(data.secure_url)
-  setLoad(false)
+  setImagLoad(false)
   return data.secure_url
-        setLoad(false) 
+        
     }
 
     useEffect(()=>{
@@ -153,7 +154,7 @@ const CreatePost =(props)=>{
                     </div>
                 </div>
                 <h1 className='create-content' >Cover Image</h1>
-                <div className='cover-image-container' style={{ backgroundImage: `url(${generatedUrl})`,
+                {imgload? <Loadspinner/>:<div className='cover-image-container' style={{ backgroundImage: `url(${generatedUrl})`,
                                                                     backgroundSize: "cover",       
                                                                     backgroundPosition: "center", 
                                                                     backgroundRepeat: "no-repeat"}}>
@@ -161,11 +162,8 @@ const CreatePost =(props)=>{
                     <p className='cover-image-paragraph'>PNG, JPG up to 5MB</p>
                         
                      <input type="file" onChange={handleFile} />
-                     {/* <button type="button" className='edit-save-button' onClick={uploadImage}>Upload</button> */}
                      </>}
-                 
-
-                </div>
+                </div>}
                 <h1 className='create-content' >Content</h1>
                 <div className='create-content-container'>
                     <div className='content-container-header'>
